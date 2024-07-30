@@ -47,8 +47,8 @@
     </div>
     <div class="row" style="text-align: right;">
         <div class="col-md-12" style="align-content: center;">
-            <button type="button" class="btn btn-primary mb-2" id="LimpiarFiltro" onClick="LimpiarFormulario()"><span class="icon-loop2"></span>&nbsp;Limpiar filtros</button>        
             <button type="submmit" class="btn btn-success mb-2"><span class="icon-search"></span>&nbsp;Filtrar</button>
+            <button type="button" class="btn btn-danger mb-2" id="LimpiarFiltro" onClick="LimpiarFormulario()"><span class="icon-loop2"></span>&nbsp;Limpiar filtros</button>            
         </div>
     </div>
 </div>

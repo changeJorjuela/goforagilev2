@@ -36,7 +36,7 @@ class OkrsController extends Controller
         $resultadoOkr = $request->resultado_okr_;
         $iniciativaKr = $request->iniciativa;
         // dd($resultadoOkr);
-        $porPagina = 12;
+        $porPagina = 15;
         $paginaActual = LengthAwarePaginator::resolveCurrentPage('pagina');
         // dd(LengthAwarePaginator::resolveCurrentPage('pagina'));
 
@@ -61,8 +61,9 @@ class OkrsController extends Controller
         $offset = ($paginaActual - 1) * $porPagina;
         $filtro = $nombre = $foto = $cargo = $area = $vp = "";
         $avance_general = $count_avance_general_equipo = 0;
-        $prueba = GoForAgileOkrs::OkrsOrganizacion(Session::get('id_empresa'), null, null);
+        
         $OkrsOrganizacion = GoForAgileOkrs::OkrsOrganizacion(Session::get('id_empresa'), $porPagina, $offset);
+        $prueba = GoForAgileOkrs::OkrsOrganizacion(Session::get('id_empresa'), null, null);
         // dd($count);
         $array_okrs = $array_iniciativas = array();
         $contOkrs = $contKR = $contIni = 0;
@@ -145,10 +146,14 @@ class OkrsController extends Controller
 
         $currentElements = array_slice($prueba, $offset, $porPagina);
 
-        $paginacion = new LengthAwarePaginator($currentElements, count($prueba), 10, $paginaActual, [
+        // dd($currentElements);
+
+        $paginacion = new LengthAwarePaginator($currentElements, count($prueba), 15, $paginaActual, [
             'path' => $request->url(),
             'pageName' => 'pagina'
         ]);
+
+        // dd($paginacion);
 
         $anioOkrFiltro = GoForAgileAdmin::AnioOkr();
         $vicepresidenciasFiltro = GoForAgileAdmin::SelectVicepresidencia(Session::get('id_empresa'));
@@ -314,7 +319,7 @@ class OkrsController extends Controller
                 $accion_agregar_ini = '<a id="aDropDownItem" data-bs-toggle="tooltip" href="javascript:VerIniciativa(' . $array_resultados[$contKR]['id'] . ',\'okrsOrganizacion?pagina=' . $numeroP . '\', 0)" class="dropdown-item"><span class="fas fa-list-ul"></span>   &nbsp;&nbsp;&nbsp;Agregar Iniciativa</a>';
             }
             if ($okrTipoRole == 1 && $congelar_okrs == false && Session::get('congelar_okrs') == 2) {
-                $accion_editar_res = '<a id="aDropDownItem" data-bs-toggle="tooltip" href="javascript:Editar_Resultado(' . $array_resultados[$contKR]['id'] . ')" class="dropdown-item"><span class="fas fa-edit"></span>  &nbsp;&nbsp;&nbsp;Editar Resultado Clave</a>';
+                $accion_editar_res = '<a id="aDropDownItem" data-bs-toggle="tooltip" href="javascript:VerResultado(' . $idOkr . ',\'okrsOrganizacion?pagina=' . $numeroP . '\','.$array_resultados[$contKR]['id'].')" class="dropdown-item"><span class="fas fa-edit"></span>  &nbsp;&nbsp;&nbsp;Editar Resultado Clave</a>';
             }
             $queryIni = GoForAgileOkrs::ComentariosKR($array_resultados[$contKR]['id']);
             $accion_comentario = '<a id="aDropDownItem" data-bs-toggle="tooltip" style="color: black !important;" href="javascript:Ver_Comentarios(' . $array_resultados[$contKR]['id'] . ',' . Session::get('id_user') . ')" class="dropdown-item"><span class="fas fa-comments"></span>  &nbsp;&nbsp;&nbsp;Comentarios ' . count($queryIni) . '</a>';

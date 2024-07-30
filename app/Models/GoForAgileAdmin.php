@@ -64,12 +64,13 @@ class GoForAgileAdmin extends Model
         return $crearArea;
     }
 
-    public static function SelectArea($id){
+    public static function SelectArea($id)
+    {
         $listArea = array();
         $listArea[''] = 'Seleccione Área:';
         DB::setDefaultConnection("mysql-goforagile_admin");
         $selectArea = DB::Select("SELECT * FROM Areas WHERE id_empresa = $id AND estado = 1 ORDER BY nombre");
-        foreach($selectArea as $area){
+        foreach ($selectArea as $area) {
             $listArea[$area->id] = $area->nombre;
         }
 
@@ -98,44 +99,45 @@ class GoForAgileAdmin extends Model
         return $usuario;
     }
 
-    public static function CardProfile($id){
+    public static function CardProfile($id)
+    {
         DB::setDefaultConnection("mysql-goforagile_admin");
         $profile = array();
         $cont = 0;
         $empleado = DB::Select("SELECT * FROM Empleados WHERE id = $id");
-        foreach($empleado as $row1){
+        foreach ($empleado as $row1) {
             $profile[$cont]["nombre"] = $row1->nombre;
             $profile[$cont]["foto"] = $row1->foto;
-            if($row1->area > 0){
-            $areas = DB::Select("SELECT * FROM Areas WHERE id = $row1->area");            
-            foreach($areas as $row2){
-                $profile[$cont]["area"] = $row2->nombre;
-            }                
-            }else{
+            if ($row1->area > 0) {
+                $areas = DB::Select("SELECT * FROM Areas WHERE id = $row1->area");
+                foreach ($areas as $row2) {
+                    $profile[$cont]["area"] = $row2->nombre;
+                }
+            } else {
                 $profile[$cont]["area"] = $row1->area;
             }
-            if($row1->id_cargo > 0){
-            $cargos = DB::Select("SELECT * FROM Cargos WHERE id = $row1->id_cargo");
-            
-                foreach($cargos as $row3){
+            if ($row1->id_cargo > 0) {
+                $cargos = DB::Select("SELECT * FROM Cargos WHERE id = $row1->id_cargo");
+
+                foreach ($cargos as $row3) {
                     $profile[$cont]["cargo"] = $row3->nombre;
-                }                
-            }else{
+                }
+            } else {
                 $profile[$cont]["cargo"] = $row1->cargo;
             }
-            if($row1->unidad_corporativa){
-                if($row1->unidad_corporativa > 0){
-                $vp = DB::Select("SELECT * FROM Vicepresidencia WHERE id = $row1->unidad_corporativa");
-                
-                    foreach($vp as $row4){
+            if ($row1->unidad_corporativa) {
+                if ($row1->unidad_corporativa > 0) {
+                    $vp = DB::Select("SELECT * FROM Vicepresidencia WHERE id = $row1->unidad_corporativa");
+
+                    foreach ($vp as $row4) {
                         $profile[$cont]["vicepresidencia"] = $row4->nombre;
-                    }                
-                }else{
+                    }
+                } else {
                     $profile[$cont]["vicepresidencia"] = $row1->unidad_corporativa;
                 }
-            }else{
+            } else {
                 $profile[$cont]["vicepresidencia"] = "";
-            }        
+            }
         }
         return $profile;
     }
@@ -157,12 +159,13 @@ class GoForAgileAdmin extends Model
     }
 
     // VICEPRESIDENCIAS
-    public static function SelectVicepresidencia($id){
+    public static function SelectVicepresidencia($id)
+    {
         $vicepresidencias = array();
         $vicepresidencias[''] = 'Seleccione Vicepresidencia:';
         DB::setDefaultConnection("mysql-goforagile_admin");
         $selectVP = DB::Select("SELECT * FROM Vicepresidencia WHERE id_empresa = $id AND estado = 1 ORDER BY nombre");
-        foreach($selectVP as $vp){
+        foreach ($selectVP as $vp) {
             $vicepresidencias[$vp->id] = $vp->nombre;
         }
 
@@ -199,7 +202,8 @@ class GoForAgileAdmin extends Model
         return $txt_mes . " " . $partes[2] . " de " . $partes[0];
     }
 
-    public static function AnioOkr(){
+    public static function AnioOkr()
+    {
         $Array_Anio = array();
         $Array_Anio[''] = 'Seleccione Año:';
         $Array_Anio[2023]  = '2023';
@@ -208,7 +212,8 @@ class GoForAgileAdmin extends Model
         return $Array_Anio;
     }
 
-    public static function Estado(){
+    public static function Estado()
+    {
         $Estado = array();
         $Estado[''] = 'Seleccione Estado:';
         $Estado[1]  = 'Activo';
@@ -216,12 +221,38 @@ class GoForAgileAdmin extends Model
         return $Estado;
     }
 
-    public static function Tendencia(){
+    public static function Tendencia()
+    {
         $Tendencia = array(
-            array("1","Ascendente"), 
-	        array("2","Descendente")
+            array("1", "Ascendente"),
+            array("2", "Descendente")
         );
         return $Tendencia;
+    }
+
+    public static function Periodo()
+    {
+        $Periodo = array(
+            array("Q1", "Q1"),
+            array("Q2", "Q2"),
+            array("Q3", "Q3"),
+            array("Q4", "Q4"),
+            array("Anual", "Anual")
+        );
+        return $Periodo;
+    }
+
+    public static function Medicion()
+    {
+        $Medicion = array(
+            array("1", "Cantidad"),
+            array("2", "Horas"),
+            array("3", "Moneda"),
+            array("4", "Porcentaje"),
+            array("5", "Documento"),
+            array("6", "Hito")
+        );
+        return $Medicion;
     }
 
     public static function EscalaColor($porcentaje, $id_empresa)

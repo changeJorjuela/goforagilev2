@@ -68,6 +68,7 @@
                                 <div class="col-md-1" style="text-align: right;"><b>Acciones</b><br>{!! $kr['acciones'] !!}</div>
                                 @endhandheld
                             </div>
+                            <br>
                             <div class="row" id="botonesForm">
                                 <div class="col-md-12">
                                     {!! $kr['btnGuardar'] !!}

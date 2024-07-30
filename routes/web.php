@@ -59,6 +59,7 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::post('guardarAvanceResultado', [ExtrasController::class, 'GuardarAvanceResultado'])->name('guardarAvanceResultado');
         Route::post('guardarAvanceIniciativa', [ExtrasController::class, 'GuardarAvanceIniciativa'])->name('guardarAvanceIniciativa');
         Route::get('verIniciativa', [ExtrasController::class, 'VerIniciativa'])->name('verIniciativa');
+        Route::get('verKr', [ExtrasController::class, 'VerKr'])->name('verKr');
         
 
         //Extras
@@ -114,9 +115,9 @@ Route::group(['middleware' => 'revalidate'], function () {
     // ADMINISTRACIÓN
     Route::post('crearArea', [AdminController::class, 'CrearArea'])->name('crearArea');
     Route::post('actualizarArea', [AdminController::class, 'ActualizarArea'])->name('actualizarArea');
-    Route::post('administrarIniciativa', [OkrController::class, 'AdministrarIniciativa'])->name('administrarIniciativa');
+    
 
     // OKRS
-    // Route::post('guardarAvanceResultado', [ExtrasController::class, 'GuardarAvanceResultado'])->name('guardarAvanceResultado');
-    // Route::post('filtroOkrsOrg', [OkrsController::class, 'OkrsOrganizacion'])->name('filtroOkrsOrg');
+    Route::post('administrarIniciativa', [OkrController::class, 'AdministrarIniciativa'])->name('administrarIniciativa');
+    Route::post('administrarKr', [OkrController::class, 'AdministrarKr'])->name('administrarKr');
 });

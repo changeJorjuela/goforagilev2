@@ -107,7 +107,8 @@ Okrs Organización
     </div>
 </div>
 @include("modals.modalProfile")
-@include("modals.modalOkrs")
+@include("modals.modalKrs")
+@include("modals.modalIniciativas")
 @endsection
 @section('scripts')
 <script src="{{asset("js/okrs.min.js")}}"></script>

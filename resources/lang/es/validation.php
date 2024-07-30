@@ -85,9 +85,22 @@ return array(
       |
      */
     'attributes' => array(
-        'descripcion' => 'Descripción',
-        'meta' => 'Meta',
-        'fecha_entrega' => 'Fecha de entrega',
-        'tendencia' => 'Tendencia',        
+        'descripcion_kr' => 'Descripción',
+        'meta_kr' => 'Meta',
+        'descripcion_ini' => 'Descripción',
+        'meta_ini' => 'Meta',
+        'fecha_entrega_ini' => 'Fecha de entrega',
+        'fecha_entrega_kr' => 'Fecha de entrega',
+        'fecha_inicia_kr' => 'Fecha de inicio',
+        'tendencia_ini' => 'Tendencia',
+        'tendencia_kr' => 'Tendencia',
+        'id_responsable_ini' => 'Responsable',
+        'id_responsable_kr' => 'Responsable',
+        'responsables_ini' => 'Responsables',
+        'responsables_kr' => 'Responsables',
+        'meta_minima_kr' => 'Meta Mínima',
+        'meta_maxima_kr' => 'Meta Máxima',
+        'periodo_kr' => 'Periodo',
+        'medicion_kr' => 'Medición'
     ),
 );

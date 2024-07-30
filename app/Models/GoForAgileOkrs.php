@@ -46,6 +46,7 @@ class GoForAgileOkrs extends Model
         }
 
         DB::setDefaultConnection("mysql-goforagile_okrs");
+        
         $OkrsOrganizacion = DB::Select("
 		SELECT Okrs_Equipos.id AS id, Okrs_Equipos.id_empresa AS id_empresa , 
 		Okrs_Equipos.id_empleado AS id_empleado , Okrs_Equipos.id_okrs AS id_okrs , 
@@ -202,6 +203,29 @@ class GoForAgileOkrs extends Model
         return $KrId;
     }
 
+    public static function ActualizarKr($id_empresa,$id_user,$array_kr){
+        $hoy = date("Y-m-d H:i:s");
+        DB::setDefaultConnection("mysql-goforagile_okrs");
+        // dd($array_kr);
+        $Okrs = DB::Select("SELECT * FROM Okrs WHERE id = ".$array_kr->id_okr_kr."");
+        foreach($Okrs as $okr){
+            $tipoOkr = $okr->tipo;
+        }
+        $resultados = DB::Select("SELECT * FROM Okrs_Resultados WHERE id = ".$array_kr->id_resultado."");
+        foreach($resultados as $kr){
+            $descResultado = $kr->descripcion;
+        }
+        $ActualizarKr = DB::Update('UPDATE Okrs_Resultados SET id_empleado = ?, responsables = ?, descripcion = ?, fecha_inicia = ?,fecha_entrega = ?, medicion = ?,meta = ?,meta_minimo = ?, meta_maximo = ?, periodo = ?, tendencia = ?, updated_at = ?
+        WHERE id = ?',[$id_user, implode(",", $array_kr->responsables_kr),$array_kr->descripcion_kr, $array_kr->fecha_inicia_kr,$array_kr->fecha_entrega_kr,
+        $array_kr->medicion_kr,$array_kr->meta_kr,$array_kr->meta_minima_kr,$array_kr->meta_maxima_kr,$array_kr->periodo_kr,$array_kr->tendencia_kr,$hoy,$array_kr->id_resultado]);
+        
+        $descripcion = "Actualización de Kr $descResultado" ;
+        DB::Insert("INSERT INTO Auditoria_Okrs (id_empresa,id_empleado,accion,descripcion,tipo_okr,id_okr,id_kr,id_iniciativa,created_at)
+        VALUES ($id_empresa, $id_user, 'ACTUALIZAR', '$descripcion', $tipoOkr, ".$array_kr->id_okr_kr.", ".$array_kr->id_resultado.", 0, '$hoy')");
+
+        return $ActualizarKr;
+    }
+
     //INICIATIVAS
     public static function IniciativasKR($id)
     {
@@ -277,25 +301,47 @@ class GoForAgileOkrs extends Model
         $hoy = date("Y-m-d H:i:s");
         DB::setDefaultConnection("mysql-goforagile_okrs");
         // dd($array_iniciativa);
-        $Okrs = DB::Select("SELECT * FROM Okrs WHERE id = ".$array_iniciativa->id_okr."");
+        $Okrs = DB::Select("SELECT * FROM Okrs WHERE id = ".$array_iniciativa->id_okr_ini."");
         foreach($Okrs as $okr){
             $tipoOkr = $okr->tipo;
         }
-        $resultados = DB::Select("SELECT * FROM Okrs_Resultados WHERE id = ".$array_iniciativa->id_resultado."");
+        $resultados = DB::Select("SELECT * FROM Okrs_Resultados WHERE id = ".$array_iniciativa->id_resultado_ini."");
         foreach($resultados as $kr){
             $descResultado = $kr->descripcion;
         }
         $CrearIniciativa = DB::Insert('INSERT INTO Okrs_Iniciativas (id_okrs, id_resultado, id_empleado, responsables, descripcion, fecha_entrega, meta, tendencia, created_at)
-        VALUES(?,?,?,?,?,?,?,?,?)',[$array_iniciativa->id_okr,$array_iniciativa->id_resultado,$id_user, implode(",", $array_iniciativa->responsables),$array_iniciativa->descripcion,
-        $array_iniciativa->fecha_entrega,$array_iniciativa->meta,$array_iniciativa->tendencia,$hoy]);
+        VALUES(?,?,?,?,?,?,?,?,?)',[$array_iniciativa->id_okr_ini,$array_iniciativa->id_resultado_ini,$id_user, implode(",", $array_iniciativa->responsables_ini),$array_iniciativa->descripcion_ini,
+        $array_iniciativa->fecha_entrega_ini,$array_iniciativa->meta_ini,$array_iniciativa->tendencia_ini,$hoy]);
 
         $id = DB::getPdo()->lastInsertId();
         
         $descripcion = "Creación de iniciativa $array_iniciativa->descripcion para el resultado $descResultado" ;
         DB::Insert("INSERT INTO Auditoria_Okrs (id_empresa,id_empleado,accion,descripcion,tipo_okr,id_okr,id_kr,id_iniciativa,created_at)
-        VALUES ($id_empresa, $id_user, 'ACTUALIZAR', '$descripcion', $tipoOkr, ".$array_iniciativa->id_okr.", ".$array_iniciativa->id_resultado.", $id, '$hoy')");
+        VALUES ($id_empresa, $id_user, 'CREAR', '$descripcion', $tipoOkr, ".$array_iniciativa->id_okr_ini.", ".$array_iniciativa->id_resultado_ini.", $id, '$hoy')");
 
         return $CrearIniciativa;
+    }
+
+    public static function ActualizarIniciativa($id_empresa,$id_user,$array_iniciativa){
+        $hoy = date("Y-m-d H:i:s");
+        DB::setDefaultConnection("mysql-goforagile_okrs");
+        // dd($array_iniciativa);
+        $Okrs = DB::Select("SELECT * FROM Okrs WHERE id = ".$array_iniciativa->id_okr_ini."");
+        foreach($Okrs as $okr){
+            $tipoOkr = $okr->tipo;
+        }
+        $resultados = DB::Select("SELECT * FROM Okrs_Resultados WHERE id = ".$array_iniciativa->id_resultado_ini."");
+        foreach($resultados as $kr){
+            $descResultado = $kr->descripcion;
+        }
+        $ActualizarIniciativa = DB::Update('UPDATE Okrs_Iniciativas SET id_empleado = ?, responsables = ?, descripcion = ?, fecha_entrega = ?, meta = ?, tendencia = ?, updated_at = ?
+        WHERE id = ?',[$id_user, implode(",", $array_iniciativa->responsables_ini),$array_iniciativa->descripcion_ini, $array_iniciativa->fecha_entrega_ini,$array_iniciativa->meta_ini,$array_iniciativa->tendencia_ini,$hoy,$array_iniciativa->id_iniciativa]);
+        
+        $descripcion = "Actualización de iniciativa $array_iniciativa->descripcion_ini para el resultado $descResultado" ;
+        DB::Insert("INSERT INTO Auditoria_Okrs (id_empresa,id_empleado,accion,descripcion,tipo_okr,id_okr,id_kr,id_iniciativa,created_at)
+        VALUES ($id_empresa, $id_user, 'ACTUALIZAR', '$descripcion', $tipoOkr, ".$array_iniciativa->id_okr_ini.", ".$array_iniciativa->id_resultado_ini.", $array_iniciativa->id_iniciativa, '$hoy')");
+
+        return $ActualizarIniciativa;
     }
 
 
