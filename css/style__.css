@@ -1,0 +1,63 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{
+	background-color: #efeff5;
+	font-size:13px;
+}
+
+.bg_azul{
+	background: rgba(48,46,165,1);
+	background: -moz-linear-gradient(top, rgba(48,46,165,1) 0%, rgba(77,77,209,1) 100%);
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(48,46,165,1)), color-stop(100%, rgba(77,77,209,1)));
+	background: -webkit-linear-gradient(top, rgba(48,46,165,1) 0%, rgba(77,77,209,1) 100%);
+	background: -o-linear-gradient(top, rgba(48,46,165,1) 0%, rgba(77,77,209,1) 100%);
+	background: -ms-linear-gradient(top, rgba(48,46,165,1) 0%, rgba(77,77,209,1) 100%);
+	background: linear-gradient(to bottom, rgba(48,46,165,1) 0%, rgba(77,77,209,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#302ea5', endColorstr='#4d4dd1', GradientType=0 );
+}
+.fas{
+	padding-right: 10px;
+}
+
+a {
+    color: #5d5b6f;
+}
+
+a{
+	text-decoration:none !important;
+}
+
+.ti_label{
+	margin-top:15px;
+}
+
+.btn{
+	font-size:13px;
+}
+
+.breadcrumb {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+}
+
+/*PARA FILTRAR LAS TABLAS*/
+table tr th {
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.sorting {
+  background-color: #D4D4D4;
+}
+
+.asc:after {
+  content: ' ↑';
+}
+
+.desc:after {
+  content: " ↓";
+}

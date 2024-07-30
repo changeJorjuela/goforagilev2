@@ -1,0 +1,9 @@
+#grid-container-pagoLinea {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+    gap: 2rem;
+    /* justify-items: center; */
+    align-items: center;
+    border-bottom: ridge;
+    padding: 15px;
+}

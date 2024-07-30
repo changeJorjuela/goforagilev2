@@ -1,0 +1,100 @@
+@media (min-width: 992px){
+.sidebar-mini .nav-sidebar, .sidebar-mini .nav-sidebar .nav-link, .sidebar-mini .nav-sidebar>.nav-header {
+    white-space: nowrap;
+}
+}
+.nav-sidebar {
+    position: relative;
+}
+.flex-column {
+    -ms-flex-direction: column !important;
+    flex-direction: column !important;
+}
+.nav {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+.nav-sidebar>.nav-item {
+  margin-bottom: 0;
+}
+.nav-sidebar .nav-item>.nav-link {
+  position: relative;
+}
+.sidebar-mini .main-sidebar .nav-link, .sidebar-mini-md .main-sidebar .nav-link, .sidebar-mini-xs .main-sidebar .nav-link {
+  width: calc(250px - .5rem* 2);
+  transition: width ease-in-out .3s;
+}
+.nav-sidebar .nav-item>.nav-link {
+  margin-bottom: .2rem;
+}
+
+[class*=sidebar-dark-] .sidebar a {
+  color: #c2c7d0;
+}
+.nav-pills .nav-link {
+  color: #6c757d;
+}
+.nav-pills .nav-link {
+  border-radius: .25rem;
+}
+.nav-link {
+  display: block;
+  padding: .5rem 1rem;
+}
+[class*=sidebar-dark-] .nav-sidebar>.nav-item>.nav-treeview {
+  background-color: transparent;
+}
+.nav-sidebar .nav-treeview {
+  display: none;
+  list-style: none;
+  padding: 0;
+}
+.sidebar {
+  height: calc(100% -(3.5rem + 1px));
+  overflow-x: hidden;
+  overflow-y: initial;
+  padding-bottom: 0;
+  padding-left: .5rem;
+  padding-right: .5rem;
+  padding-top: 0;
+  scrollbar-color: #a9a9a9 transparent;
+  scrollbar-width: none;
+}
+.nav-sidebar .menu-is-opening>.nav-link i.right, .nav-sidebar .menu-is-opening>.nav-link svg.right, .nav-sidebar .menu-open>.nav-link i.right, .nav-sidebar .menu-open>.nav-link svg.right {
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+.nav-sidebar .nav-item>.nav-link .right {
+  transition: -webkit-transform ease-in-out .3s;
+  transition: transform ease-in-out .3s;
+  transition: transform ease-in-out .3s, -webkit-transform ease-in-out .3s;
+}
+.nav-sidebar .nav-link>.right, .nav-sidebar .nav-link>p>.right {
+  position: absolute;
+  right: 1rem;
+  top: .7rem;
+}
+.fa, .fas {
+  font-weight: 900;
+}
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active, .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
+  background-color: #007bff;
+  color: #fff;
+}
+[class*=sidebar-dark-] .nav-sidebar>.nav-item>.nav-link.active {
+  color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
+}
+[class*=sidebar-dark-] .nav-sidebar>.nav-item.menu-open>.nav-link, [class*=sidebar-dark-] .nav-sidebar>.nav-item:hover>.nav-link, [class*=sidebar-dark-] .nav-sidebar>.nav-item>.nav-link:focus {
+  background-color: rgba(255, 255, 255, .1);
+  color: #fff;
+}
+.nav-sidebar .nav-link>.right i,.nav-sidebar .nav-link>.right span,.nav-sidebar .nav-link>p>.right i,.nav-sidebar .nav-link>p>.right span{margin-left:.5rem}.nav-sidebar .nav-link>.right:nth-child(2),.nav-sidebar .nav-link>p>.right:nth-child(2){right:2.2rem}.nav-sidebar .menu-open>.nav-treeview{display:block}.nav-sidebar .menu-is-opening>.nav-link i.right,.nav-sidebar .menu-is-opening>.nav-link svg.right,.nav-sidebar .menu-open>.nav-link i.right,.nav-sidebar .menu-open>.nav-link svg.right{-webkit-transform:rotate(-90deg);transform:rotate(-90deg)}
+[class*=sidebar-light-] .nav-sidebar>.nav-item.menu-open>.nav-link,[class*=sidebar-light-] .nav-sidebar>.nav-item:hover>.nav-link{background-color:rgba(0,0,0,.1);color:#212529}
+[class*=sidebar-dark-] .nav-sidebar>.nav-item.menu-open>.nav-link,[class*=sidebar-dark-] .nav-sidebar>.nav-item:hover>.nav-link,[class*=sidebar-dark-] .nav-sidebar>.nav-item>.nav-link:focus{background-color:rgba(255,255,255,.1);color:#fff}
+.nav-collapse-hide-child .menu-open>.nav-treeview{max-height:-webkit-min-content;max-height:-moz-min-content;max-height:min-content;-webkit-animation-name:fadeIn;animation-name:fadeIn;-webkit-animation-duration:.3s;animation-duration:.3s;-webkit-animation-fill-mode:both;animation-fill-mode:both}.sidebar-collapse .sidebar:not(:hover) .nav-collapse-hide-child .menu-open>.nav-treeview{max-height:0;-webkit-animation-name:fadeOut;animation-name:fadeOut;-webkit-animation-duration:.3s;animation-duration:.3s;-webkit-animation-fill-mode:both;animation-fill-mode:both}.main-sidebar.sidebar-focused .nav-collapse-hide-child .sidebar-mini-md.sidebar-collapse .menu-open>.nav-treeview,.main-sidebar.sidebar-focused .nav-collapse-hide-child .sidebar-mini-xs.sidebar-collapse .menu-open>.nav-treeview,.main-sidebar.sidebar-focused .nav-collapse-hide-child .sidebar-mini.sidebar-collapse .menu-open>.nav-treeview,.main-sidebar:not(.sidebar-no-expand):hover .nav-collapse-hide-child .sidebar-mini-md.sidebar-collapse .menu-open>.nav-treeview,.main-sidebar:not(.sidebar-no-expand):hover .nav-collapse-hide-child .sidebar-mini-xs.sidebar-collapse .menu-open>.nav-treeview,.main-sidebar:not(.sidebar-no-expand):hover .nav-collapse-hide-child .sidebar-mini.sidebar-collapse .menu-open>.nav-treeview{max-height:-webkit-min-content;max-height:-moz-min-content;max-height:min-content;-webkit-animation-name:fadeIn;animation-name:fadeIn;-webkit-animation-duration:.3s;animation-duration:.3s;-webkit-animation-fill-mode:both;animation-fill-mode:both}

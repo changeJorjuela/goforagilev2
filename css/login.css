@@ -1,0 +1,60 @@
+@font-face {
+    font-family: Lato-Bold;
+    src: url(../fonts/Lato-Bold.ttf);
+}
+
+@font-face {
+    font-family: Lato-Black;
+    src: url(../fonts/Lato-Black.ttf);
+}
+
+body {
+    font-family: Lato-Bold;
+    background-color: #0a152b;
+    font-size: 14px;
+    background-size: 150%;
+    color: #ffffff;
+    background-image: url("../img/fondo_login.jpg");
+    background-size: cover;
+}
+
+.tarjeta {
+    background-color: #00000087;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+#logoLogin{
+    width: 100%;
+}
+.login-page{
+    background-color: white !important;
+}
+.card {
+    box-shadow: none !important;
+}
+#olvidoContrasena{
+    color: #007bff !important;
+font-weight: 700;
+}
+.btn-primary {
+    color: #fff !important;
+    background-color: #007bff !important;
+    border-color: #9ea188 !important;
+}
+.login-card-body .input-group .input-group-text, .register-card-body .input-group .input-group-text {
+    color: #007bff !important;
+}
+.login-box, .register-box {
+    width: 380px !important;
+}
+.modal-header{
+    background: #007bff !important;
+    color: #ECF0F1;
+}
+#logoPass{
+    text-align: center;
+}
+#imgAlerts{max-width: -webkit-fill-available;width:-moz-available;width: 20%}
+#exitoAlert,#errorAlert,#exitoTrabajo{text-align:center;font-size:2vh;font-weight: 600;color:black !important;}
+span.error{ color: white !important; font-size: 0.8em; }

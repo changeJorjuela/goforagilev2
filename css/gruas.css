@@ -1,0 +1,61 @@
+#prevencion {
+  position: fixed !important;
+}
+
+#gruaNext{
+  right:-160px !important;
+}
+
+#gruaPrev{
+  left:-160px !important;
+}
+@media (max-width: 767.98px) {
+  #gruaNext img{
+      display:none;
+  }
+
+  #gruaPrev img{
+      display:none;
+  }
+
+  #gruaNext{
+      right:0px !important;
+  }
+
+  #gruaPrev{
+      left:0px !important;
+  }
+  .carousel-control-prev-icon, .carousel-control-next-icon, .carousel-control-prev-icon{
+      display: inline-block !important;
+  }
+
+  .carousel-control-prev-icon {
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23006198' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E"); }
+
+  .carousel-control-next-icon {
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23006198' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E"); }
+}
+
+@media (min-width: 1000px) {
+  #Gruas .modal-content{
+      margin: auto !important;
+      width: 80% !important;
+      /* margin-top: -70px !important; */
+  }
+}
+
+#prevencion h3{
+  color:#ff0 !important;
+  font-weight: 400;
+}
+
+#prevencion li{
+  color:#fff !important;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+#prevencion p{
+  font-size: 14px;
+}
+
