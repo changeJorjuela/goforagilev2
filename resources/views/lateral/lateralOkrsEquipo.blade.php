@@ -74,14 +74,17 @@
             <a href='general-elements.html'>Crear OKR's</a>
         </li>
         <li>
+            <a href="modals.html">Gestionar Mis Iniciativas</a>
+        </li>
+        <li>
             <a href='buttons.html'>Gestionar Mis OKR's</a>
         </li>
         <li>
-            <a href='tabs.html'>Gestionar Mis Resultados</a>
+            <a href="modals.html">Gestionar Mis Planes de Acción</a>
         </li>
         <li>
-            <a href="modals.html">Gestionar Mis Iniciativas</a>
-        </li>
+            <a href='tabs.html'>Gestionar Mis Resultados</a>
+        </li>        
         <li>
             <a href="okrsOrganizacion" id="menuOkrsOrganizacion">Todos los OKR's</a>
         </li>

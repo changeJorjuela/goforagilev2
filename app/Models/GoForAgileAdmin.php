@@ -77,6 +77,52 @@ class GoForAgileAdmin extends Model
         return $listArea;
     }
 
+    public static function ListarCargos($idEmpresa)
+    {
+        DB::setDefaultConnection("mysql-goforagile_admin");
+        $Cargos = DB::Select("SELECT * FROM Cargos WHERE id_empresa = $idEmpresa ORDER BY nombre ASC");
+        return $Cargos;
+    }
+
+    public static function BuscarNombreCargo($nombreCargo, $idEmpresa)
+    {
+        DB::setDefaultConnection("mysql-goforagile_admin");
+        $Cargos = DB::Select("SELECT * FROM Cargos WHERE nombre = '$nombreCargo' AND id_empresa = $idEmpresa");
+        return $Cargos;
+    }
+
+    public static function BuscarNombreCargoUpd($nombreCargo, $id)
+    {
+        DB::setDefaultConnection("mysql-goforagile_admin");
+        $Cargos = DB::Select("SELECT * FROM Cargos WHERE nombre = '$nombreCargo' AND id NOT IN ($id)");
+        return $Cargos;
+    }
+
+    public static function CrearCargo($nombreCargo, $area, $nivel_jerarquico, $idEmpresa)
+    {
+        DB::setDefaultConnection("mysql-goforagile_admin");
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i:s');
+        $crearCargo = DB::Insert(
+            'INSERT INTO Cargos (nombre, id_area, nivel_jerarquico, id_empresa, estado, created_at)
+                                        VALUES (?,?,?,?,?,?)',
+            [$nombreCargo, $area, $nivel_jerarquico, $idEmpresa, 1, $fecha_sistema]
+        );
+        return $crearCargo;
+    }
+
+    public static function ActualizarCargo($nombreCargo, $area, $nivel_jerarquico, $estado, $id)
+    {
+        DB::setDefaultConnection("mysql-goforagile_admin");
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i:s');
+        $crearCargo = DB::Insert(
+            'UPDATE Cargos SET nombre = ?, id_area = ?, nivel_jerarquico = ?, estado = ?, updated_at = ? WHERE id = ?',
+            [$nombreCargo, $area, $nivel_jerarquico, $estado, $fecha_sistema, $id]
+        );
+        return $crearCargo;
+    }
+
     // EMPLEADOS
     public static function BuscarUserLogin($user)
     {

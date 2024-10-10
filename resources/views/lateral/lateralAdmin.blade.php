@@ -13,7 +13,7 @@
             <a href='cargueMasivo' id="menuCargueMasivo">Cargar Masivo</a>
         </li>
         <li>
-            <a href='tabs.html'>Cargos</a>
+            <a href='cargos' id="menuCargos">Cargos</a>
         </li>
         <li>
             <a href="modals.html">Colaboradores</a>

@@ -77,6 +77,73 @@ class AdminController extends Controller
         }
     }
 
+    public function CrearCargo(Request $request){
+        $url = AdminController::FindUrl();
+        date_default_timezone_set('America/Bogota');
+        $validator = Validator::make($request->all(), [
+            'nombre_cargo' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return Redirect::to($url.'cargos')->withErrors($validator)->withInput();
+        }else{
+            $nombreCargo = $request->nombre_cargo;
+            $area = $request->area;
+            $nivelJerarquico = $request->nivel_jerarquico;
+            $BuscarCargo = GoForAgileAdmin::BuscarNombreCargo($nombreCargo,(int)Session::get('id_empresa'));
+            if($BuscarCargo){
+                $verrors = array();
+                array_push($verrors, 'Nombre de cargo ya existe');
+                return Redirect::to($url.'cargos')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $CrearArea = GoForAgileAdmin::CrearCargo($nombreCargo,$area,$nivelJerarquico,(int)Session::get('id_empresa'));
+                if($CrearArea){
+                    $verrors = 'Se creo el cargo '.$nombreCargo.' con éxito.';
+                    return Redirect::to($url.'cargos')->with('mensaje', $verrors);
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al crear el cargo');
+                    return Redirect::to($url.'cargos')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }            
+        }
+    }
+
+    public function ActualizarCArgo(Request $request){
+        $url = AdminController::FindUrl();
+        
+        $validator = Validator::make($request->all(), [
+            'nombre_cargo_upd' => 'required',
+            'estado_upd' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return Redirect::to($url.'cargos')->withErrors($validator)->withInput();
+        }else{
+            $nombreCargo = $request->nombre_cargo_upd;
+            $area = $request->area_upd;
+            $nivelJerarquico = $request->nivel_jerarquico_upd;
+            $estado = $request->estado_upd;
+            $idCargo = $request->id_cargo;
+            $BuscarCargo = GoForAgileAdmin::BuscarNombreCargoUpd($nombreCargo,$idCargo);
+            if($BuscarCargo){
+                $verrors = array();
+                array_push($verrors, 'Nombre de cargo ya existe');
+                return Redirect::to($url.'cargos')->withErrors(['errors' => $verrors])->withInput();
+            }else{
+                $ActualizarArea = GoForAgileAdmin::ActualizarCargo($nombreCargo,$area,$nivelJerarquico,$estado,$idCargo);
+                if($ActualizarArea){
+                    $verrors = 'Se actualizo el cargo '.$nombreCargo.' con éxito.';
+                    return Redirect::to($url.'cargos')->with('mensaje', $verrors);
+                }else{
+                    $verrors = array();
+                    array_push($verrors, 'Hubo un problema al actualizar el cargo');
+                    return Redirect::to($url.'tipoTarifa')->withErrors(['errors' => $verrors])->withInput();
+                }
+            }            
+        }
+    }
+
     public static function FindUrl(){
         $RolUser = (int)Session::get('role_plataforma');
         switch($RolUser){

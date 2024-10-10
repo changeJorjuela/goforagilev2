@@ -6,11 +6,9 @@
                 <div class="card mb-0">
                     <div class="card-header" role="tab" id="heading{{$kr['id']}}">
                         <div class="row">
-                            <div class="col-md-7">
+                            <div class="col-md-5">
                                 <h5 class="fill_resultados">
-                                    <a class="collapsed" data-toggle="collapse" href="#collapseKr{{$kr['id']}}" aria-expanded="false" aria-controls="collapseKr{{$kr['id']}}" id="datosResultados_{{$kr['id']}}" style="color: black !important;">
-                                        {{ $kr['periodo'] }}&nbsp;&nbsp;|&nbsp;&nbsp;{{ $kr['descripcion'] }}
-                                    </a>
+                                    {{ $kr['periodo'] }}&nbsp;&nbsp;|&nbsp;&nbsp;{{ $kr['descripcion'] }}
                                 </h5>
                             </div>
                             <div class="col-md-2">
@@ -18,9 +16,20 @@
                                     Meta:&nbsp;{{ $kr['txt_meta'] }}
                                 </h5>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
+                                <h5 class="fill_resultados">
+                                    Seguimiento:&nbsp;{!! $kr['seguimiento'] !!}
+                                </h5>
+                            </div>
+                            <div class="col-md-2">
                                 <h5 class="fill_resultados">
                                     {!! $kr['porcentajeBarra'] !!}&nbsp;&nbsp;{{ $kr['porcentaje'] }} %
+                                </h5>
+                            </div>                            
+                            <div class="col-md-1" style="text-align: end;">
+                                <h5 class="fill_resultados">
+                                    <a class="collapsed" data-toggle="collapse" href="#collapseKr{{$kr['id']}}" aria-expanded="false" aria-controls="collapseKr{{$kr['id']}}" id="datosResultados_{{$kr['id']}}" style="color: black !important;">
+                                    </a>
                                 </h5>
                             </div>
                         </div>

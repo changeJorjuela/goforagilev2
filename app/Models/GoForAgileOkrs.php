@@ -81,7 +81,7 @@ class GoForAgileOkrs extends Model
         $SelectOkrs = array();
         $SelectOkrs[''] = 'Seleccione Okr:';
         DB::setDefaultConnection("mysql-goforagile_okrs");
-        $selectOkrs = DB::Select("SELECT * FROM Okrs WHERE id_empresa = $id AND anio = $anio AND estado = 1 ORDER BY objetivo_okr");
+        $selectOkrs = DB::Select("SELECT * FROM Okrs WHERE id_empresa = $id AND anio = $anio AND estado = 1 ORDER BY objetivo_okr ASC");
         foreach($selectOkrs as $okr){
             $SelectOkrs[$okr->id] = $okr->objetivo_okr;
         }

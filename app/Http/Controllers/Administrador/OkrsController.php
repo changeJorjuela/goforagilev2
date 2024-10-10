@@ -273,7 +273,7 @@ class OkrsController extends Controller
                     $editar = '<input type="number" name="" class="form-control form-control-sm mb-0" value="' . $resultado->avance . '" onChange="Guardar_Avance_Resultado(this.value,' . $resultado->id . ',' . $idOkr . ',' . Session::get('id_empresa') . ',' . Session::get('id_user') . ',\'okrsOrganizacion?pagina=' . $numeroP . '\')">';
                 }
             }
-
+            $array_resultados[$contKR]['seguimiento'] = $resultado->avance;
             $array_resultados[$contKR]['avance'] = $editar;
 
             $fecha_inicia = strtotime($resultado->fecha_inicia);
