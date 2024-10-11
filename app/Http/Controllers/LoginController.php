@@ -13,14 +13,33 @@ use App\Models\GoForAgileCompetencias;
 
 class LoginController extends Controller
 {
+    /**
+     * Funcion que dirige al login del aplicativo
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 11/10/2024
+     * @version 1.0
+     */
     public function Login(){
         return view('/');
     }
 
+    /**
+     * Funcion que dirige a la funcionalidad de recuperar contraseña
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 11/10/2024
+     * @version 1.0
+     */
     public function RecuperarContrasena(){
         return view('recuperarContrasena');
     }
 
+    /**
+     * Funcion que configura el acceso al aplicativo desde el login
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 11/10/2024
+     * @version 1.0
+     * @param $request
+     */
     public function Acceso(Request $request){
         $validator = Validator::make($request->all(), [
             'user' => 'required',
@@ -161,6 +180,13 @@ class LoginController extends Controller
             }
         }
     }
+
+    /**
+     * Funcion que realiza la recuperación de la contraseña
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 11/10/2024
+     * @version 1.0
+     */
 
     public function recuperarAcceso(Request $request){
         $validator = Validator::make($request->all(), [

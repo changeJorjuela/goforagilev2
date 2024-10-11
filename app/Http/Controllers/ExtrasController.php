@@ -269,8 +269,6 @@ class ExtrasController extends Controller
             }
         }
 
-        // dd($meta);
-
         $header = '<div class="row">
                         <div class="col-md-12">
                             <h5>KR para el OKR: ' . $nombreOkr . '</h5>

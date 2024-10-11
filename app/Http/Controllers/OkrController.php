@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Validator;
 
 class OkrController extends Controller
 {
+    /**
+     * función para gestionar una iniciativa
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 11/10/2024
+     * @version 1.0     
+     */
     public function AdministrarIniciativa(Request $request)
     {
         $url = OkrController::FindUrl();
@@ -50,6 +56,12 @@ class OkrController extends Controller
         }
     }
 
+    /**
+     * función para gestionar un KR
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 11/10/2024
+     * @version 1.0     
+     */
     public function AdministrarKR(Request $request){
         $validator = Validator::make($request->all(), [
             'descripcion_kr' => 'required',
@@ -94,6 +106,14 @@ class OkrController extends Controller
             }
         }
     }
+
+    /**
+     * Busca la url segun rol de usuario, a la cual debe devolver la respuesta
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 11/10/2024
+     * @version 1.0
+     * @return $url
+     */
 
     public static function FindUrl()
     {

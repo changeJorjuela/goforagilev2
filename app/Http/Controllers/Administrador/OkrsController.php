@@ -11,6 +11,12 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class OkrsController extends Controller
 {
+    /**
+     * Funcion que dirige al módulo de OKRS
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 11/10/2024
+     * @version 1.0
+     */
     public function OkrsOrganizacion(Request $request)
     {
         // dd($request);
@@ -174,6 +180,20 @@ class OkrsController extends Controller
         ]);
     }
 
+/**
+     * Funcion que complementa la información de los OKRS con los KRs asignados
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 11/10/2024
+     * @version 1.0
+     * @param string $idOkr id del OKR
+     * @param string $filtro Filtro de busqueda
+     * @param string $congelar_okrs edición de OKR
+     * @param string $okrTipoRole Tipo de rol de OKR
+     * @param string $okrAnio Año OKR
+     * @param string $pagina
+     * @param string $numeroP Pagina actual
+     * @return array $array_resultados
+     */
     public static function Resultados($idOkr, $filtro, $congelar_okrs, $okrTipoRole, $okrAnio, $pagina, $numeroP)
     {
         if (Session::get('periodo_fill') != "") {
@@ -356,6 +376,20 @@ class OkrsController extends Controller
         return $array_resultados;
     }
 
+    /**
+     * Funcion que complementa la información de los OKRS con las iniciativas asignadas a cada KR
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 11/10/2024
+     * @version 1.0
+     * @param string $idResultado id del KR
+     * @param string $tendencia tendencia del KR
+     * @param string $congelar_okrs edición de OKR
+     * @param string $tipoRole Tipo de rol de OKR
+     * @param string $idOkr id del OKR
+     * @param string $pagina
+     * @param string $numeroP Pagina actual
+     * @return array $array_iniciativas
+     */
     public static function Iniciativas($idResultado, $tendencia, $congelar_okrs, $tipoRole, $idOkr, $pagina, $numeroP)
     {
         // dd($numeroP);
@@ -483,6 +517,14 @@ class OkrsController extends Controller
         return $array_iniciativas;
     }
 
+    /**
+     * Funcion que enlista los responsables con su respectiva foto
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 11/10/2024
+     * @version 1.0
+     * @param array $array_list lista de responsables
+     * @return string $lista_resp_kr
+     */
     public static function ListaResponsables($array_list)
     {
         $lista_resp_kr = '';
@@ -507,6 +549,15 @@ class OkrsController extends Controller
         return $lista_resp_kr;
     }
 
+    /**
+     * Funcion que organiza los filtros de busqueda
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 11/10/2024
+     * @version 1.0
+     * @param object $filtros listado de filtros
+     * @param string $anio_curso
+     * @return array $filtroPagina
+     */
     public static function FiltrosPagina($filtros, $anio_curso)
     {
         // dd($filtros);
