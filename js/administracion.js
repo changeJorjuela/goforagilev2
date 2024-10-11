@@ -141,7 +141,7 @@ function obtener_datos_area(id) {
     $("#mod_nombre_area").val(Nombre);
     $("#mod_padre").val(Padre);
     $("#mod_jerarquia").val(Jerarquia);
-    $("#mod_estado").val(Estado);    
+    $("#mod_estado").val(Estado);
 }
 
 function obtener_datos_cargo(id) {
@@ -151,8 +151,10 @@ function obtener_datos_cargo(id) {
     var Estado = $("#estado_activo" + id).val();
 
     $("#idCargo_upd").val(id);
+    $("#idCargo_delete").val(id);
     $("#mod_nombre_cargo").val(Nombre);
     $("#mod_area").val(Area);
     $("#mod_nivel_jerarquico").val(NivelJerarquico);
-    $("#mod_estado").val(Estado);    
+    $("#mod_estado").val(Estado);
 }
+

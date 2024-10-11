@@ -9,6 +9,14 @@ use Illuminate\Support\Facades\Session;
 
 class ExtrasController extends Controller
 {
+    /**
+     * Funcion que muestra la información del usuario en el profile card
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 11/10/2024
+     * @version 1.0
+     * @param $request
+     * @return $infoProfile
+     */
     public function ProfileEmpleado(Request $request)
     {
         $profile = GoForAgileAdmin::CardProfile($request->id);
@@ -70,6 +78,15 @@ class ExtrasController extends Controller
         return $infoProfile;
     }
 
+    /**
+     * Funcion que guarda el avance de un KR
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 11/10/2024
+     * @version 1.0
+     * @param $request
+     * @return $respuesta
+     */
+
     public function GuardarAvanceResultado(Request $request)
     {
 
@@ -87,6 +104,15 @@ class ExtrasController extends Controller
 
         return $respuesta;
     }
+
+    /**
+     * Funcion que guarda el avance de una iniciativa
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 11/10/2024
+     * @version 1.0
+     * @param $request
+     * @return $respuesta
+     */
 
     public function GuardarAvanceIniciativa(Request $request)
     {
@@ -106,6 +132,15 @@ class ExtrasController extends Controller
 
         return $respuesta;
     }
+
+    /**
+     * Funcion que organiza la información de una iniciativa para mostrarla en un modal
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 11/10/2024
+     * @version 1.0
+     * @param $request
+     * @return array $cuerpo
+     */
 
     public function VerIniciativa(Request $request)
     {
@@ -198,6 +233,15 @@ class ExtrasController extends Controller
         );
         return $cuerpo;
     }
+
+    /**
+     * Funcion que organiza la información de un KR para mostrarla en un modal
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 11/10/2024
+     * @version 1.0
+     * @param $request
+     * @return array $cuerpo
+     */
 
     public function VerKr(Request $request)
     {
@@ -330,7 +374,7 @@ class ExtrasController extends Controller
             "requerido_kr" => $requerido
         );
         return $cuerpo;
-    }
+    }    
 
     
 }

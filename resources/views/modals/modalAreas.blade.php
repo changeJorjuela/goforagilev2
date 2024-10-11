@@ -1,8 +1,8 @@
-<div class="modal" id="area_new" tabindex="-1" role="dialog" aria-labelledby="area_newLabel2" aria-hidden="true">
+<div class="modal" id="area_new" tabindex="-1" role="dialog" aria-labelledby="area_newLabel1" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel2">Crear Área</h5>
+                <h5 class="modal-title" id="exampleModalLabel1">Crear Área</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <!-- <span aria-hidden="true">×</span> -->
                     <span class="icon-cross"></span>
@@ -32,13 +32,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             <label for="jerarquia" class="col-form-label">Jerarquía</label>
-                            {!! Form::text('jerarquia',null,['class'=>'form-control','id'=>'jerarquia','placeholder'=>'Jerarquia','required']) !!}
+                            {!! Form::text('jerarquia',null,['class'=>'form-control','id'=>'jerarquia','placeholder'=>'Jerarquia']) !!}
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
                 <button type="submit" class="btn btn-agile">Crear Área</button>
             </div>
             {!! Form::close() !!}
@@ -76,7 +76,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="mod_jerarquia" class="col-form-label">Jerarquía</label>
-                            {!! Form::text('jerarquia_upd',null,['class'=>'form-control','id'=>'mod_jerarquia','placeholder'=>'Jerarquia','required']) !!}
+                            {!! Form::text('jerarquia_upd',null,['class'=>'form-control','id'=>'mod_jerarquia','placeholder'=>'Jerarquia']) !!}
                         </div>
                         <div class="col-md-6">
                         <label for="mod_estado">Estado</label>
@@ -87,7 +87,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-agile">Actualizar Área</button>
+                <button type="submit" class="btn btn-danger">Actualizar Área</button>
             </div>
             {!! Form::close() !!}
         </div>

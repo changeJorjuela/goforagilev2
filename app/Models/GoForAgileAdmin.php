@@ -32,10 +32,10 @@ class GoForAgileAdmin extends Model
         return $areas;
     }
 
-    public static function BuscarNombreAreaUpd($nombreArea, $id)
+    public static function BuscarNombreAreaUpd($nombreArea, $id, $idEmpresa)
     {
         DB::setDefaultConnection("mysql-goforagile_admin");
-        $areas = DB::Select("SELECT * FROM Areas WHERE nombre = '$nombreArea' AND id NOT IN ($id)");
+        $areas = DB::Select("SELECT * FROM Areas WHERE nombre = '$nombreArea' AND id NOT IN ($id) AND id_empresa = $idEmpresa");
         return $areas;
     }
 
@@ -77,6 +77,24 @@ class GoForAgileAdmin extends Model
         return $listArea;
     }
 
+    public static function BuscarNombreAreaId($id)
+    {
+        DB::setDefaultConnection("mysql-goforagile_admin");
+        $Areas = DB::Select("SELECT * FROM Areas WHERE id = $id");
+        return $Areas;
+    }
+
+    public static function EliminarArea($idArea, $idEmpresa, $idUser){
+        DB::setDefaultConnection("mysql-goforagile_admin");
+        date_default_timezone_set('America/Bogota');
+        
+        $eliminarArea = DB::Insert(
+            'DELETE FROM Areas WHERE id = ?',
+            [$idArea]
+        );
+        return $eliminarArea;
+    }
+
     public static function ListarCargos($idEmpresa)
     {
         DB::setDefaultConnection("mysql-goforagile_admin");
@@ -91,10 +109,10 @@ class GoForAgileAdmin extends Model
         return $Cargos;
     }
 
-    public static function BuscarNombreCargoUpd($nombreCargo, $id)
+    public static function BuscarNombreCargoUpd($nombreCargo, $id, $idEmpresa)
     {
         DB::setDefaultConnection("mysql-goforagile_admin");
-        $Cargos = DB::Select("SELECT * FROM Cargos WHERE nombre = '$nombreCargo' AND id NOT IN ($id)");
+        $Cargos = DB::Select("SELECT * FROM Cargos WHERE nombre = '$nombreCargo' AND id NOT IN ($id) AND id_empresa = $idEmpresa");
         return $Cargos;
     }
 
@@ -121,6 +139,24 @@ class GoForAgileAdmin extends Model
             [$nombreCargo, $area, $nivel_jerarquico, $estado, $fecha_sistema, $id]
         );
         return $crearCargo;
+    }
+
+    public static function BuscarNombreCargoId($id)
+    {
+        DB::setDefaultConnection("mysql-goforagile_admin");
+        $Cargos = DB::Select("SELECT * FROM Cargos WHERE id = $id");
+        return $Cargos;
+    }
+
+    public static function EliminarCargo($idCargo, $idEmpresa, $idUser){
+        DB::setDefaultConnection("mysql-goforagile_admin");
+        date_default_timezone_set('America/Bogota');
+        
+        $eliminarCargo = DB::Insert(
+            'DELETE FROM Cargos WHERE id = ?',
+            [$idCargo]
+        );
+        return $eliminarCargo;
     }
 
     // EMPLEADOS

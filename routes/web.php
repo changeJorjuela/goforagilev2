@@ -53,7 +53,7 @@ Route::group(['middleware' => 'revalidate'], function () {
         // Administración
         Route::get('areas', [AdministradorController::class, 'Areas'])->name('areas');
         Route::get('cargueMasivo', [AdministradorController::class, 'CargueMasivo'])->name('cargueMasivo');
-        Route::get('cargos', [AdministradorController::class, 'Cargos'])->name('cargos');
+        Route::get('cargos', [AdministradorController::class, 'Cargos'])->name('cargos');        
 
         // OKRS
         Route::get('okrsOrganizacion', [OkrsController::class, 'OkrsOrganizacion'])->name('okrsOrganizacion');
@@ -118,6 +118,7 @@ Route::group(['middleware' => 'revalidate'], function () {
     Route::post('actualizarArea', [AdminController::class, 'ActualizarArea'])->name('actualizarArea');
     Route::post('crearCargo', [AdminController::class, 'CrearCargo'])->name('crearCargo');
     Route::post('actualizarCargo', [AdminController::class, 'ActualizarCargo'])->name('actualizarCargo');
+    Route::post('eliminarCargo', [AdminController::class, 'EliminarCargo'])->name('eliminarCargo');
     
 
     // OKRS

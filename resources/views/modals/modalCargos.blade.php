@@ -1,8 +1,8 @@
-<div class="modal" id="cargo_new" tabindex="-1" role="dialog" aria-labelledby="cargo_newLabel2" aria-hidden="true">
+<div class="modal" id="cargo_new" tabindex="-1" role="dialog" aria-labelledby="cargo_newLabel1" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel2">Crear Cargo</h5>
+                <h5 class="modal-title" id="exampleModalLabel1">Crear Cargo</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <!-- <span aria-hidden="true">×</span> -->
                     <span class="icon-cross"></span>
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
                 <button type="submit" class="btn btn-agile">Crear Cargo</button>
             </div>
             {!! Form::close() !!}
@@ -90,6 +90,35 @@
                 <button type="submit" class="btn btn-agile">Actualizar Cargo</button>
             </div>
             {!! Form::close() !!}
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="cargo_delete" tabindex="-1" role="dialog" aria-labelledby="cargo_deleteLabel3" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel3">Eliminar Cargo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <!-- <span aria-hidden="true">×</span> -->
+                    <span class="icon-cross"></span>
+                </button>
+            </div>
+            {!! Form::open(['url' => 'eliminarCargo', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-cargo_new']) !!}
+            @csrf
+            <input type="hidden" name="id_cargo_delete" id="idCargo_delete">
+            <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <p id="textoModal">Está a punto de eliminar un cargo, esta acción es irreversible ¿está seguro?</p>
+                </div>
+            </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-danger">Eliminar Cargo</button>
+            </div>
+            {!! Form::close() !!}   
         </div>
     </div>
 </div>

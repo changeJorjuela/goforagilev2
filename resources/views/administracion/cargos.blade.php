@@ -55,7 +55,8 @@ Cargos
                             <td>{{$value['nombre_cargo']}}</td>
                             <td>{{$value['nivel_jerarquico']}}</td>
                             <td><span class="{{$value['label']}}" id="estadoLabel"><b>{{$value['estado']}}</b></span></td>
-                            <td><a href="#" class="btn btn-warning" title="Editar" data-toggle="modal" data-target="#cargo_upd" onclick="obtener_datos_cargo('{{$value['id']}}');" id="tableEditButton"><i class="icon-pencil2"></i></a></td>
+                            <td><a href="#" class="btn btn-warning" title="Editar" data-toggle="modal" data-target="#cargo_upd" onclick="obtener_datos_cargo('{{$value['id']}}');" id="tableEditButton"><i class="icon-pencil2"></i></a>
+                            <a href="#" class="btn btn-danger" title="Eliminar" data-toggle="modal" data-target="#cargo_delete" onclick="obtener_datos_cargo('{{$value['id']}}');" id="tableDeleteButton"><i class="icon-trash"></i></a></td>
                             <input type="hidden" value="{{$value['id']}}" id="id{{$value['id']}}">
                             <input type="hidden" value="{{$value['nombre_cargo']}}" id="nombre_cargo{{$value['id']}}">
                             <input type="hidden" value="{{$value['nivel_jerarquico']}}" id="nivel_jerarquico{{$value['id']}}">

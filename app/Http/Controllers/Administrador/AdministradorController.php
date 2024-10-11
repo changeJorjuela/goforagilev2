@@ -11,6 +11,12 @@ use App\Models\GoForAgileAdmin;
 
 class AdministradorController extends Controller
 {
+    /**
+     * Funcion que dirige al dashboard del administrador
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 11/10/2024
+     * @version 1.0
+     */
     public function Home()
     {
         Session::put('NombreRol', strtoupper('Administrador'));
@@ -20,19 +26,14 @@ class AdministradorController extends Controller
         return view('reportes.consolidadoGeneral');
     }
 
+    /**
+     * Funcion que dirige al módulo de áreas
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 11/10/2024
+     * @version 1.0
+     */
     public function Areas()
     {
-        // $RolUser = (int)Session::get('role_plataforma');
-        // if ($RolUser === 0) {
-        //     return Redirect::to('/');
-        // } else {
-        //     if ($RolUser != 1) {
-        //         if ($RolUser == 2) {
-        //             return Redirect::to('lider/home');
-        //         } else {
-        //             return Redirect::to('colaborador/home');
-        //         }
-        //     } else {
         $ListarAreas = GoForAgileAdmin::ListarAreas((int)Session::get('id_empresa'));
         $Areas = array();
         $cont = $num = 1;
@@ -65,15 +66,26 @@ class AdministradorController extends Controller
         $Estado[1]  = 'Activo';
         $Estado[2]  = 'Inactivo';
         return view('administracion/areas', ['Estado' => $Estado, 'Areas' => $Areas, 'AreasPadre' => $AreasPadre]);
-        //     }
-        // }
+
     }
 
+    /**
+     * Funcion que dirige al módulo de cargue masivo de colaboradores
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 11/10/2024
+     * @version 1.0
+     */
     public function CargueMasivo()
     {
         return view('administracion/cargueMasivo');
     }
 
+    /**
+     * Funcion que dirige al módulo de cargos
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 11/10/2024
+     * @version 1.0
+     */
     public function Cargos()
     {
         $ListarCargos = GoForAgileAdmin::ListarCargos((int)Session::get('id_empresa'));
