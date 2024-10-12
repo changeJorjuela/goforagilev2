@@ -78,9 +78,9 @@ Colaboradores
                             <td>{{$value['nombre_rol']}}</td>
                             <td><span class="{{$value['label']}}" id="estadoLabel"><b>{{$value['estado']}}</b></span></td>
                             @if(Session::get('id_empresa') == 1)
-                            <td><a href="#" class="btn btn-warning" title="Editar" data-toggle="modal" data-target="#colaboradorPc_upd" onclick="obtener_datos_colaborador ('{{$value['id']}}');" id="tableEditButton"><i class="icon-pencil2"></i></a></td>
+                            <td><a href="#" class="btn btn-warning" title="Editar" data-toggle="modal" data-target="#colaboradorPc_upd" onclick="obtener_datos_colaborador('{{$value['id']}}');" id="tableEditButton"><i class="icon-pencil2"></i></a></td>
                             @else
-                            <td><a href="#" class="btn btn-warning" title="Editar" data-toggle="modal" data-target="#colaborador_upd" onclick="obtener_datos_colaborador ('{{$value['id']}}');" id="tableEditButton"><i class="icon-pencil2"></i></a></td>
+                            <td><a href="#" class="btn btn-warning" title="Editar" data-toggle="modal" data-target="#colaborador_upd" onclick="obtener_datos_colaborador('{{$value['id']}}');" id="tableEditButton"><i class="icon-pencil2"></i></a></td>
                             @endif
                             <input type="hidden" value="{{$value['id']}}" id="id{{$value['id']}}">
                             <input type="hidden" value="{{$value['id_area']}}" id="id_area{{$value['id']}}">
@@ -114,12 +114,13 @@ Colaboradores
         </div>
     </div>
 </div>
+@endsection
+
 @if(Session::get('id_empresa') == 1)
 @include("modals.modalColaboradoresPC")
 @else
 @include("modals.modalColaboradores")
 @endif
-@endsection
 
 @section('scripts')
 
@@ -130,19 +131,20 @@ Colaboradores
         $("#menuColaboradores").addClass("current-page");
         $('.js-example-basic-single').select2();
     });
-
-    @if(session("mensaje"))
-    toastr.success("{{ session("mensaje") }}");
-    @endif
-
-    @if(session("precaucion"))
-    toastr.warning("{{ session("precaucion") }}");
-    @endif
-
-    @if(count($errors) > 0)
-    @foreach($errors - > all() as $error)
-    toastr.error("{{ $error }}");
-    @endforeach
-    @endif
 </script>
+<script>
+        @if (session("mensaje"))
+            toastr.success("{{ session("mensaje") }}");
+        @endif
+
+        @if (session("precaucion"))
+            toastr.warning("{{ session("precaucion") }}");
+        @endif
+
+        @if (count($errors) > 0)
+            @foreach($errors -> all() as $error)
+                toastr.error("{{ $error }}");
+            @endforeach
+        @endif
+    </script>
 @endsection

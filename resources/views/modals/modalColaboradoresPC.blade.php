@@ -24,7 +24,7 @@
                         </div>
                         <div class="col-md-2">
                             <label for="genero" class="col-form-label">Genero</label>
-                            {!! Form::select('genero',$Genero,null,['class'=>'js-example-basic-single form-control','id'=>'genero','style'=>'width: 100%;']) !!}
+                            {!! Form::select('genero',$Genero,null,['class'=>'form-control','id'=>'genero','style'=>'width: 100%;']) !!}
                         </div>
                         <div class="col-md-2">
                             <label for="antiguedad_anios">Antiguedad Años</label>
@@ -36,7 +36,36 @@
                         </div>
                     </div>
                 </div>
-                
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="antiguedad_dias">Antiguedad Días</label>
+                            {!! Form::text('antiguedad_dias',null,['class'=>'form-control','id'=>'antiguedad_dias','placeholder'=>'Días']) !!}
+                        </div>
+                        <div class="col-md-2">
+                            <label for="correo">Correo Empresarial *</label>
+                            {!! Form::text('correo',null,['class'=>'form-control','id'=>'correo','placeholder'=>'Correo Empresarial','required']) !!}
+                        </div>
+                        <div class="col-md-2">
+                            <label for="correo_personal">Correo Personal</label>
+                            {!! Form::text('correo_personal',null,['class'=>'form-control','id'=>'correo_personal','placeholder'=>'Correo Personal'']) !!}
+                        </div>
+                        <div class="col-md-2">
+                            <label for="telefono_movil">Teléfono Móvil</label>
+                            {!! Form::text('telefono_movil',null,['class'=>'form-control','id'=>'telefono_movil','placeholder'=>'Teléfono Móvil'']) !!}
+                        </div>
+                        <div class="col-md-2">
+                            <label for="telefono_fijo">Teléfono Fijo</label>
+                            {!! Form::text('telefono_fijo',null,['class'=>'form-control','id'=>'telefono_fijo','placeholder'=>'Teléfono Fijo'']) !!}
+                        </div>
+                        <div class="col-md-2">
+                            <label for="compania">Compañia</label>
+                            {!! Form::text('compania',null,['class'=>'form-control','id'=>'compania','placeholder'=>'Compañia'']) !!}
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
@@ -46,4 +75,3 @@
         </div>
     </div>
 </div>
-
