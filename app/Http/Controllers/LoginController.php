@@ -133,7 +133,7 @@ class LoginController extends Controller
                             Session::put('role_plataforma', 3);                            
                         }
                         Session::put('estado', $estado);
-                        $Rol = GoForAgileAdmin::ListarRoles($idRol);
+                        $Rol = GoForAgileAdmin::ListarRolesId($idRol);
                         foreach($Rol as $valor){
                             $NombreRol = $valor->nombre;
                         }

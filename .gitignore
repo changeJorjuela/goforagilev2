@@ -10,5 +10,4 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-/recursos/*.mp4
-/recursos/*.MP4
+/recursos

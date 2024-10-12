@@ -39,7 +39,7 @@ class AdminController extends Controller
                 array_push($verrors, 'Nombre de area ya existe');
                 return Redirect::to($url . 'areas')->withErrors(['errors' => $verrors])->withInput();
             } else {
-                $CrearArea = GoForAgileAdmin::CrearArea($nombreArea, $padre, $jerarquia, (int)Session::get('id_empresa'));
+                $CrearArea = GoForAgileAdmin::CrearArea($nombreArea, $padre, $jerarquia, (int)Session::get('id_empresa'),(int)Session::get('id_user'));
                 if ($CrearArea) {
                     $verrors = 'Se creo el área ' . $nombreArea . ' con éxito.';
                     return Redirect::to($url . 'areas')->with('mensaje', $verrors);
@@ -84,7 +84,7 @@ class AdminController extends Controller
                 array_push($verrors, 'Nombre de area ya existe');
                 return Redirect::to($url . 'areas')->withErrors(['errors' => $verrors])->withInput();
             } else {
-                $ActualizarArea = GoForAgileAdmin::ActualizarArea($nombreArea, $padre, $jerarquia, $estado, $idArea);
+                $ActualizarArea = GoForAgileAdmin::ActualizarArea($nombreArea, $padre, $jerarquia, $estado, $idArea,(int)Session::get('id_empresa'),(int)Session::get('id_user'));
                 if ($ActualizarArea) {
                     $verrors = 'Se actualizo el área ' . $nombreArea . ' con éxito.';
                     return Redirect::to($url . 'areas')->with('mensaje', $verrors);
@@ -155,7 +155,7 @@ class AdminController extends Controller
                 array_push($verrors, 'Nombre de cargo ya existe');
                 return Redirect::to($url . 'cargos')->withErrors(['errors' => $verrors])->withInput();
             } else {
-                $CrearArea = GoForAgileAdmin::CrearCargo($nombreCargo, $area, $nivelJerarquico, (int)Session::get('id_empresa'));
+                $CrearArea = GoForAgileAdmin::CrearCargo($nombreCargo, $area, $nivelJerarquico, (int)Session::get('id_empresa'),(int)Session::get('id_user'));
                 if ($CrearArea) {
                     $verrors = 'Se creo el cargo ' . $nombreCargo . ' con éxito.';
                     return Redirect::to($url . 'cargos')->with('mensaje', $verrors);
@@ -200,7 +200,7 @@ class AdminController extends Controller
                 array_push($verrors, 'Nombre de cargo ya existe');
                 return Redirect::to($url . 'cargos')->withErrors(['errors' => $verrors])->withInput();
             } else {
-                $ActualizarArea = GoForAgileAdmin::ActualizarCargo($nombreCargo, $area, $nivelJerarquico, $estado, $idCargo);
+                $ActualizarArea = GoForAgileAdmin::ActualizarCargo($nombreCargo, $area, $nivelJerarquico, $estado, $idCargo,(int)Session::get('id_empresa'),(int)Session::get('id_user'));
                 if ($ActualizarArea) {
                     $verrors = 'Se actualizo el cargo ' . $nombreCargo . ' con éxito.';
                     return Redirect::to($url . 'cargos')->with('mensaje', $verrors);

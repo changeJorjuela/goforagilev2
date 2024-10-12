@@ -10,13 +10,16 @@
             <a href='areas' id="menuAreas">Áreas</a>
         </li>
         <li>
-            <a href='cargueMasivo' id="menuCargueMasivo">Cargar Masivo</a>
-        </li>
+            <a href='auditoriaGestion' id="menuAuditoriaGFA">Auditoria Gestión GFA</a>
+        </li>        
         <li>
             <a href='cargos' id="menuCargos">Cargos</a>
         </li>
         <li>
-            <a href="modals.html">Colaboradores</a>
+            <a href='cargueMasivo' id="menuCargueMasivo">Cargue Masivo</a>
+        </li>
+        <li>
+            <a href="colaboradores" id="menuColaboradores">Colaboradores</a>
         </li>
         <li>
             <a href='accordion.html'>Eliminar Masivo</a>

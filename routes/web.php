@@ -52,8 +52,10 @@ Route::group(['middleware' => 'revalidate'], function () {
         Artisan::call('cache:clear');
         // Administración
         Route::get('areas', [AdministradorController::class, 'Areas'])->name('areas');
+        Route::get('auditoriaGestion', [AdministradorController::class, 'AuditoriaGestion'])->name('auditoriaGestion');
         Route::get('cargueMasivo', [AdministradorController::class, 'CargueMasivo'])->name('cargueMasivo');
-        Route::get('cargos', [AdministradorController::class, 'Cargos'])->name('cargos');        
+        Route::get('cargos', [AdministradorController::class, 'Cargos'])->name('cargos');
+        Route::get('colaboradores', [AdministradorController::class, 'Colaboradores'])->name('colaboradores');     
 
         // OKRS
         Route::get('okrsOrganizacion', [OkrsController::class, 'OkrsOrganizacion'])->name('okrsOrganizacion');
