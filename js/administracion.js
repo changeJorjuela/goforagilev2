@@ -288,3 +288,16 @@ function obtener_datos_cargo(id) {
     $("#mod_estado").val(Estado);
 }
 
+$('#foto').change(function () {
+    var clone = $(this).clone();
+    clone.attr('id', 'foto1');
+    clone.attr('name', 'foto1');
+    $('#field2_area').html(clone);
+});
+
+$('#mod_foto_upd').change(function () {
+    var clone = $(this).clone();
+    clone.attr('id', 'foto2');
+    clone.attr('name', 'foto2');
+    $('#field2_area1').html(clone);
+});

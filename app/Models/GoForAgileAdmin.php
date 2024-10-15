@@ -273,6 +273,20 @@ class GoForAgileAdmin extends Model
         return $ep;
     }
 
+    public static function ListarEEActivo($idEmpresa)
+    {
+        DB::setDefaultConnection("mysql-goforagile_admin");
+        $ep = DB::Select("SELECT * FROM Estructura_Empresa WHERE id_empresa = $idEmpresa AND estado = 1");
+        return $ep;
+    }
+
+    public static function ListarUOActivo($idEmpresa)
+    {
+        DB::setDefaultConnection("mysql-goforagile_admin");
+        $ep = DB::Select("SELECT * FROM Estructura_Empresa WHERE id_empresa = $idEmpresa AND estado = 1 ORDER BY unidad_organizativa");
+        return $ep;
+    }
+
     public static function ListarEPId($id)
     {
         DB::setDefaultConnection("mysql-goforagile_admin");

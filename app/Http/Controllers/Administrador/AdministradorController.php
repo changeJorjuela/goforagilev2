@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\GoForAgileAdmin;
+use Intervention\Image\Facades\Image;
+use Spatie\ImageOptimizer\OptimizerChainFactory;
 
 class AdministradorController extends Controller
 {
@@ -276,7 +278,12 @@ class AdministradorController extends Controller
             $Colaboradores[$cont]['id_posicion'] = $value->id_posicion;
             $Colaboradores[$cont]['password'] = $value->password;
             $Colaboradores[$cont]['foto'] = $value->foto;
-            $Colaboradores[$cont]['foto_tabla'] = '<img loading="lazy" src="../recursos/' . $value->foto . '" class="profile-thumb" title="' . $value->nombre . '" style="width:50px;height:50px;border-radius: 50%;" >';
+            if($value->foto){
+                $Colaboradores[$cont]['foto_tabla'] = '<img loading="lazy" src="../recursos/' . $value->foto . '" class="profile-thumb" title="' . $value->nombre . '" style="width:50px;height:50px;border-radius:50%;" >';
+            }else{
+                $Colaboradores[$cont]['foto_tabla'] = '';
+            }
+            
 
             $cont++;
         }
@@ -302,37 +309,51 @@ class AdministradorController extends Controller
         foreach ($ListarAreas as $row) {
             $Areas[$row->id] = $row->nombre;
         }
+        
         $ListarVp = GoForAgileAdmin::ListarVpActivo((int)Session::get('id_empresa'));
         $Vp = array();
         $Vp[''] = 'Seleccione Vicepresidencia..';
         foreach ($ListarVp as $row) {
             $Vp[$row->id] = $row->nombre;
         }
+
+        $ListarEE = GoForAgileAdmin::ListarUOActivo((int)Session::get('id_empresa'));
+        $EE = array();
+        $EE[''] = 'Seleccione Unidad Organizativa..';
+        foreach ($ListarEE as $row) {
+            $EE[$row->id] = $row->unidad_organizativa;
+        }
+
         $ListarRol = GoForAgileAdmin::ListarRoles();
         $Roles = array();
         $Roles[''] = 'Seleccione Rol..';
         foreach ($ListarRol as $row) {
             $Roles[$row->id] = $row->nombre;
         }
+
         $ListarNJ = GoForAgileAdmin::ListarNivelJ((int)Session::get('id_empresa'));
         $NivelJ = array();
         $NivelJ[''] = 'Seleccione Nivel Jerárquico..';
         foreach ($ListarNJ as $row) {
             $NivelJ[$row->id] = $row->nombre;
         }
+
         $Estado = array();
         $Estado[''] = 'Seleccione:';
         $Estado[1]  = 'Activo';
         $Estado[2]  = 'Inactivo';
+
         $Genero = array();
         $Genero[''] = 'Seleccione:';
         $Genero['Femenino']  = 'Femenino';
         $Genero['Masculino']  = 'Masculino';
+
         return view('administracion/colaboradores', [
             'Estado' => $Estado,
             'Colaboradores' => $Colaboradores,
             'Areas' => $Areas,
             'Vp' => $Vp,
+            'EE' => $EE,
             'Roles' => $Roles,
             'NivelJ' => $NivelJ,
             'Cargos' => $Cargos,

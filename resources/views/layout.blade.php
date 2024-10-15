@@ -73,48 +73,48 @@
     <!-- <script src="{{asset("js/jquery.min.js")}}"></script> -->
     <!-- <script src="{{asset("js/jquery-migrate.min.js")}}"></script> -->
     <script src="{{asset("template/js/jquery.js")}}"></script>
-    <script src="{{asset("template/js/bootstrap.min.js")}}"></script>
-    <script src="{{asset("template/vendor/unifyMenu/unifyMenu.js")}}"></script>
-    <script src="{{asset("template/vendor/onoffcanvas/onoffcanvas.js")}}"></script>
-    <script src="{{asset("template/js/moment.js")}}"></script>
+    <script src="{{asset("template/js/bootstrap.min.js")}}" defer></script>
+    <script src="{{asset("template/vendor/unifyMenu/unifyMenu.js")}}" defer></script>
+    <script src="{{asset("template/vendor/onoffcanvas/onoffcanvas.js")}}" defer></script>
+    <script src="{{asset("template/js/moment.js")}}" defer></script>
 
     <!-- Peity JS -->
-    <script src="{{asset("template/vendor/peity/peity.min.js")}}"></script>
-    <script src="{{asset("template/vendor/peity/custom-peity.js")}}"></script>
+    <script src="{{asset("template/vendor/peity/peity.min.js")}}" defer></script>
+    <script src="{{asset("template/vendor/peity/custom-peity.js")}}" defer></script>
 
     <!-- Circliful js -->
-    <script src="{{asset("template/vendor/circliful/circliful.min.js")}}"></script>
-    <script src="{{asset("template/vendor/circliful/circliful.custom.js")}}"></script>
+    <script src="{{asset("template/vendor/circliful/circliful.min.js")}}" defer></script>
+    <script src="{{asset("template/vendor/circliful/circliful.custom.js")}}" defer></script>
 
     <!-- Chartist JS -->
-    <script src="{{asset("template/vendor/chartist/js/chartist.min.js")}}"></script>
-    <!-- <script src="{{asset("template/vendor/chartist/js/chartist-tooltip.js")}}"></script> -->
-    <!-- <script src="{{asset("template/vendor/chartist/js/custom/custom-area-chart2.js")}}"></script> -->
-    <!-- <script src="{{asset("template/vendor/chartist/js/custom/custom-compare-line.js")}}"></script> -->
+    <script src="{{asset("template/vendor/chartist/js/chartist.min.js")}}" defer></script>
+    <!-- <script src="{{asset("template/vendor/chartist/js/chartist-tooltip.js")}}" defer></script> -->
+    <!-- <script src="{{asset("template/vendor/chartist/js/custom/custom-area-chart2.js")}}" defer></script> -->
+    <!-- <script src="{{asset("template/vendor/chartist/js/custom/custom-compare-line.js")}}" defer></script> -->
 
     <!-- Slimscroll JS -->
-    <script src="{{asset("template/vendor/slimscroll/slimscroll.min.js")}}"></script>
-    <script src="{{asset("template/vendor/slimscroll/custom-scrollbar.js")}}"></script>
+    <script src="{{asset("template/vendor/slimscroll/slimscroll.min.js")}}" defer></script>
+    <script src="{{asset("template/vendor/slimscroll/custom-scrollbar.js")}}" defer></script>
 
     <!-- Datatables -->
-    <script src="{{asset("DataTables/bootstrap.bundle.min.js")}}"></script>
-    <script src="{{asset("DataTables/dataTables.js")}}"></script>
-    <script src="{{asset("DataTables/dataTables.bootstrap5.js")}}"></script>
-    <script src="{{asset("DataTables/dataTables.responsive.js")}}"></script>
-    <script src="{{asset("DataTables/responsive.bootstrap5.js")}}"></script>
-    <script src="{{asset("DataTables/dataTables.buttons.js")}}"></script>
-    <script src="{{asset("DataTables/buttons.bootstrap5.js")}}"></script>
-    <script src="{{asset("DataTables/jszip.min.js")}}"></script>
-    <script src="{{asset("DataTables/pdfmake.min.js")}}"></script>
-    <script src="{{asset("DataTables/vfs_fonts.js")}}"></script>
-    <script src="{{asset("DataTables/buttons.html5.min.js")}}"></script>
-    <script src="{{asset("DataTables/buttons.print.min.js")}}"></script>
-    <script src="{{asset("DataTables/buttons.colVis.min.js")}}"></script>
+    <script src="{{asset("DataTables/bootstrap.bundle.min.js")}}" defer></script>
+    <script src="{{asset("DataTables/dataTables.js")}}" defer></script>
+    <script src="{{asset("DataTables/dataTables.bootstrap5.js")}}" defer></script>
+    <script src="{{asset("DataTables/dataTables.responsive.js")}}" defer></script>
+    <script src="{{asset("DataTables/responsive.bootstrap5.js")}}" defer></script>
+    <script src="{{asset("DataTables/dataTables.buttons.js")}}" defer></script>
+    <script src="{{asset("DataTables/buttons.bootstrap5.js")}}" defer></script>
+    <script src="{{asset("DataTables/jszip.min.js")}}" defer></script>
+    <script src="{{asset("DataTables/pdfmake.min.js")}}" defer></script>
+    <script src="{{asset("DataTables/vfs_fonts.js")}}" defer></script>
+    <script src="{{asset("DataTables/buttons.html5.min.js")}}" defer></script>
+    <script src="{{asset("DataTables/buttons.print.min.js")}}" defer></script>
+    <script src="{{asset("DataTables/buttons.colVis.min.js")}}" defer></script>
     
-    <script src="{{asset("js/administracion.js")}}"></script>
-    <script src="{{asset("js/select2.min.js")}}"></script>
-    <script src="{{asset("js/toastr.min.js")}}"></script>
-    <script src="{{asset("template/js/common.js")}}"></script>
+    <script src="{{asset("js/administracion.js")}}" defer></script>
+    <script src="{{asset("js/select2.min.js")}}" defer></script>
+    <script src="{{asset("js/toastr.min.js")}}" defer></script>
+    <script src="{{asset("template/js/common.js")}}" defer></script>
 
 
     @yield('scripts')
