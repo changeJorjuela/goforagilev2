@@ -34,7 +34,7 @@
     <link rel="stylesheet" href="{{asset("DataTables/responsive.bootstrap5.css")}}">
     <link rel="stylesheet" href="{{asset("DataTables/buttons.bootstrap5.css")}}">
     <!-- <link rel="stylesheet" href="{{asset("DataTables/datatables-buttons/css/buttons.bootstrap4.min.css")}}"> -->
-    <link rel="stylesheet" href="{{asset("css/toastr.min.css")}}">   
+    <link rel="stylesheet" href="{{asset("css/toastr.min.css")}}">
 
     <!-- Select -->
     <link rel="stylesheet" href="{{asset("css/select2.min.css")}}">
@@ -78,7 +78,7 @@
     <script src="{{asset("template/vendor/unifyMenu/unifyMenu.js")}}" defer></script>
     <script src="{{asset("template/vendor/onoffcanvas/onoffcanvas.js")}}" defer></script>
     <script src="{{asset("template/js/moment.js")}}" defer></script>
-    
+
     <!-- Peity JS -->
     <script src="{{asset("template/vendor/peity/peity.min.js")}}" defer></script>
     <script src="{{asset("template/vendor/peity/custom-peity.js")}}" defer></script>
@@ -111,7 +111,7 @@
     <script src="{{asset("DataTables/buttons.html5.min.js")}}" defer></script>
     <script src="{{asset("DataTables/buttons.print.min.js")}}" defer></script>
     <script src="{{asset("DataTables/buttons.colVis.min.js")}}" defer></script>
-    
+
     <script src="{{asset("js/administracion.js")}}" defer></script>
     <script src="{{asset("js/select2.min.js")}}" defer></script>
     <script src="{{asset("js/toastr.min.js")}}" defer></script>
@@ -123,6 +123,10 @@
         $(document).ready(function() {
             irArriba();
         }); //Hacia arriba
+
+        $(document).ready(function() {
+            $('.multiples_responsables').select2();
+        });
 
         function irArriba() {
             $('.ir-arriba').click(function() {
