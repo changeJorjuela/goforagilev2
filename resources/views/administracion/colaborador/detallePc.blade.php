@@ -5,35 +5,53 @@
 @endpush
 
 @section('titulo')
-Cargue Masivo
+Colaborador
 @endsection
 
 @section('headerPage')
 <header class="main-heading">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-10">
                 <div class="page-icon">
                     <i class="icon-network"></i>
                 </div>
                 <div class="page-title">
-                    <h4>Cargue Masivo</h4>
+                    <h4>Crear / Editar Colaborador</h4>
                 </div>
             </div>
-
+            <div class="col-sm-2" style="text-align: end;">
+                <a href="colaboradores" class="btn btn-primary">Volver</a>
+            </div>
         </div>
     </div>
 </header>
 @endsection
 
 @section('contenido')
+
 <div class="row guttes">
     <div class="col-sm-12">
         <div class="card">
-            
+            <div class="card-body">
+                <form action="editarColaboradorPC" method="post">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="documento">Documento / Código Interno *</label>
+                                <input type="text" name="documento" id="documento" class="form-control">
+                            </div>
+                            <div class="col-md-3"></div>
+                            <div class="col-md-3"></div>
+                            <div class="col-md-3"></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>
+
 @endsection
 
 @push('scripts')
@@ -42,7 +60,8 @@ Cargue Masivo
     $(document).ready(function() {
         $("#lateralAdmin").addClass("active selected");
         $("#navAdmin").addClass("in");
-        $("#menuCargueMasivo").addClass("current-page");
+        $("#menuColaboradores").addClass("current-page");
+        $('.js-example-basic-single').select2();
     });
 </script>
 <script>

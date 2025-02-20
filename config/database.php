@@ -81,6 +81,7 @@ return [
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
+            'persistent' => false,
         ],
 
         'mysql-goforagile_okrs'=> [
@@ -101,6 +102,7 @@ return [
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
+            'persistent' => false,
         ],
 
         'mysql-goforagile_endomarketing'=> [
@@ -121,6 +123,7 @@ return [
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
+            'persistent' => false,
         ],
 
         'mysql-goforagile_competencias'=> [
@@ -141,6 +144,7 @@ return [
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
+            'persistent' => false,
         ],
 
         'mysql-goforagile_kpis'=> [
@@ -161,6 +165,7 @@ return [
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
+            'persistent' => false,
         ],
 
         'pgsql' => [

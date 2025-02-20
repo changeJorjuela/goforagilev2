@@ -1,8 +1,8 @@
 @extends("layout")
 
-@section('styles')
+@push('styles')
 
-@endsection
+@endpush
 
 @section('titulo')
 Auditoria Gestión GFA
@@ -70,7 +70,7 @@ Auditoria Gestión GFA
 </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
 
 <script>
     $(document).ready(function() {
@@ -81,4 +81,4 @@ Auditoria Gestión GFA
     });
 </script>
 
-@endsection
+@endpush

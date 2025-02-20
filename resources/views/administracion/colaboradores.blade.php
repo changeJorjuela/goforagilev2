@@ -1,8 +1,8 @@
 @extends("layout")
 
-@section('styles')
+@push('styles')
 
-@endsection
+@endpush
 
 @section('titulo')
 Colaboradores
@@ -34,9 +34,9 @@ Colaboradores
                 <div class="col-sm-12">
                     <div class="right-actions">
                         @if(Session::get('id_empresa') == 1)
-                        <button type="button" class="btn btn-agile btn-rounded" data-toggle="modal" data-target="#colaboradorPc_new" data-whatever="@mdo"><i class="icon-plus"></i>&nbsp;&nbsp;Crear Colaborador</button>
+                        <a href="detalleColaboradorPc" class="btn btn-agile btn-rounded"><i class="icon-plus"></i>&nbsp;&nbsp;Crear Colaborador</a>
                         @else
-                        <button type="button" class="btn btn-agile btn-rounded" data-toggle="modal" data-target="#colaborador_new" data-whatever="@mdo"><i class="icon-plus"></i>&nbsp;&nbsp;Crear Colaborador</button>
+                        <a href="detalleColaborador" class="btn btn-agile btn-rounded"><i class="icon-plus"></i>&nbsp;&nbsp;Crear Colaborador</a>
                         @endif
                     </div>
                 </div>
@@ -78,34 +78,11 @@ Colaboradores
                             <td>{{$value['nombre_rol']}}</td>
                             <td><span class="{{$value['label']}}" id="estadoLabel"><b>{{$value['estado']}}</b></span></td>
                             @if(Session::get('id_empresa') == 1)
-                            <td><a href="#" class="btn btn-warning" title="Editar" data-toggle="modal" data-target="#colaboradorPc_upd" onclick="obtener_datos_colaborador('{{$value['id']}}');" id="tableEditButton"><i class="icon-pencil2"></i></a></td>
+                            <td><a href="detalleColaboradorPc?colaborador={{$value['id']}}" class="btn btn-warning" title="Editar" id="tableEditButton"><i class="icon-pencil2"></i></a></td>
                             @else
-                            <td><a href="#" class="btn btn-warning" title="Editar" data-toggle="modal" data-target="#colaborador_upd" onclick="obtener_datos_colaborador('{{$value['id']}}');" id="tableEditButton"><i class="icon-pencil2"></i></a></td>
+                            <td><a href="detalleColaborador?colaborador={{$value['id']}}" class="btn btn-warning" title="Editar" id="tableEditButton"><i class="icon-pencil2"></i></a></td>
                             @endif
-                            <input type="hidden" value="{{$value['id']}}" id="id{{$value['id']}}">
-                            <input type="hidden" value="{{$value['id_area']}}" id="id_area{{$value['id']}}">
-                            <input type="hidden" value="{{$value['id_vp']}}" id="id_vp{{$value['id']}}">
-                            <input type="hidden" value="{{$value['id_cargo']}}" id="id_cargo{{$value['id']}}">
-                            <input type="hidden" value="{{$value['unidad_organizativa']}}" id="unidad_organizativa{{$value['id']}}">
-                            <input type="hidden" value="{{$value['nivel_jerarquico']}}" id="nivel_jerarquico{{$value['id']}}">
-                            <input type="hidden" value="{{$value['id_posicion']}}" id="id_posicion{{$value['id']}}">
-                            <input type="hidden" value="{{$value['id_rol']}}" id="id_rol{{$value['id']}}">
-                            <input type="hidden" value="{{$value['nombre']}}" id="nombre{{$value['id']}}">
-                            <input type="hidden" value="{{$value['documento']}}" id="documento{{$value['id']}}">
-                            <input type="hidden" value="{{$value['correo']}}" id="correo{{$value['id']}}">
-                            <input type="hidden" value="{{$value['correo_personal']}}" id="correo_personal{{$value['id']}}">
-                            <input type="hidden" value="{{$value['genero']}}" id="genero{{$value['id']}}">
-                            <input type="hidden" value="{{$value['antiguedad_anios']}}" id="antiguedad_anios{{$value['id']}}">
-                            <input type="hidden" value="{{$value['antiguedad_meses']}}" id="antiguedad_meses{{$value['id']}}">
-                            <input type="hidden" value="{{$value['antiguedad_dias']}}" id="antiguedad_dias{{$value['id']}}">
-                            <input type="hidden" value="{{$value['telefono_movil']}}" id="telefono_movil{{$value['id']}}">
-                            <input type="hidden" value="{{$value['telefono_fijo']}}" id="telefono_fijo{{$value['id']}}">
-                            <input type="hidden" value="{{$value['compania']}}" id="compania{{$value['id']}}">
-                            <input type="hidden" value="{{$value['unidad_estrategica']}}" id="unidad_estrategica{{$value['id']}}">
-                            <input type="hidden" value="{{$value['password']}}" id="password{{$value['id']}}">
-                            <input type="hidden" value="{{$value['foto']}}" id="foto{{$value['id']}}">
 
-                            <input type="hidden" value="{{$value['estado_activo']}}" id="estado_activo{{$value['id']}}">
                         </tr>
                         @endforeach
                     </tbody>
@@ -116,13 +93,7 @@ Colaboradores
 </div>
 @endsection
 
-@if(Session::get('id_empresa') == 1)
-@include("modals.modalColaboradoresPC")
-@else
-@include("modals.modalColaboradores")
-@endif
-
-@section('scripts')
+@push('scripts')
 
 <script>
     $(document).ready(function() {
@@ -147,4 +118,4 @@ Colaboradores
             @endforeach
         @endif
     </script>
-@endsection
+@endpush

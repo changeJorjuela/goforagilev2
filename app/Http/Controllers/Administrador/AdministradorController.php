@@ -278,87 +278,28 @@ class AdministradorController extends Controller
             $Colaboradores[$cont]['id_posicion'] = $value->id_posicion;
             $Colaboradores[$cont]['password'] = $value->password;
             $Colaboradores[$cont]['foto'] = $value->foto;
-            if($value->foto){
-                $Colaboradores[$cont]['foto_tabla'] = '<img loading="lazy" src="../recursos/' . $value->foto . '" class="profile-thumb" title="' . $value->nombre . '" style="width:50px;height:50px;border-radius:50%;" >';
-            }else{
+            if ($value->foto) {
+                $Colaboradores[$cont]['foto_tabla'] = '<img data-src="../recursos/' . $value->foto . '" class="lazyload profile-thumb" title="' . $value->nombre . '" style="width:50px;height:50px;border-radius:50%;" >';
+            } else {
                 $Colaboradores[$cont]['foto_tabla'] = '';
             }
-            
+
 
             $cont++;
         }
-        $ListarCargos = GoForAgileAdmin::ListarCargosActivo((int)Session::get('id_empresa'));
-        $Cargos = array();
-        $Cargos[''] = 'Seleccione CArgo..';
-        foreach ($ListarCargos as $row) {
-            $Cargos[$row->id] = $row->nombre;
-        }
-        $ListarPosiciones = GoForAgileAdmin::ListarPosicionesActivo((int)Session::get('id_empresa'));
-        $Posiciones = array();
-        $Posiciones[''] = 'Seleccione Posición..';
-        foreach ($ListarPosiciones as $row) {
-            $cargos = GoForAgileAdmin::BuscarNombreCargoId($row->id_cargo);
-            foreach ($cargos as $cargo) {
-                $nombreCargo = $cargo->nombre;
-            }
-            $Posiciones[$row->id] = $nombreCargo;
-        }
-        $ListarAreas = GoForAgileAdmin::ListarAreasActivo((int)Session::get('id_empresa'));
-        $Areas = array();
-        $Areas[''] = 'Seleccione Área..';
-        foreach ($ListarAreas as $row) {
-            $Areas[$row->id] = $row->nombre;
-        }
-        
-        $ListarVp = GoForAgileAdmin::ListarVpActivo((int)Session::get('id_empresa'));
-        $Vp = array();
-        $Vp[''] = 'Seleccione Vicepresidencia..';
-        foreach ($ListarVp as $row) {
-            $Vp[$row->id] = $row->nombre;
-        }
 
-        $ListarEE = GoForAgileAdmin::ListarUOActivo((int)Session::get('id_empresa'));
-        $EE = array();
-        $EE[''] = 'Seleccione Unidad Organizativa..';
-        foreach ($ListarEE as $row) {
-            $EE[$row->id] = $row->unidad_organizativa;
-        }
 
-        $ListarRol = GoForAgileAdmin::ListarRoles();
-        $Roles = array();
-        $Roles[''] = 'Seleccione Rol..';
-        foreach ($ListarRol as $row) {
-            $Roles[$row->id] = $row->nombre;
-        }
+        return view('administracion/colaboradores', ['Colaboradores' => $Colaboradores]);
+    }
 
-        $ListarNJ = GoForAgileAdmin::ListarNivelJ((int)Session::get('id_empresa'));
-        $NivelJ = array();
-        $NivelJ[''] = 'Seleccione Nivel Jerárquico..';
-        foreach ($ListarNJ as $row) {
-            $NivelJ[$row->id] = $row->nombre;
-        }
-
-        $Estado = array();
-        $Estado[''] = 'Seleccione:';
-        $Estado[1]  = 'Activo';
-        $Estado[2]  = 'Inactivo';
-
-        $Genero = array();
-        $Genero[''] = 'Seleccione:';
-        $Genero['Femenino']  = 'Femenino';
-        $Genero['Masculino']  = 'Masculino';
-
-        return view('administracion/colaboradores', [
-            'Estado' => $Estado,
-            'Colaboradores' => $Colaboradores,
-            'Areas' => $Areas,
-            'Vp' => $Vp,
-            'EE' => $EE,
-            'Roles' => $Roles,
-            'NivelJ' => $NivelJ,
-            'Cargos' => $Cargos,
-            'Posiciones' => $Posiciones,
-            'Genero' => $Genero
-        ]);
+    public static function DetalleColaboradorPc(Request $request)
+    {
+        if ($request->query('colaborador')) {
+            dd('1');
+            return view('administracion/colaborador/detallePc');
+        } else {
+            
+            return view('administracion/colaborador/detallePc');
+        }        
     }
 }

@@ -55,7 +55,9 @@ Route::group(['middleware' => 'revalidate'], function () {
         Route::get('auditoriaGestion', [AdministradorController::class, 'AuditoriaGestion'])->name('auditoriaGestion');
         Route::get('cargueMasivo', [AdministradorController::class, 'CargueMasivo'])->name('cargueMasivo');
         Route::get('cargos', [AdministradorController::class, 'Cargos'])->name('cargos');
-        Route::get('colaboradores', [AdministradorController::class, 'Colaboradores'])->name('colaboradores');     
+        Route::get('colaboradores', [AdministradorController::class, 'Colaboradores'])->name('colaboradores');
+        Route::get('detalleColaboradorPc', [AdministradorController::class, 'DetalleColaboradorPc'])->name('detalleColaboradorPc');
+        Route::get('detalleColaborador', [AdministradorController::class, 'DetalleColaborador'])->name('detalleColaborador');     
 
         // OKRS
         Route::get('okrsOrganizacion', [OkrsController::class, 'OkrsOrganizacion'])->name('okrsOrganizacion');

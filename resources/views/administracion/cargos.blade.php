@@ -1,8 +1,8 @@
 @extends("layout")
 
-@section('styles')
+@push('styles')
 
-@endsection
+@endpush
 
 @section('titulo')
 Cargos
@@ -73,7 +73,7 @@ Cargos
 </div>
 @endsection
 @include("modals.modalCargos")
-@section('scripts')
+@push('scripts')
 
 <script>
     $(document).ready(function() {
@@ -98,4 +98,4 @@ Cargos
             @endforeach
         @endif
     </script>
-@endsection
+@endpush

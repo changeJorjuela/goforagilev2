@@ -5,9 +5,9 @@
 Okrs Organización
 @endsection
 
-@section('styles')
+@push('styles')
 <link rel="stylesheet" href="{{asset("css/stylesOkrs.min.css")}}">
-@endsection
+@endpush
 
 @section('headerPage')
 <header class="main-heading">
@@ -110,7 +110,7 @@ Okrs Organización
 @include("modals.modalKrs")
 @include("modals.modalIniciativas")
 @endsection
-@section('scripts')
+@push('scripts')
 <script src="{{asset("js/okrs.min.js")}}"></script>
 <script>
     $(document).ready(function() {
@@ -173,8 +173,7 @@ Okrs Organización
     });
     window.location.hash = "";
     window.location.hash = "";
-</script>
-<script>
+
         @if (session("mensaje"))
             toastr.success("{{ session("mensaje") }}");
         @endif
@@ -189,4 +188,4 @@ Okrs Organización
             @endforeach
         @endif
     </script>
-@endsection
+@endpush

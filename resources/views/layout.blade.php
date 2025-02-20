@@ -39,7 +39,7 @@
     <!-- Select -->
     <link rel="stylesheet" href="{{asset("css/select2.min.css")}}">
     <link rel="stylesheet" href="{{asset("css/select2-bootstrap-5-theme.min.css")}}">
-    @yield('styles')
+    @stack('styles')
 </head>
 
 <body>
@@ -73,11 +73,12 @@
     <!-- <script src="{{asset("js/jquery.min.js")}}"></script> -->
     <!-- <script src="{{asset("js/jquery-migrate.min.js")}}"></script> -->
     <script src="{{asset("template/js/jquery.js")}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js"></script>
     <script src="{{asset("template/js/bootstrap.min.js")}}" defer></script>
     <script src="{{asset("template/vendor/unifyMenu/unifyMenu.js")}}" defer></script>
     <script src="{{asset("template/vendor/onoffcanvas/onoffcanvas.js")}}" defer></script>
     <script src="{{asset("template/js/moment.js")}}" defer></script>
-
+    
     <!-- Peity JS -->
     <script src="{{asset("template/vendor/peity/peity.min.js")}}" defer></script>
     <script src="{{asset("template/vendor/peity/custom-peity.js")}}" defer></script>
@@ -117,7 +118,7 @@
     <script src="{{asset("template/js/common.js")}}" defer></script>
 
 
-    @yield('scripts')
+    @stack('scripts')
     <script>
         $(document).ready(function() {
             irArriba();

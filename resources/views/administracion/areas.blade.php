@@ -1,8 +1,8 @@
 @extends("layout")
 
-@section('styles')
+@push('styles')
 
-@endsection
+@endpush
 
 @section('titulo')
 Áreas
@@ -70,7 +70,7 @@
 </div>
 @endsection
 @include("modals.modalAreas")
-@section('scripts')
+@push('scripts')
 
 <script>
     $(document).ready(function() {
@@ -95,4 +95,4 @@
             @endforeach
         @endif
     </script>
-@endsection
+@endpush

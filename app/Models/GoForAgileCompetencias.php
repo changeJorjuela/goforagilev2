@@ -11,8 +11,8 @@ class GoForAgileCompetencias extends Model
     protected $connection = 'mysql-goforagile_competencias';
 
     public static function BuscarCiclo($idEmpresa){
-        DB::setDefaultConnection('mysql-goforagile_competencias');
-        $ciclo= DB::Select("SELECT * FROM Ciclos WHERE id_empresa = $idEmpresa");        
+        
+        $ciclo= DB::connection('mysql-goforagile_competencias')->select("SELECT * FROM Ciclos WHERE id_empresa = $idEmpresa");        
         return $ciclo;
     }
 }

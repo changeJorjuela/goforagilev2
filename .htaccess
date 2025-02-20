@@ -20,7 +20,7 @@
     RewriteRule ^ index.php [L]
 
     <FilesMatch \\.(jpg|jpeg|png|gif|js|css|svg)$>
-Header set Cache-Control "max-age=864000, public"
+Header set Cache-Control "max-age=31536000, public"
 </FilesMatch>
 </IfModule>
 <IfModule mod_deflate.c>
@@ -36,5 +36,4 @@ Header set Cache-Control "max-age=864000, public"
     ExpiresByType text/css "access plus 1 month"
     ExpiresByType application/javascript "access plus 1 month"
 </IfModule>
-
 Options -Indexes

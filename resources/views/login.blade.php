@@ -27,16 +27,10 @@
             <div class="col-sm-12">
                 {!! Form::open(['url' => 'acceso', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-login']) !!}
                 @csrf
-                <div class="login-container">
+                <div class="login-container" style="width: 450px !important;">
                     <div class="row no-gutters">
                         
-                        <div class="col-xl-7 col-lg-7 col-md-6 col-sm-12">
-                            <div class="login-slider">
-                                <h1 style="font-family: Lato-Black;">Go For Agile</h1>
-                                <h5>El software que está ayudando a las organizaciones a conseguir resultados escalables en su estrategia de negocio, mediante la Metodología&nbsp;OKR&nbsp;(Objetivos y Resultados Claves).</h5>
-                            </div>
-                        </div>
-                        <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12">
+                        <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
                             <div class="login-box">
                                 <div class="input-group mb-2">
                                     <div class="col-md-12" style="text-align: center;">
