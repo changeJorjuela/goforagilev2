@@ -89,14 +89,32 @@ class AdministradorController extends Controller
                 $idVp = $user->unidad_corporativa;
                 $idArea = $user->area;
             }
-            $areas = GoForAgileAdmin::BuscarNombreAreaId($idArea);
-            foreach ($areas as $area) {
-                $nombreArea = $area->nombre;
+            if($idArea){
+                $areas = GoForAgileAdmin::BuscarNombreAreaId($idArea);            
+                if($areas){
+                    foreach ($areas as $area) {
+                        $nombreArea = $area->nombre;
+                    }
+                }else{
+                    $nombreArea = '';
+                }
+            }else{
+                $nombreArea = '';
             }
-            $vicepresidencias = GoForAgileAdmin::BuscarNombreVpId($idVp);
-            foreach ($vicepresidencias as $vp) {
-                $nombreVp = $vp->nombre;
+            
+            if($idVp){
+                $vicepresidencias = GoForAgileAdmin::BuscarNombreVpId($idVp);
+                if($vicepresidencias){
+                    foreach ($vicepresidencias as $vp) {
+                        $nombreVp = $vp->nombre;
+                    }
+                }else{
+                    $nombreVp = '';
+                }
+            }else{
+                $nombreVp = '';
             }
+            
             $Auditoria[$cont]['cont']           = $num++;
             $Auditoria[$cont]['id']             = (int)$value->id;
             $Auditoria[$cont]['usuario']        = $nombreUsuario;
@@ -202,8 +220,7 @@ class AdministradorController extends Controller
             $Colaboradores[$cont]['antiguedad_meses'] = (int)$value->antiguedad_meses;
             $Colaboradores[$cont]['antiguedad_dias'] = (int)$value->antiguedad_dias;
             $Colaboradores[$cont]['id_cargo'] = (int)$value->id_cargo;
-            if ($value->cargo > 0) {
-                $Colaboradores[$cont]['id_cargo'] = (int)$value->id_cargo;
+            if ((int)$value->id_cargo > 0) {
                 $cargos = GoForAgileAdmin::BuscarNombreCargoId($value->id_cargo);
                 foreach ($cargos as $cargo) {
                     $nombreCargo = $cargo->nombre;
@@ -279,7 +296,7 @@ class AdministradorController extends Controller
             $Colaboradores[$cont]['password'] = $value->password;
             $Colaboradores[$cont]['foto'] = $value->foto;
             if ($value->foto) {
-                $Colaboradores[$cont]['foto_tabla'] = '<img data-src="../recursos/' . $value->foto . '" class="lazyload profile-thumb" title="' . $value->nombre . '" style="width:50px;height:50px;border-radius:50%;" >';
+                $Colaboradores[$cont]['foto_tabla'] = '<img data-src="https://www.goforagile.com/recursos/' . $value->foto . '" class="lazyload profile-thumb" title="' . $value->nombre . '" style="width:50px;height:50px;border-radius:50%;" >';
             } else {
                 $Colaboradores[$cont]['foto_tabla'] = '';
             }
@@ -292,14 +309,15 @@ class AdministradorController extends Controller
         return view('administracion/colaboradores', ['Colaboradores' => $Colaboradores]);
     }
 
-    public static function DetalleColaboradorPc(Request $request)
+    public static function DetalleColaborador(Request $request)
     {
-        if ($request->query('colaborador')) {
-            dd('1');
-            return view('administracion/colaborador/detallePc');
-        } else {
+        // if ($request->query('colaborador')) {
+        //     dd('1');
+        //     return view('administracion/colaborador/detalle');
+        // } else {
             
-            return view('administracion/colaborador/detallePc');
-        }        
+        //     return view('administracion/colaborador/detalle');
+        // }    
+        return view('administracion/colaborador/detalle');    
     }
 }

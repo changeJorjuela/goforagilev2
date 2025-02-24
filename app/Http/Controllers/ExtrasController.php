@@ -48,7 +48,7 @@ class ExtrasController extends Controller
 
         $infoProfile = ' <div class="row">
                             <div class="col-md-6" style="text-align: center;align-content: center;">
-                                <img src="../../recursos/' . $foto . '" alt="image" style="width:70%;">                                    
+                                <img src="https://www.goforagile.com/recursos/' . $foto . '" alt="image" style="width:70%;">                                    
                             </div>
                             <div class="col-md-6" style="align-content: center;">
                                 <div class="row">

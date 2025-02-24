@@ -354,8 +354,7 @@ class GoForAgileAdmin extends Model
     }
 
     public static function BuscarNombreVpId($id)
-    {
-        
+    {        
         $Vicepresidencia = DB::connection('mysql-goforagile_admin')->select("SELECT * FROM Vicepresidencia WHERE id = $id");
         return $Vicepresidencia;
     }

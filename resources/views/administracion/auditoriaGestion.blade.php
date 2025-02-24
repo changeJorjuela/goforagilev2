@@ -37,9 +37,7 @@ Auditoria Gestión GFA
                         <tr>
                             <th scope="col" width="15">Nro.</th>
                             <th scope="col">Realizado Por</th>
-                            @if(Session::get('id_empresa') == 1)
                             <th scope="col">Vicepresidencia</th>
-                            @endif
                             <th scope="col">Área</th>
                             <th scope="col">Acción</th>
                             <th scope="col">Descripción de la Acción</th>
@@ -52,9 +50,7 @@ Auditoria Gestión GFA
                         <tr>
                             <td>{{$value['cont']}}</td>
                             <td>{{$value['usuario']}}</td>
-                            @if(Session::get('id_empresa') == 1)
                             <td>{{$value['vp']}}</td>
-                            @endif
                             <td>{{$value['area']}}</td>
                             <td><span class="text-{{$value['label']}}" id="estadoLabel"><b>{{$value['accion']}}</b></span></td>
                             <td>{{$value['descripcion']}}</td>

@@ -16,7 +16,7 @@
             </div>
             <div class="col-md-5 col-sm-3 col-4">
                 <ul class="header-actions">
-                    <li id="textRol" style="padding-top: 5px;">
+                    <li id="textRol" style="padding-top: 10px;">
                         <a href="" id="todos" data-toggle="dropdown" aria-haspopup="true">
                             <h5 id="HeaderRol"><b>{!! Session::get('NombreRol') !!}</b></h5>
                         </a>
@@ -40,7 +40,7 @@
                     </li>
                     <li>
                         <!-- <a class="btn btn-secondary btn-lg" href="logout" id="todos" data-toggle="dropdown" aria-haspopup="true"><i class="icon icon-log-out" style="color: #ffffff;"></i></a> -->
-                        <a href="logout" id="todos" data-toggle="dropdown" aria-haspopup="true">
+                        <a href="logout" id="todos" data-toggle="dropdown" aria-haspopup="true" style="padding-top: 15px;">
                             <div class="icon red" style="color: #ff3e61;font-size: xx-large;">
                                 <i class="icon-log-out"></i>
                             </div>

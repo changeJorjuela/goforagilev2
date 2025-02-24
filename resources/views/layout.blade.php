@@ -99,7 +99,7 @@
 
     <!-- Datatables -->
     <script src="{{asset("DataTables/bootstrap.bundle.min.js")}}" defer></script>
-    <script src="{{asset("DataTables/dataTables.js")}}" defer></script>
+    <script src="{{asset("DataTables/datatables.js")}}" defer></script>
     <script src="{{asset("DataTables/dataTables.bootstrap5.js")}}" defer></script>
     <script src="{{asset("DataTables/dataTables.responsive.js")}}" defer></script>
     <script src="{{asset("DataTables/responsive.bootstrap5.js")}}" defer></script>

@@ -27,10 +27,9 @@
             <div class="col-sm-12">
                 {!! Form::open(['url' => 'acceso', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-login']) !!}
                 @csrf
-                <div class="login-container" style="width: 450px !important;">
-                    <div class="row no-gutters">
-                        
-                        <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12">
+                <div class="login-container">
+                    <div class="row no-gutters">                        
+                        <div class="col-xl-12">
                             <div class="login-box">
                                 <div class="input-group mb-2">
                                     <div class="col-md-12" style="text-align: center;">

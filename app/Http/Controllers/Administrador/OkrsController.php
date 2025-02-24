@@ -127,10 +127,10 @@ class OkrsController extends Controller
             }
 
             $array_okrs[$contOkrs]["foto"] =  '<div class="card__profile">
-               <a href="javascript:Profile(' . $row->id_owner . ',1)"><img  data-src="../../recursos/' . $foto_owner . '" class="lazyload profile-thumb" title="' . $row->nombre_owner . '" style="width:70px;height:70px;" ></A>
+               <a href="javascript:Profile(' . $row->id_owner . ',1)"><img  data-src="https://www.goforagile.com/recursos/' . $foto_owner . '" class="lazyload profile-thumb" title="' . $row->nombre_owner . '" style="width:70px;height:70px;" ></A>
             </div>';
 
-            // $array_okrs[$contOkrs]["foto"] = '<a class="profile-thumb" href="javascript:Profile(' . $row->id_owner . ',1)"><img  src="../../recursos/' . $foto_owner . '" class="profile-thumb lazyload" title="' . $row->nombre_owner . '" style="width:70px;height:70px;"></a>';
+            // $array_okrs[$contOkrs]["foto"] = '<a class="profile-thumb" href="javascript:Profile(' . $row->id_owner . ',1)"><img  src="https://www.goforagile.com/recursos/' . $foto_owner . '" class="profile-thumb lazyload" title="' . $row->nombre_owner . '" style="width:70px;height:70px;"></a>';
             $promedio = GoForAgileOkrs::ResultadosOKR($row->id_okrs);
             $porcentaje_avance = round($promedio["promedio"]);
             if (is_nan($porcentaje_avance)) {
@@ -540,7 +540,7 @@ class OkrsController extends Controller
                     if (!$valueEmp["foto"]) {
                         $valueEmp["foto"] = "img_default.jpg";
                     }
-                    $lista_resp_kr .= '<a href="javascript:Profile(' . $id_resp . ',1)" id="profileOkr"><img  src="../../recursos/' . $valueEmp["foto"] . '" class="foto_min" title="' . $valueEmp["nombre"] . '" style="width: 35px !important;height: 35px !important;"></a>';
+                    $lista_resp_kr .= '<a href="javascript:Profile(' . $id_resp . ',1)" id="profileOkr"><img  src="https://www.goforagile.com/recursos/' . $valueEmp["foto"] . '" class="foto_min" title="' . $valueEmp["nombre"] . '" style="width: 35px !important;height: 35px !important;"></a>';
                 }
             }
         }

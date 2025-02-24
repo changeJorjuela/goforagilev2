@@ -51,11 +51,8 @@ Colaboradores
                             <th scope="col">Nombre Completo</th>
                             <th scope="col">Correo</th>
                             <th scope="col">Cargo</th>
-                            @if(Session::get('id_empresa') == 1)
                             <th scope="col">Vicepresidencia</th>
-                            @endif
                             <th scope="col">Área</th>
-                            <th scope="col">Compañia</th>
                             <th scope="col">Rol</th>
                             <th scope="col">Estado</th>
                             <th scope="col" width="100">Acciones</th>
@@ -70,18 +67,11 @@ Colaboradores
                             <td>{{$value['nombre']}}</td>
                             <td>{{$value['correo']}}</td>
                             <td>{{$value['nombre_cargo']}}</td>
-                            @if(Session::get('id_empresa') == 1)
                             <td>{{$value['nombre_vp']}}</td>
-                            @endif
                             <td>{{$value['nombre_area']}}</td>
-                            <td>{{$value['compania']}}</td>
                             <td>{{$value['nombre_rol']}}</td>
                             <td><span class="{{$value['label']}}" id="estadoLabel"><b>{{$value['estado']}}</b></span></td>
-                            @if(Session::get('id_empresa') == 1)
-                            <td><a href="detalleColaboradorPc?colaborador={{$value['id']}}" class="btn btn-warning" title="Editar" id="tableEditButton"><i class="icon-pencil2"></i></a></td>
-                            @else
-                            <td><a href="detalleColaborador?colaborador={{$value['id']}}" class="btn btn-warning" title="Editar" id="tableEditButton"><i class="icon-pencil2"></i></a></td>
-                            @endif
+                            <td><a href="detalleColaborador?colaborador={{$value['id']}}" class="btn btn-warning" title="Editar" id="tableEditButton"><i class="icon-pencil2"></i></a></td>                           
 
                         </tr>
                         @endforeach
