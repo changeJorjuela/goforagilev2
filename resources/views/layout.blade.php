@@ -17,26 +17,20 @@
     <meta name="MobileOptimized" content="width">
     <link type="image/x-icon" rel="icon" href="{{asset("img/IsotipoGFA.png")}}">
     <link rel="stylesheet" href="{{asset("css/font-awesome/css/all.min.css")}}">
-    <!-- Common CSS -->
+
     <link rel="stylesheet" href="{{asset("template/css/bootstrap.min.css")}}" />
     <link rel="stylesheet" href="{{asset("template/fonts/icomoon/icomoon.css")}}" />
     <link rel="stylesheet" href="{{asset("template/css/main.min.css")}}" />
     <link rel="stylesheet" href="{{asset("css/okrs.css")}}" />
 
-    <!-- Other CSS includes plugins - Cleanedup unnecessary CSS -->
-    <!-- Chartist css -->
     <link href="{{asset("template/vendor/chartist/css/chartist.min.css")}}" rel="stylesheet" />
     <link href="{{asset("template/vendor/chartist/css/chartist-custom.css")}}" rel="stylesheet" />
-
-    <!-- Datatables -->
 
     <link rel="stylesheet" href="{{asset("DataTables/dataTables.bootstrap5.css")}}">
     <link rel="stylesheet" href="{{asset("DataTables/responsive.bootstrap5.css")}}">
     <link rel="stylesheet" href="{{asset("DataTables/buttons.bootstrap5.css")}}">
-    <!-- <link rel="stylesheet" href="{{asset("DataTables/datatables-buttons/css/buttons.bootstrap4.min.css")}}"> -->
     <link rel="stylesheet" href="{{asset("css/toastr.min.css")}}">
 
-    <!-- Select -->
     <link rel="stylesheet" href="{{asset("css/select2.min.css")}}">
     <link rel="stylesheet" href="{{asset("css/select2-bootstrap-5-theme.min.css")}}">
     @stack('styles')
@@ -65,39 +59,35 @@
             </div>
 
         </div>
-        @include("footer")
+
 
         <aside class="control-sidebar control-sidebar-dark">
         </aside>
     </div>
     <!-- <script src="{{asset("js/jquery.min.js")}}"></script> -->
     <!-- <script src="{{asset("js/jquery-migrate.min.js")}}"></script> -->
-    <script src="{{asset("template/js/jquery.js")}}"></script>
+    <script src="{{asset("js/jquery.js")}}"></script>
+    <script src="{{asset("js/jquery-migrate.min.js")}}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js"></script>
     <script src="{{asset("template/js/bootstrap.min.js")}}" defer></script>
     <script src="{{asset("template/vendor/unifyMenu/unifyMenu.js")}}" defer></script>
     <script src="{{asset("template/vendor/onoffcanvas/onoffcanvas.js")}}" defer></script>
     <script src="{{asset("template/js/moment.js")}}" defer></script>
 
-    <!-- Peity JS -->
     <script src="{{asset("template/vendor/peity/peity.min.js")}}" defer></script>
     <script src="{{asset("template/vendor/peity/custom-peity.js")}}" defer></script>
 
-    <!-- Circliful js -->
     <script src="{{asset("template/vendor/circliful/circliful.min.js")}}" defer></script>
     <script src="{{asset("template/vendor/circliful/circliful.custom.js")}}" defer></script>
 
-    <!-- Chartist JS -->
     <script src="{{asset("template/vendor/chartist/js/chartist.min.js")}}" defer></script>
     <!-- <script src="{{asset("template/vendor/chartist/js/chartist-tooltip.js")}}" defer></script> -->
     <!-- <script src="{{asset("template/vendor/chartist/js/custom/custom-area-chart2.js")}}" defer></script> -->
     <!-- <script src="{{asset("template/vendor/chartist/js/custom/custom-compare-line.js")}}" defer></script> -->
 
-    <!-- Slimscroll JS -->
     <script src="{{asset("template/vendor/slimscroll/slimscroll.min.js")}}" defer></script>
     <script src="{{asset("template/vendor/slimscroll/custom-scrollbar.js")}}" defer></script>
 
-    <!-- Datatables -->
     <script src="{{asset("DataTables/bootstrap.bundle.min.js")}}" defer></script>
     <script src="{{asset("DataTables/datatables.js")}}" defer></script>
     <script src="{{asset("DataTables/dataTables.bootstrap5.js")}}" defer></script>
@@ -147,6 +137,10 @@
                 }, 1000);
             });
         }
+
+        $(document).ready(function() {
+            $('.multiples_responsables').select2();
+        });
     </script>
 </body>
 

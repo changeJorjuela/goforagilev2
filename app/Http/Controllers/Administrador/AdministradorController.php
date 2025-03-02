@@ -89,32 +89,32 @@ class AdministradorController extends Controller
                 $idVp = $user->unidad_corporativa;
                 $idArea = $user->area;
             }
-            if($idArea){
-                $areas = GoForAgileAdmin::BuscarNombreAreaId($idArea);            
-                if($areas){
+            if ($idArea) {
+                $areas = GoForAgileAdmin::BuscarNombreAreaId($idArea);
+                if ($areas) {
                     foreach ($areas as $area) {
                         $nombreArea = $area->nombre;
                     }
-                }else{
+                } else {
                     $nombreArea = '';
                 }
-            }else{
+            } else {
                 $nombreArea = '';
             }
-            
-            if($idVp){
+
+            if ($idVp) {
                 $vicepresidencias = GoForAgileAdmin::BuscarNombreVpId($idVp);
-                if($vicepresidencias){
+                if ($vicepresidencias) {
                     foreach ($vicepresidencias as $vp) {
                         $nombreVp = $vp->nombre;
                     }
-                }else{
+                } else {
                     $nombreVp = '';
                 }
-            }else{
+            } else {
                 $nombreVp = '';
             }
-            
+
             $Auditoria[$cont]['cont']           = $num++;
             $Auditoria[$cont]['id']             = (int)$value->id;
             $Auditoria[$cont]['usuario']        = $nombreUsuario;
@@ -309,15 +309,133 @@ class AdministradorController extends Controller
         return view('administracion/colaboradores', ['Colaboradores' => $Colaboradores]);
     }
 
+    /**
+     * Funcion visualiza el formulario de creación o edición de un colaborador
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 02/03/2025
+     * @version 1.0
+     * @param $request
+     * @return $respuesta
+     */
     public static function DetalleColaborador(Request $request)
     {
-        // if ($request->query('colaborador')) {
-        //     dd('1');
-        //     return view('administracion/colaborador/detalle');
-        // } else {
-            
-        //     return view('administracion/colaborador/detalle');
-        // }    
-        return view('administracion/colaborador/detalle');    
+        $Genero = array();
+        $Genero[''] = 'Seleccione Genero..';
+        $Genero['Femenino'] = 'Femenino';
+        $Genero['Masculino'] = 'Masculino';
+
+        $ListarCargos = GoForAgileAdmin::ListarCargosActivo((int)Session::get('id_empresa'));
+        $Cargos = array();
+        $Cargos[''] = 'Seleccione Cargo..';
+        foreach ($ListarCargos as $row) {
+            $Cargos[$row->id] = $row->nombre;
+        }
+
+        $ListarPosiciones = GoForAgileAdmin::ListarPosicionesFormActivo((int)Session::get('id_empresa'));
+        $Posiciones = array();
+        $Posiciones[''] = 'Seleccione Posicion..';
+        foreach ($ListarPosiciones as $row) {
+            $Posiciones[$row->id] = $row->nombre;
+        }
+
+        $ListarVicepresidencias = GoForAgileAdmin::ListarVPActivo((int)Session::get('id_empresa'));
+        $Vicepresidencias = array();
+        $Vicepresidencias[''] = 'Seleccione Vicepresidencia..';
+        foreach ($ListarVicepresidencias as $row) {
+            $Vicepresidencias[$row->id] = $row->nombre;
+        }
+
+        $ListarAreas = GoForAgileAdmin::ListarAreasActivo((int)Session::get('id_empresa'));
+        $Areas = array();
+        $Areas[''] = 'Seleccione Area..';
+        foreach ($ListarAreas as $row) {
+            $Areas[$row->id] = $row->nombre;
+        }
+
+        $ListarUO = GoForAgileAdmin::ListarUOActivo((int)Session::get('id_empresa'));
+        $UnidadOrganizativa = array();
+        $UnidadOrganizativa[''] = 'Seleccione Unidad Organizativa..';
+        foreach ($ListarUO as $row) {
+            $UnidadOrganizativa[$row->id] = $row->unidad_organizativa;
+        }
+
+        if ($request->query('colaborador')) {
+            $colaborador = GoForAgileAdmin::EmpleadoId($request->colaborador);
+            if ($colaborador) {
+                foreach ($colaborador as $row) {
+                    $documento = $row->documento;
+                    $nombre = $row->nombre;
+                    $genero = $row->genero;
+                    $fechaIngreso = $row->fecha_ingreso;
+                    $antiguedadA = $row->antiguedad_anios;
+                    $antiguedadM = $row->antiguedad_meses;
+                    $antiguedadA = $row->antiguedad_dias;
+                    $correo = $row->correo;
+                    $telefono_movil = $row->telefono_movil;
+                    $telefono_fijo = $row->telefono_fijo;
+                    $compania = $row->compania;
+                    $id_cargo = $row->id_cargo;
+                    $unidad_estrategica = $row->unidad_estrategica;
+                    $posicion = $row->id_posicion;
+                    $vicepresidencia = $row->unidad_corporativa;
+                    $area = $row->area;
+                    $unidad_organizativa = $row->unidad_organizativa;
+                }
+            }
+
+            if ($antiguedadA === '' || $antiguedadA === null) {
+                $antiguedadAnios = '0';
+            } else {
+                $antiguedadAnios = $antiguedadA;;
+            }
+            if ($antiguedadM === '' || $antiguedadM === null) {
+                $antiguedadMeses = '0';
+            } else {
+                $antiguedadMeses = $antiguedadM;
+            }
+            if ($antiguedadA === '' || $antiguedadA === null) {
+                $antiguedadDias = '0';
+            } else {
+                $antiguedadDias = $antiguedadA;
+            }
+
+            $antiguedad = $antiguedadAnios . ' años / ' . $antiguedadMeses . ' meses / ' . $antiguedadDias . ' días ';
+
+            return view('administracion/colaborador/detalle', [
+                'Genero' => $Genero,
+                'Cargos' => $Cargos,
+                'Posiciones' => $Posiciones,
+                'Vicepresidencias' => $Vicepresidencias,
+                'Areas' => $Areas,
+                'UnidadOrganizativa' => $UnidadOrganizativa,
+                'fechaIngreso' => $fechaIngreso,
+                'documento' => $documento,
+                'nombre' => $nombre,
+                'genero' => $genero,
+                'antiguedad' => $antiguedad,
+                'antiguedadAnios' => $antiguedadAnios,
+                'antiguedadMeses' => $antiguedadMeses,
+                'antiguedadDias' => $antiguedadDias,
+                'correo' => $correo,
+                'telefonoMovil' => $telefono_movil,
+                'telefonoFijo' => $telefono_fijo,
+                'compania' => $compania,
+                'unidadEstrategica' => $unidad_estrategica,
+                'cargo' => $id_cargo,
+                'posicion' => $posicion,
+                'vicepresidencia' => $vicepresidencia,
+                'area' => $area,
+                'unidad_organizativa' => $unidad_organizativa
+            ]);
+        } else {
+            return view('administracion/colaborador/crear', [
+                'Genero' => $Genero,
+                'Cargos' => $Cargos,
+                'Posiciones' => $Posiciones,
+                'Vicepresidencias' => $Vicepresidencias,
+                'Areas' => $Areas,
+                'UnidadOrganizativa' => $UnidadOrganizativa
+            ]);
+        }
     }
 }

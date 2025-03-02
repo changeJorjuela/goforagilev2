@@ -180,17 +180,17 @@ class ExtrasController extends Controller
 
         $listaResponsables = GoForAgileOkrs::ListaResponsables($idOkr);
 
-        if($requerido == 0){
+        if ($requerido == 0) {
             $required = 'required';
-        }else{
+        } else {
             $required = '';
         }
         $selectResponsable = '<label>Responsable(s) *</label>
-                    <select class="form-control " name="id_responsable_ini" id="id_responsable_ini" '.$required.'>
+                    <select class="form-control " name="id_responsable_ini" id="id_responsable_ini" ' . $required . '>
                     <option value="">Seleccione responsable...</option>
         ';
-        foreach($listaResponsables as $responsable){
-            $selectResponsable .= '<option value="'.$responsable->id_empleado.'">'.$responsable->nombre_empleado.'</option>
+        foreach ($listaResponsables as $responsable) {
+            $selectResponsable .= '<option value="' . $responsable->id_empleado . '">' . $responsable->nombre_empleado . '</option>
         ';
         }
 
@@ -199,11 +199,11 @@ class ExtrasController extends Controller
             foreach ($array_responsables as $responsable) {
                 if ($responsable) {
                     $queryResp = GoForAgileAdmin::EmpleadoId($responsable);
-                    foreach($queryResp as $resp){
+                    foreach ($queryResp as $resp) {
                         $idResponsable = $resp->id;
                         $nombreResponsable = $resp->nombre;
                     }
-                    $responsables .='<div id="resp_ini_' . $idResponsable . '"> <i class="icon-bin" onClick="Eliminar_Responsable(' . $idResponsable . ')"></i> <b>' . $nombreResponsable . '</b> <input type="hidden" name="responsables_ini[]" value="' . $idResponsable . '" ></div> ';
+                    $responsables .= '<div id="resp_ini_' . $idResponsable . '"> <i class="icon-bin" onClick="Eliminar_Responsable(' . $idResponsable . ')"></i> <b>' . $nombreResponsable . '</b> <input type="hidden" name="responsables_ini[]" value="' . $idResponsable . '" ></div> ';
                 }
             }
         }
@@ -249,7 +249,7 @@ class ExtrasController extends Controller
         $requerido = 0;
         $kr = GoForAgileOkrs::Okrs($request->idOkr);
         foreach ($kr as $value) {
-            $nombreOkr = $value->objetivo_okr;            
+            $nombreOkr = $value->objetivo_okr;
         }
         $resultado = GoForAgileOkrs::KrId($request->idResultado);
         if ($resultado) {
@@ -298,17 +298,17 @@ class ExtrasController extends Controller
 
         $listaResponsables = GoForAgileOkrs::ListaResponsables($request->idOkr);
 
-        if($requerido == 0){
+        if ($requerido == 0) {
             $required = 'required';
-        }else{
+        } else {
             $required = '';
         }
         $selectResponsable = '<label>Responsable(s) *</label>
-                    <select class="form-control " name="id_responsable" id="id_responsable" '.$required.'>
+                    <select class="form-control " name="id_responsable" id="id_responsable" ' . $required . '>
                     <option value="">Seleccione responsable...</option>
         ';
-        foreach($listaResponsables as $responsable){
-            $selectResponsable .= '<option value="'.$responsable->id_empleado.'">'.$responsable->nombre_empleado.'</option>
+        foreach ($listaResponsables as $responsable) {
+            $selectResponsable .= '<option value="' . $responsable->id_empleado . '">' . $responsable->nombre_empleado . '</option>
         ';
         }
 
@@ -317,11 +317,11 @@ class ExtrasController extends Controller
             foreach ($array_responsables as $responsable) {
                 if ($responsable) {
                     $queryResp = GoForAgileAdmin::EmpleadoId($responsable);
-                    foreach($queryResp as $resp){
+                    foreach ($queryResp as $resp) {
                         $idResponsable = $resp->id;
                         $nombreResponsable = $resp->nombre;
                     }
-                    $responsables .='<div id="resp_' . $idResponsable . '"> <i class="icon-bin" onClick="Eliminar_Responsable(' . $idResponsable . ')"></i> <b>' . $nombreResponsable . '</b> <input type="hidden" name="responsables_kr[]" value="' . $idResponsable . '" ></div> ';
+                    $responsables .= '<div id="resp_' . $idResponsable . '"> <i class="icon-bin" onClick="Eliminar_Responsable(' . $idResponsable . ')"></i> <b>' . $nombreResponsable . '</b> <input type="hidden" name="responsables_kr[]" value="' . $idResponsable . '" ></div> ';
                 }
             }
         }
@@ -354,7 +354,7 @@ class ExtrasController extends Controller
         }
 
         $cuerpo = array(
-            "id_resultado" => $request->idResultado,            
+            "id_resultado" => $request->idResultado,
             "id_okr_kr" => $idOkr,
             "header_kr" => $header,
             "descripcion_kr" => $nombreResultado,
@@ -372,7 +372,33 @@ class ExtrasController extends Controller
             "requerido_kr" => $requerido
         );
         return $cuerpo;
-    }    
+    }
 
-    
+    /**
+     * Funcion que guarda lista las areas de una empresa que estan estructuradas a una vicepresidencia
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 02/03/2025
+     * @version 1.0
+     * @param $request
+     * @return $respuesta
+     */
+    public function ListarAreasEmpresa(Request $request)
+    {
+        $respuesta = GoForAgileAdmin::ListarAreasEE((int)$request->id);
+        return response()->json($respuesta);
+    }
+
+    /**
+     * Funcion que guarda lista las unidades organizativas de una empresa que estan estructuradas a una vicepresidencia
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 02/03/2025
+     * @version 1.0
+     * @param $request
+     * @return $respuesta
+     */
+    public function ListarUnidadOrganizativaEmpresa(Request $request)
+    {
+        $respuesta = GoForAgileAdmin::ListarUOEE((int)$request->id, (int)$request->vp);
+        return response()->json($respuesta);
+    }
 }

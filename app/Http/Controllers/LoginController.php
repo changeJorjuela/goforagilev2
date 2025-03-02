@@ -135,6 +135,7 @@ class LoginController extends Controller
                         Session::put('id_user', $IdUsuario);
                         Session::put('NombreUsuario', $nombreUsuario);
                         Session::put('id_empresa', $idEmpresa);
+                        Session::put('id_area', $idArea);
                         Session::put('id_rol', $idRol);
                         // Session::put('role_plataforma', $idRol);
                         if ($idRol == 1) {

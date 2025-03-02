@@ -72,7 +72,6 @@ Colaboradores
                             <td>{{$value['nombre_rol']}}</td>
                             <td><span class="{{$value['label']}}" id="estadoLabel"><b>{{$value['estado']}}</b></span></td>
                             <td><a href="detalleColaborador?colaborador={{$value['id']}}" class="btn btn-warning" title="Editar" id="tableEditButton"><i class="icon-pencil2"></i></a></td>                           
-
                         </tr>
                         @endforeach
                     </tbody>

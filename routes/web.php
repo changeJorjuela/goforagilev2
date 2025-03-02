@@ -69,7 +69,9 @@ Route::group(['middleware' => 'revalidate'], function () {
 
         //Extras
         Route::get('profileEmpleado', [ExtrasController::class, 'ProfileEmpleado'])->name('profileEmpleado');
-        
+        Route::get('listarAreas', [ExtrasController::class, 'ListarAreasEmpresa'])->name('listarAreas');
+        Route::get('listarUnidadOrganizativa', [ExtrasController::class, 'ListarUnidadOrganizativaEmpresa'])->name('listarUnidadOrganizativa');
+
         Route::get('logout', function () {
             Auth::logout();
             Session::flush();

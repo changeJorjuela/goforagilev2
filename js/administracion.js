@@ -304,3 +304,75 @@ $('#mod_foto_upd').change(function () {
     clone.attr('name', 'foto2');
     $('#field2_area1').html(clone);
 });
+
+function select_vicepresidencia() {
+    var tipo = 'get';
+    $("#unidad_corporativa option:selected").each(function () {
+        var empresa = $("#id_empresa").val();
+        var area = $("#id_area").val();
+        id = $(this).val();
+        
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "listarAreas",
+            type: "get",
+            data: {
+                _method: tipo,
+                id: id,
+                id_empresa: empresa,
+                area: area
+            },
+            success: function (data) {
+                
+                $('#area').html('<option value="">Seleccione un área</option>');
+
+                data.sort(function (a, b) {
+                    return a.nombre.localeCompare(b.nombre);
+                });
+
+                $.each(data, function (key, value) {
+                    $('#area').append('<option value="' + value.id + '">' + value.nombre + '</option>');
+                });
+            }
+        });
+    });
+
+}
+
+function select_area() {
+    var tipo = 'get';
+    $("#area option:selected").each(function () {
+        var empresa = $("#id_empresa").val();
+        var area = $("#id_area").val();
+        var vp = $("#unidad_corporativa").val();
+        id = $(this).val();
+        
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "listarUnidadOrganizativa",
+            type: "get",
+            data: {
+                _method: tipo,
+                id: id,
+                id_empresa: empresa,
+                vp: vp
+            },
+            success: function (data) {
+                
+                $('#unidad_organizativa').html('<option value="">Seleccione un unidad organizativa</option>');
+
+                data.sort(function (a, b) {
+                    return a.unidad_organizativa.localeCompare(b.unidad_organizativa);
+                });
+
+                $.each(data, function (key, value) {
+                    $('#unidad_organizativa').append('<option value="' + value.id + '">' + value.unidad_organizativa + '</option>');
+                });
+            }
+        });
+    });
+}

@@ -15,6 +15,15 @@ function Ver_Pass(elem) {
     }
 }
 
+function togglePassword() {
+    var passwordField = document.getElementById("password");
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+    } else {
+        passwordField.type = "password";
+    }
+}
+
 $(function () {
 
     $('#form-login').validate({
