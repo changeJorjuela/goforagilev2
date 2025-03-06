@@ -359,6 +359,22 @@ class AdministradorController extends Controller
             $UnidadOrganizativa[$row->id] = $row->unidad_organizativa;
         }
 
+        $ListarNJ = GoForAgileAdmin::ListarNivelJ((int)Session::get('id_empresa'));
+        $NivelJerarquico = array();
+        $NivelJerarquico[''] = 'Seleccione Nivel Jerárquico..';
+        foreach ($ListarNJ as $row) {
+            $NivelJerarquico[$row->id] = $row->nombre;
+        }
+
+        $Estado = GoForAgileAdmin::Estado();
+
+        $ListarRoles = GoForAgileAdmin::ListarRoles();
+        $Roles = array();
+        $Roles[''] = 'Seleccione Rol Plataforma..';
+        foreach ($ListarRoles as $row) {
+            $Roles[$row->id] = $row->nombre;
+        }
+
         if ($request->query('colaborador')) {
             $colaborador = GoForAgileAdmin::EmpleadoId($request->colaborador);
             if ($colaborador) {
@@ -380,6 +396,12 @@ class AdministradorController extends Controller
                     $vicepresidencia = $row->unidad_corporativa;
                     $area = $row->area;
                     $unidad_organizativa = $row->unidad_organizativa;
+                    $nivel_jerarquico = $row->nivel_jerarquico;
+                    $contrasena = $row->contrasena;
+                    $estado = $row->estado;
+                    $role = $row->role;
+                    $foto = $row->foto;
+                    $idColaborador = $row->id;
                 }
             }
 
@@ -408,6 +430,9 @@ class AdministradorController extends Controller
                 'Vicepresidencias' => $Vicepresidencias,
                 'Areas' => $Areas,
                 'UnidadOrganizativa' => $UnidadOrganizativa,
+                'NivelJerarquico' => $NivelJerarquico,
+                'Estado' => $Estado,
+                'Roles' => $Roles,
                 'fechaIngreso' => $fechaIngreso,
                 'documento' => $documento,
                 'nombre' => $nombre,
@@ -425,7 +450,13 @@ class AdministradorController extends Controller
                 'posicion' => $posicion,
                 'vicepresidencia' => $vicepresidencia,
                 'area' => $area,
-                'unidad_organizativa' => $unidad_organizativa
+                'unidad_organizativa' => $unidad_organizativa,
+                'nivel_jerarquico' => $nivel_jerarquico,
+                'password' => $contrasena,
+                'estado' => $estado,
+                'role' => $role,
+                'foto' => $foto,
+                'idColaborador' => $idColaborador
             ]);
         } else {
             return view('administracion/colaborador/crear', [
@@ -434,7 +465,10 @@ class AdministradorController extends Controller
                 'Posiciones' => $Posiciones,
                 'Vicepresidencias' => $Vicepresidencias,
                 'Areas' => $Areas,
-                'UnidadOrganizativa' => $UnidadOrganizativa
+                'UnidadOrganizativa' => $UnidadOrganizativa,
+                'NivelJerarquico' => $NivelJerarquico,
+                'Estado' => $Estado,
+                'Roles' => $Roles
             ]);
         }
     }

@@ -12,7 +12,7 @@ Colaboradores
 <header class="main-heading">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-10">
                 <div class="page-icon">
                     <i class="icon-user"></i>
                 </div>
@@ -20,7 +20,13 @@ Colaboradores
                     <h4>Editar Colaborador</h4>
                 </div>
             </div>
-
+            <div class="col-sm-2">
+                <div class="right-actions">
+                    <a href="{{ url('administrador/colaboradores') }}" class="btn btn-primary float-right btn-rounded" data-toggle="tooltip" data-placement="left" title="" data-original-title="Download Reports">
+                        Volver
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </header>
@@ -90,9 +96,9 @@ Colaboradores
     @endif
 
     @if(count($errors) > 0)
-        @foreach($errors -> all() as $error)
-            toastr.error("{{ $error }}");
-        @endforeach
+    @foreach($errors -> all() as $error)
+    toastr.error("{{ $error }}");
+    @endforeach
     @endif
 </script>
 @endpush

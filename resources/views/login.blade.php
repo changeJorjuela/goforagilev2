@@ -13,35 +13,31 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="row login-container">
-                    <div class="col-md-6 login-image d-none d-md-block"></div>
-                    <div class="col-md-6 login-form text-center">
-                        <img src="{{asset("img/Logo_Color.png")}}" alt="Logo de la empresa" class="login-logo">
-                        {!! Form::open(['url' => 'acceso', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-login']) !!}
-                        @csrf
-                        <div class="mb-3 text-start">
-                            <label class="form-label">Usuario</label>
-                            <input type="text" class="form-control" placeholder="Ingrese Usuario" aria-label="username" aria-describedby="username" name="user" id="user" required>
-                            <div class="invalid-feedback">Campo obligatorio y en formato de correo</div>
-                        </div>
-                        <div class="mb-3 text-start">
-                            <label class="form-label">Contraseña</label>
-                            <div class="password-container">
-                                <input type="password" class="form-control" placeholder="Ingrese Contraseña" aria-label="Password" aria-describedby="Password" name="password" id="password" required>
-                                <span class="toggle-password" onclick="togglePassword()">👁️</span>
-                            </div>
-                            <div class="invalid-feedback">Campo obligatorio</div>
-                        </div>
-                        <br>
-                        <button type="submit" class="btn btn-primary w-100">Ingresar</button>
-                        <p class="mt-3">¿Olvido su contraseña? <a href="{{ url('/recuperarContrasena') }}" class="text-primary">Recuperar</a></p>
-                        {!! Form::close() !!}
-                    </div>
-                </div>
+    <div class="login-container">
+        <video autoplay muted loop class="video-background">
+            <source src="recursos/Video_Login.mp4" type="video/mp4">
+        </video>
+        <div class="login-form">
+            <div class="login-logo"></div>
+            {!! Form::open(['url' => 'acceso', 'method' => 'post', 'enctype' => 'multipart/form-data','autocomplete'=>'off','id'=>'form-login','class'=>'w-100']) !!}
+            @csrf
+            <div class="mb-3 text-start position-relative">
+                <label class="form-label">Usuario</label>
+                <input type="text" class="form-control" placeholder="Ingrese Usuario" aria-label="username" aria-describedby="username" name="user" id="user" required>
+                <div class="invalid-feedback">Campo obligatorio y en formato de correo</div>
             </div>
+            <div class="mb-3 text-start position-relative">
+                <label class="form-label">Contraseña</label>
+                <div class="password-container">
+                    <input type="password" class="form-control" placeholder="Ingrese Contraseña" aria-label="Password" aria-describedby="Password" name="password" id="password" required>
+                    <span class="toggle-password" onclick="togglePassword()">👁️</span>
+                </div>
+                <div class="invalid-feedback">Campo obligatorio</div>
+            </div>
+            <br>
+            <button type="submit" id="btnIngresar">Ingresar</button>
+            <p class="mt-3">¿Olvido su contraseña? <a href="{{ url('/recuperarContrasena') }}" class="text-primary">Recuperar</a></p>
+            {!! Form::close() !!}
         </div>
     </div>
 </body>
@@ -54,17 +50,19 @@
 <script src="{{asset("js/toastr.min.js")}}"></script>
 <script>
     @if(session("mensaje"))
-        toastr.success("{{ session("mensaje ") }}");
+    toastr.success("{{ session("
+        mensaje ") }}");
     @endif
 
     @if(session("precaucion"))
-        toastr.warning("{{ session("precaucion ") }}");
+    toastr.warning("{{ session("
+        precaucion ") }}");
     @endif
 
     @if(count($errors) > 0)
-        @foreach($errors -> all() as $error)
-            toastr.error("{{ $error }}");
-        @endforeach
+    @foreach($errors -> all() as $error)
+    toastr.error("{{ $error }}");
+    @endforeach
     @endif
 </script>
 
