@@ -1,5 +1,5 @@
-<!-- <aside class="app-side fixed is-open" id="app-side"> -->
-	<aside class="app-side is-open is-mini" id="app-side">
+<aside class="app-side is-open" id="app-side">
+	<!-- <aside class="app-side is-open is-mini" id="app-side"> -->
 	<div class="side-content ">
 		<div class="user-profile">
 			{!! Session::get('FotoAside') !!}

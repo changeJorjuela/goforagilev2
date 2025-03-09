@@ -71,8 +71,9 @@ Cargos
         </div>
     </div>
 </div>
-@endsection
 @include("modals.modalCargos")
+@endsection
+
 @push('scripts')
 
 <script>

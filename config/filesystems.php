@@ -51,7 +51,7 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
         ],
 
@@ -68,35 +68,47 @@ return [
         'css' => [
             'driver' => 'local',
             'root' => storage_path('app/css'),
-            'url' => env('APP_URL').'/css',
+            'url' => env('APP_URL') . '/css',
             'visibility' => 'public',
         ],
 
         'datatables' => [
             'driver' => 'local',
             'root' => storage_path('app/DataTables'),
-            'url' => env('APP_URL').'/DataTables',
+            'url' => env('APP_URL') . '/DataTables',
             'visibility' => 'public',
         ],
 
         'img' => [
             'driver' => 'local',
             'root' => storage_path('app/img'),
-            'url' => env('APP_URL').'/img',
+            'url' => env('APP_URL') . '/img',
             'visibility' => 'public',
         ],
 
         'js' => [
             'driver' => 'local',
             'root' => storage_path('app/js'),
-            'url' => env('APP_URL').'/js',
+            'url' => env('APP_URL') . '/js',
             'visibility' => 'public',
         ],
 
         'recursos' => [
             'driver' => 'local',
             'root' => storage_path('app/recursos'),
-            'url' => env('APP_URL').'/recursos',
+            'url' => env('APP_URL') . '/recursos',
+            'visibility' => 'public',
+        ],
+
+        'fotos' => [
+            'driver' => 'local',
+            'root' => base_path('recursos'),
+            'visibility' => 'public',
+        ],
+
+        'documentos' => [
+            'driver' => 'local',
+            'root' => base_path('recursos'),
             'visibility' => 'public',
         ],
 

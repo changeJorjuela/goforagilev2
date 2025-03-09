@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GO FOR AGILE - OKR Suite By Change Americas</title>
-    <link type="image/x-icon" rel="icon" href="{{asset("img/IsotipoGFA.png")}}">
+    <link type="image/x-icon" rel="icon" href="{{asset("img/ISOTIPO_COLOR.png")}}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{asset("login/styles.min.css")}}">
-
+    <link rel="stylesheet" href="{{asset("css/toastr.min.css")}}">
 </head>
 
 <body>
@@ -36,7 +36,7 @@
             </div>
             <br>
             <button type="submit" id="btnIngresar">Ingresar</button>
-            <p class="mt-3">¿Olvido su contraseña? <a href="{{ url('/recuperarContrasena') }}" class="text-primary">Recuperar</a></p>
+            <p class="mt-3">¿Olvido su contraseña? <a href="{{ url('/recuperarContrasena') }}" class="text-primary" style="color: white !important;text-decoration: none;">Recuperar</a></p>
             {!! Form::close() !!}
         </div>
     </div>
@@ -50,19 +50,17 @@
 <script src="{{asset("js/toastr.min.js")}}"></script>
 <script>
     @if(session("mensaje"))
-    toastr.success("{{ session("
-        mensaje ") }}");
+        toastr.success("{{ session("mensaje") }}");
     @endif
 
     @if(session("precaucion"))
-    toastr.warning("{{ session("
-        precaucion ") }}");
+        toastr.warning("{{ session("precaucion") }}");
     @endif
 
     @if(count($errors) > 0)
-    @foreach($errors -> all() as $error)
-    toastr.error("{{ $error }}");
-    @endforeach
+        @foreach($errors -> all() as $error)
+            toastr.error("{{ $error }}");
+        @endforeach
     @endif
 </script>
 

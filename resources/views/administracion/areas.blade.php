@@ -53,7 +53,8 @@
                             <td>{{$value['cont']}}</td>
                             <td>{{$value['nombre_area']}}</td>
                             <td><span class="{{$value['label']}}" id="estadoLabel"><b>{{$value['estado']}}</b></span></td>
-                            <td><a href="#" class="btn btn-warning" title="Editar" data-toggle="modal" data-target="#area_upd" onclick="obtener_datos_area('{{$value['id']}}');" id="tableEditButton"><i class="icon-pencil2"></i></a></td>
+                            <td><a href="#" class="btn btn-warning" title="Editar" data-toggle="modal" data-target="#area_upd" onclick="obtener_datos_area('{{$value['id']}}');" id="tableEditButton"><i class="icon-pencil2"></i></a>
+                            <a href="#" class="btn btn-danger" title="Eliminar" data-toggle="modal" data-target="#area_delete" onclick="obtener_datos_area('{{$value['id']}}');" id="tableDeleteButton"><i class="icon-trash"></i></a></td>
                             <input type="hidden" value="{{$value['id']}}" id="id{{$value['id']}}">
                             <input type="hidden" value="{{$value['nombre_area']}}" id="nombre_area{{$value['id']}}">
                             <input type="hidden" value="{{$value['padre']}}" id="padre{{$value['id']}}">
@@ -68,8 +69,9 @@
         </div>
     </div>
 </div>
-@endsection
 @include("modals.modalAreas")
+@endsection
+
 @push('scripts')
 
 <script>

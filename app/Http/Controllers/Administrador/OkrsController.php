@@ -116,18 +116,14 @@ class OkrsController extends Controller
             $array_okrs[$contOkrs]['nombre_owner'] = $row->nombre_owner;
             $dataOwner  = GoForAgileAdmin::CardProfile($row->id_owner);
             foreach ($dataOwner as $owner) {
-                if (!$owner["foto"]) {
-                    $foto_owner = "img_default.jpg";
-                } else {
-                    $foto_owner = $owner["foto"];
-                }
+                $foto_owner = $owner["foto"] ? $owner["foto"] : 'img_default.jpg';
                 $cargo_owner = $owner["cargo"];
                 $area_owner = $owner["area"];
                 $vp_owner = $owner["vicepresidencia"];
             }
 
             $array_okrs[$contOkrs]["foto"] =  '<div class="card__profile">
-               <a href="javascript:Profile(' . $row->id_owner . ',1)"><img  data-src="https://www.goforagile.com/recursos/' . $foto_owner . '" class="lazyload profile-thumb" title="' . $row->nombre_owner . '" style="width:70px;height:70px;" ></A>
+               <a href="javascript:Profile(' . $row->id_owner . ',1)"><img data-src="' . asset('recursos/' . $foto_owner) . '" class="lazyload profile-thumb" title="' . $row->nombre_owner . '" style="width:70px;height:70px;" ></A>
             </div>';
 
             // $array_okrs[$contOkrs]["foto"] = '<a class="profile-thumb" href="javascript:Profile(' . $row->id_owner . ',1)"><img  src="https://www.goforagile.com/recursos/' . $foto_owner . '" class="profile-thumb lazyload" title="' . $row->nombre_owner . '" style="width:70px;height:70px;"></a>';
@@ -536,11 +532,9 @@ class OkrsController extends Controller
                 }
 
                 $dataEmple = GoForAgileAdmin::CardProfile($id_resp);
-                foreach ($dataEmple as $valueEmp) {
-                    if (!$valueEmp["foto"]) {
-                        $valueEmp["foto"] = "img_default.jpg";
-                    }
-                    $lista_resp_kr .= '<a href="javascript:Profile(' . $id_resp . ',1)" id="profileOkr"><img  src="https://www.goforagile.com/recursos/' . $valueEmp["foto"] . '" class="foto_min" title="' . $valueEmp["nombre"] . '" style="width: 35px !important;height: 35px !important;"></a>';
+                foreach ($dataEmple as $valueEmp) {                    
+                    $foto = $valueEmp["foto"] ? $valueEmp["foto"] : 'img_default.jpg';
+                    $lista_resp_kr .= '<a href="javascript:Profile(' . $id_resp . ',1)" id="profileOkr"><img  src="' . asset('recursos/' . $foto) . '" class="foto_min" title="' . $valueEmp["nombre"] . '" style="width: 35px !important;height: 35px !important;"></a>';
                 }
             }
         }

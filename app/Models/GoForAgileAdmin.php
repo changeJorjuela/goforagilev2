@@ -95,7 +95,7 @@ class GoForAgileAdmin extends Model
         foreach ($area as $value) {
             $nombreArea = $value->nombre;
         }
-        $eliminarArea = DB::connection('mysql-goforagile_admin')->insert(
+        $eliminarArea = DB::connection('mysql-goforagile_admin')->delete(
             'DELETE FROM Areas WHERE id = ?',
             [$idArea]
         );
@@ -150,7 +150,6 @@ class GoForAgileAdmin extends Model
 
     public static function ActualizarCargo($nombreCargo, $area, $nivel_jerarquico, $estado, $id, $idEmpresa, $idUser)
     {
-
         date_default_timezone_set('America/Bogota');
         $fecha_sistema  = date('Y-m-d H:i:s');
         $crearCargo = DB::connection('mysql-goforagile_admin')->update(
@@ -158,7 +157,7 @@ class GoForAgileAdmin extends Model
             [$nombreCargo, $area, $nivel_jerarquico, $estado, $fecha_sistema, $id]
         );
         $descripcion = "Actualización de cargo $nombreCargo";
-        GoForAgileAdmin::Auditoria('ACTUALIZAR', $descripcion, 'CArgos', $idUser, $idEmpresa);
+        GoForAgileAdmin::Auditoria('ACTUALIZAR', $descripcion, 'Cargos', $idUser, $idEmpresa);
         return $crearCargo;
     }
 
@@ -171,38 +170,35 @@ class GoForAgileAdmin extends Model
 
     public static function EliminarCargo($idCargo, $idEmpresa, $idUser)
     {
-
         date_default_timezone_set('America/Bogota');
         $cargo = GoForAgileAdmin::BuscarNombreCargoId($idCargo);
         foreach ($cargo as $value) {
             $nombreCargo = $value->nombre;
         }
-        $eliminarCargo = DB::connection('mysql-goforagile_admin')->insert(
+        $eliminarCargo = DB::connection('mysql-goforagile_admin')->delete(
             'DELETE FROM Cargos WHERE id = ?',
             [$idCargo]
         );
         $descripcion = "Eliminación de cargo $nombreCargo";
-        GoForAgileAdmin::Auditoria('ELIMINAR', $descripcion, 'cARGOS', $idUser, $idEmpresa);
+        GoForAgileAdmin::Auditoria('ELIMINAR', $descripcion, 'Cargos', $idUser, $idEmpresa);
         return $eliminarCargo;
     }
 
     // EMPLEADOS
     public static function BuscarUserLogin($user)
     {
-
         $usuario = DB::connection('mysql-goforagile_admin')->select("SELECT * FROM Empleados WHERE correo = '$user'");
         return $usuario;
     }
 
     public static function BuscarPass($user, $password)
     {
-        $pass = DB::connection('mysql-goforagile_admin')->select("SELECT * FROM Empleados WHERE correo = '$user' AND password = '$password'");
+        $pass = DB::connection('mysql-goforagile_admin')->select("SELECT * FROM Empleados WHERE correo = '$user' AND contrasena = '$password'");
         return $pass;
     }
 
     public static function EmpleadoId($IdEmpleado)
     {
-
         $usuario = DB::connection('mysql-goforagile_admin')->select("SELECT * FROM Empleados WHERE id = $IdEmpleado");
         return $usuario;
     }
@@ -250,11 +246,127 @@ class GoForAgileAdmin extends Model
         return $profile;
     }
 
-    public static function ListarEmpleados($idEmpresa)
-    {
+    public static function ListarEmpleados($idEmpresa)    {
 
         $empleados = DB::connection('mysql-goforagile_admin')->select("SELECT * FROM Empleados WHERE id_empresa = $idEmpresa");
         return $empleados;
+    }
+
+    public static function BuscarDocumentoEmpleado($documento, $idEmpresa){
+        $empleados = DB::connection('mysql-goforagile_admin')->select("SELECT * FROM Empleados WHERE id_empresa = $idEmpresa AND documento = '$documento'");
+        return $empleados;
+    }
+
+    public static function BuscarNombreEmpleado($nombre, $idEmpresa){
+        $empleados = DB::connection('mysql-goforagile_admin')->select("SELECT * FROM Empleados WHERE id_empresa = $idEmpresa AND nombre = '$nombre'");
+        return $empleados;
+    }
+
+    public static function BuscarNombreEmpleadoUpd($nombre, $idEmpresa,$idEmpleado){
+        $empleados = DB::connection('mysql-goforagile_admin')->select("SELECT * FROM Empleados WHERE id_empresa = $idEmpresa AND nombre = '$nombre' AND id NOT IN ($idEmpleado)");
+        return $empleados;
+    }
+
+    public static function BuscarCorreoEmpleado($correo, $idEmpresa){
+        $empleados = DB::connection('mysql-goforagile_admin')->select("SELECT * FROM Empleados WHERE id_empresa = $idEmpresa AND correo = '$correo'");
+        return $empleados;
+    }
+
+    public static function BuscarDocumentoEmpleadoUpd($documento, $id_colaborador, $idEmpresa){
+        $empleados = DB::connection('mysql-goforagile_admin')->select("SELECT * FROM Empleados WHERE id_empresa = $idEmpresa AND documento = '$documento' AND id NOT IN($id_colaborador)");
+        return $empleados;
+    }
+
+    public static function BuscarCorreoEmpleadoUpd($documento, $id_colaborador, $idEmpresa){
+        $empleados = DB::connection('mysql-goforagile_admin')->select("SELECT * FROM Empleados WHERE id_empresa = $idEmpresa AND correo = '$documento' AND id NOT IN($id_colaborador)");
+        return $empleados;
+    }
+
+    public static function CrearColaborador($datos, $contrasena, $idEmpresa){
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i:s');
+        $crearColaborador = DB::connection('mysql-goforagile_admin')->insert(
+            'INSERT INTO Empleados (id_empresa,documento,nombre,genero,fecha_ingreso,antiguedad_anios,antiguedad_meses,antiguedad_dias,id_cargo,id_posicion,correo,telefono_movil,telefono_fijo,nivel_jerarquico,nivel_general,unidad_organizativa,compania,unidad_corporativa,area,role,estado,password,contrasena,verificar,created_at)
+            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+            [$idEmpresa,$datos->documento,$datos->nombre,$datos->genero,$datos->fecha_ingreso,$datos->antiguedad_anios,$datos->antiguedad_meses,$datos->antiguedad_dias,$datos->id_cargo,
+            $datos->id_posicion,$datos->correo,$datos->telefono_movil,$datos->telefono_fijo,$datos->nivel_jerarquico,$datos->nivel_general,$datos->unidad_organizativa,$datos->compania,
+            $datos->unidad_corporativa,$datos->area,$datos->role,1,$datos->password,$contrasena,1,$fecha_sistema]
+        );
+        $idUser = DB::connection('mysql-goforagile_admin')->getPdo()->lastInsertId();
+        $descripcion = "Creación de colaborador $datos->nombre";
+        GoForAgileAdmin::Auditoria('CREACIÓN', $descripcion, 'Colaboradores', $idUser, $idEmpresa);
+
+        return $idUser;
+    }
+
+    public static function ActualizarColaborador($datos, $contrasena, $idEmpresa, $idUser){
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i:s');
+        $actualizarColaborador = DB::connection('mysql-goforagile_admin')->update(
+            'UPDATE Empleados SET
+            documento = ?,
+            nombre = ?,
+            genero = ?,
+            fecha_ingreso = ?,
+            antiguedad_anios = ?,
+            antiguedad_meses = ?,
+            antiguedad_dias = ?,
+            id_cargo = ?,
+            id_posicion = ?,
+            correo = ?,
+            telefono_movil = ?,
+            telefono_fijo = ?,
+            nivel_jerarquico = ?,
+            nivel_general = ?,
+            unidad_organizativa = ?,
+            compania = ?,            
+            unidad_corporativa = ?,
+            area = ?,
+            role = ?,
+            estado = ?,
+            password = ?,
+            contrasena = ?,
+            verificar = ?,
+            updated_at = ?
+            WHERE id = ?',
+            [$datos->documento,$datos->nombre,$datos->genero,$datos->fecha_ingreso,$datos->antiguedad_anios,$datos->antiguedad_meses,$datos->antiguedad_dias,$datos->id_cargo,
+            $datos->id_posicion,$datos->correo,$datos->telefono_movil,$datos->telefono_fijo,$datos->nivel_jerarquico,$datos->nivel_general,$datos->unidad_organizativa,$datos->compania,
+            $datos->unidad_corporativa,$datos->area,$datos->role,$datos->estado,$datos->password,$contrasena,$datos->verificar,$fecha_sistema,$datos->id_colaborador]
+        );
+        $descripcion = "Actualización de datos para el colaborador $datos->nombre";
+        GoForAgileAdmin::Auditoria('ACTUALIZAR', $descripcion, 'Colaboradores', $idUser, $idEmpresa);
+        return $actualizarColaborador;
+    }
+
+    public static function ActualizarFotoColaborador($idColaborador, $nombre, $nombrewebp, $idEmpresa, $idUser){
+        date_default_timezone_set('America/Bogota');
+        $fecha_sistema  = date('Y-m-d H:i:s');
+        $actualizarColaborador = DB::connection('mysql-goforagile_admin')->update(
+            'UPDATE Empleados SET foto = ?, foto_webp = ? WHERE id = ?',
+            [$nombre, $nombrewebp,$idColaborador]
+        );
+        return $actualizarColaborador;
+    }
+
+    public static function EliminarColaborador($id, $idUser)
+    {
+        date_default_timezone_set('America/Bogota');
+        $colaborador = GoForAgileAdmin::EmpleadoId($id);
+        foreach ($colaborador as $value) {
+            $nombreColaborador = $value->nombre;
+            $idEmpresa = $value->id_empresa;
+        }
+        $eliminarColaborador = DB::connection('mysql-goforagile_admin')->delete(
+            'DELETE FROM Empleados WHERE id = ?',
+            [$id]
+        );
+        DB::connection('mysql-goforagile_admin')->delete(
+            'DELETE FROM Lideres WHERE id_empleado = ?',
+            [$id]
+        );
+        $descripcion = "Eliminación de colaborador $nombreColaborador";
+        GoForAgileAdmin::Auditoria('ELIMINAR', $descripcion, 'Colaboradores', $idUser, $idEmpresa);
+        return $eliminarColaborador;
     }
 
     // EMPRESAS
@@ -479,6 +591,16 @@ class GoForAgileAdmin extends Model
         return $Estado;
     }
 
+    public static function Verificar()
+    {
+        $Verificar = array();
+        $Verificar[''] = 'Seleccione..';
+        $Verificar[1]  = 'Verificado';
+        $Verificar[2]  = 'Pendiente';
+        $Verificar[3]  = 'No Verificado';
+        return $Verificar;
+    }
+
     public static function Tendencia()
     {
         $Tendencia = array(
@@ -588,5 +710,24 @@ class GoForAgileAdmin extends Model
             [$id_empresa, $id_user, $accion, $descripcion, $modulo, $fecha_sistema]
         );
         return $auditoria;
+    }
+
+    public static function EtiquetasAdministrador($idEmpresa)
+    {
+        $arrayEtiquetas = array();
+        $queryEtiquetas = DB::connection('mysql-goforagile_admin')->select("SELECT * FROM Etiquetas_Empresa WHERE id_empresa = $idEmpresa AND estado = 1 AND tipo_etiqueta = 1");
+        
+        foreach ($queryEtiquetas as $value) {
+            $arrayEtiquetas[$value->id_etiqueta]["etiqueta"] = $value->nombre;
+        }
+
+        $etiquetaAdminDE = $arrayEtiquetas[1]["etiqueta"];
+        $etiquetaAdminVP = $arrayEtiquetas[2]["etiqueta"];
+        $etiquetaAdminArea = $arrayEtiquetas[3]["etiqueta"];
+        $etiquetaAdminUO = $arrayEtiquetas[4]["etiqueta"];
+        $etiquetaAdminNJ = $arrayEtiquetas[5]["etiqueta"];
+        $etiquetaAdminCargo = $arrayEtiquetas[6]["etiqueta"];
+
+        return $arrayEtiquetas;
     }
 }

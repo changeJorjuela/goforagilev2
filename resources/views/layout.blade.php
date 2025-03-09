@@ -15,7 +15,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="HandheldFriendly" content="true">
     <meta name="MobileOptimized" content="width">
-    <link type="image/x-icon" rel="icon" href="{{asset("img/IsotipoGFA.png")}}">
+    <link type="image/x-icon" rel="icon" href="{{asset("img/ISOTIPO_COLOR.png")}}">
     <link rel="stylesheet" href="{{asset("css/font-awesome/css/all.min.css")}}">
 
     <link rel="stylesheet" href="{{asset("template/css/bootstrap.min.css")}}" />
@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="{{asset("DataTables/dataTables.bootstrap5.css")}}">
     <link rel="stylesheet" href="{{asset("DataTables/responsive.bootstrap5.css")}}">
     <link rel="stylesheet" href="{{asset("DataTables/buttons.bootstrap5.css")}}">
-    <link rel="stylesheet" href="{{asset("css/toastr.min.css")}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <link rel="stylesheet" href="{{asset("css/select2.min.css")}}">
     <link rel="stylesheet" href="{{asset("css/select2-bootstrap-5-theme.min.css")}}">
@@ -55,19 +55,18 @@
                 @yield('headerPage')
                 <div class="main-content">
                     @yield('contenido')
+                    @include("modals.modalAlerta")                    
                 </div>
             </div>
 
         </div>
-
-
         <aside class="control-sidebar control-sidebar-dark">
         </aside>
     </div>
-    <!-- <script src="{{asset("js/jquery.min.js")}}"></script> -->
-    <!-- <script src="{{asset("js/jquery-migrate.min.js")}}"></script> -->
+
     <script src="{{asset("js/jquery.js")}}"></script>
     <script src="{{asset("js/jquery-migrate.min.js")}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js"></script>
     <script src="{{asset("template/js/bootstrap.min.js")}}" defer></script>
     <script src="{{asset("template/vendor/unifyMenu/unifyMenu.js")}}" defer></script>
@@ -81,10 +80,6 @@
     <script src="{{asset("template/vendor/circliful/circliful.custom.js")}}" defer></script>
 
     <script src="{{asset("template/vendor/chartist/js/chartist.min.js")}}" defer></script>
-    <!-- <script src="{{asset("template/vendor/chartist/js/chartist-tooltip.js")}}" defer></script> -->
-    <!-- <script src="{{asset("template/vendor/chartist/js/custom/custom-area-chart2.js")}}" defer></script> -->
-    <!-- <script src="{{asset("template/vendor/chartist/js/custom/custom-compare-line.js")}}" defer></script> -->
-
     <script src="{{asset("template/vendor/slimscroll/slimscroll.min.js")}}" defer></script>
     <script src="{{asset("template/vendor/slimscroll/custom-scrollbar.js")}}" defer></script>
 
@@ -104,9 +99,7 @@
 
     <script src="{{asset("js/administracion.js")}}" defer></script>
     <script src="{{asset("js/select2.min.js")}}" defer></script>
-    <script src="{{asset("js/toastr.min.js")}}" defer></script>
     <script src="{{asset("template/js/common.js")}}" defer></script>
-
 
     @stack('scripts')
     <script>

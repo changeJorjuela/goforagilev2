@@ -56,7 +56,8 @@ class LoginController extends Controller
             $consultaUsuario = GoForAgileAdmin::BuscarUserLogin($user);
 
             if ($consultaUsuario) {
-                $consultarLogin = GoForAgileAdmin::BuscarPass($user, $password);
+                $contrasena = hash('sha512', $request->password);
+                $consultarLogin = GoForAgileAdmin::BuscarPass($user, $contrasena);
                 if ($consultarLogin) {
                     foreach ($consultarLogin as $value) {
                         $IdUsuario      = (int)$value->id;
@@ -108,29 +109,34 @@ class LoginController extends Controller
                         } else {
                             $photo = $profilePhoto;
                         }
-
-                        // $avatar = Image::make('https://www.goforagile.com/recursos/' . $photo);
-                        // $avatar->resize(240, 240);  // Ajusta el tamaño según sea necesario
-                        // $avatarPath = public_path('images/avatars/' . $photo);  // Guardar en una carpeta pública               
                         
-                        // $avatar->save($avatarPath);
-
-
-                        if (!$foto_empresa) {
-                            $photo_empresa = "../img/logo_agile_marker.png";
-                        } else {
-                            $photo_empresa = "https://www.goforagile.com/recursos/" . $foto_empresa;
-                        }
+                        // if (!$foto_empresa) {
+                        //     $photo_empresa = asset('img/logo_agile_marker.png');
+                        // } else {
+                        //     $photo_empresa = asset('recursos/'. $foto_empresa);
+                        // }
 
                         if ($idRol == 1) {
                             Session::put('role_plataforma', 1);
                         }
 
-                        $userPhoto  = '<img src="https://www.goforagile.com/recursos/' . $photo . '" class="foto_min" alt="GFA User">';
-                        // $avatar     = '<img class="avatar" src="' . asset('images/avatars/' . $photo) . '" alt="GFA User" />';
-                        $avatar     = '<img class="avatar" src="https://www.goforagile.com/recursos/' . $photo . '" alt="GFA User" style="height:40px;"/>';
-                        $fotoAside  = '<img src="https://www.goforagile.com/recursos/' . $photo . '" class="profile-thumb" alt="GFA User">';
-                        $fotoEmpresa = '<img src="' . $photo_empresa . '" alt="Admin Empresa" />';
+                        $avatar = Image::make(base_path('recursos/' . $photo));
+                        $avatar->resize(240, 240);  
+                        $avatarPath = base_path('avatars/' . $photo); 
+
+                        $avatar->save($avatarPath);
+
+                        if (!$foto_empresa) {
+                            $photo_empresa = 'img/logo_agile_marker.png';
+                        } else {
+                            $photo_empresa = 'recursos/' . $foto_empresa; 
+                        }
+
+                        $userPhoto  = '<img src="' . asset('recursos/' . $photo) . '" class="foto_min" alt="GFA User">';
+                        $avatar     = '<img class="avatar" src="' . asset('avatars/' . $photo) . '" alt="GFA User" />';
+                        // $avatar     = '<img class="avatar" src="https://www.goforagile.com/recursos/' . $photo . '" alt="GFA User" style="height:40px;"/>';
+                        $fotoAside  = '<img src="' . asset('recursos/' . $photo) . '" class="profile-thumb" alt="GFA User">';
+                        $fotoEmpresa = '<img src="' . asset($photo_empresa) . '" alt="Admin Empresa" />';
 
                         Session::put('id_user', $IdUsuario);
                         Session::put('NombreUsuario', $nombreUsuario);
@@ -163,6 +169,14 @@ class LoginController extends Controller
                         Session::put('ciclo', $id_ciclo);
                         Session::put('anio_curso', $anio_curso);
                         Session::put('anio_fill', $anio_curso);
+
+                        $etiquetasAdmin = GoForAgileAdmin::EtiquetasAdministrador($idEmpresa);
+                        Session::put('EtiquetaAdminDivisionEstrategica', $etiquetasAdmin[1]['etiqueta']);
+                        Session::put('EtiquetaAdminVicepresidencia', $etiquetasAdmin[2]['etiqueta']);
+                        Session::put('EtiquetaAdminArea', $etiquetasAdmin[3]['etiqueta']);
+                        Session::put('EtiquetaAdminUnidadOrganizativa', $etiquetasAdmin[4]['etiqueta']);
+                        Session::put('EtiquetaAdminNivelJerarquico', $etiquetasAdmin[5]['etiqueta']);
+                        Session::put('EtiquetaAdminCargos', $etiquetasAdmin[6]['etiqueta']);
 
                         Session::save();
 

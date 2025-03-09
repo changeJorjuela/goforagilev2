@@ -201,7 +201,7 @@ $(document).ready(function () {
             { responsivePriority: 2, targets: -1 }],
         responsive: true,
         order: [
-            [3, 'asc']
+            [2, 'asc']
         ],
         pageLength: 100,
         language: {
@@ -271,6 +271,7 @@ function obtener_datos_area(id) {
     var Estado = $("#estado_activo" + id).val();
 
     $("#idArea_upd").val(id);
+    $("#idArea_delete").val(id);
     $("#mod_nombre_area").val(Nombre);
     $("#mod_padre").val(Padre);
     $("#mod_jerarquia").val(Jerarquia);
@@ -311,7 +312,7 @@ function select_vicepresidencia() {
         var empresa = $("#id_empresa").val();
         var area = $("#id_area").val();
         id = $(this).val();
-        
+
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -325,7 +326,7 @@ function select_vicepresidencia() {
                 area: area
             },
             success: function (data) {
-                
+
                 $('#area').html('<option value="">Seleccione un área</option>');
 
                 data.sort(function (a, b) {
@@ -348,7 +349,7 @@ function select_area() {
         var area = $("#id_area").val();
         var vp = $("#unidad_corporativa").val();
         id = $(this).val();
-        
+
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -362,7 +363,7 @@ function select_area() {
                 vp: vp
             },
             success: function (data) {
-                
+
                 $('#unidad_organizativa').html('<option value="">Seleccione un unidad organizativa</option>');
 
                 data.sort(function (a, b) {
@@ -382,5 +383,66 @@ function togglePassword() {
         passwordField.type = "text";
     } else {
         passwordField.type = "password";
+    }
+}
+
+function EliminarColaborador(id, id_user) {
+    showSuccessMessage(
+        'Eliminar Colaborador',
+        'Está a punto de eliminar un colaborador. ESTA ACCIÓN ES IRREVERSIBLE. se perderán los datos. ¿Está seguro?',
+        function () {
+            var tipo = 'post';
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "eliminarColaborador",
+                type: "post",
+                data: {
+                    _method: tipo,
+                    id: id,
+                    id_user: id_user
+                },
+                success: function (data) {
+                    if (data == 'true') {
+                        toastr.success("Colaborador eliminado con exito");
+                        window.location = "colaboradores";  
+                    } else {
+                        toastr.error("Hubo un error al eliminar el colaborador.");
+                    }                    
+                }
+            });
+        }
+    );
+
+}
+function showSuccessMessage(header, message, callbackFunction) {
+    document.getElementById('headAlerta').innerHTML = header;
+    document.getElementById('exitoAlerta').innerHTML = message;
+
+    $('#mensajeAlerta').modal('show');
+
+    document.getElementById('aceptarAlerta').onclick = function () {
+        if (typeof callbackFunction === 'function') {
+            callbackFunction();
+        }
+
+        $('#mensajeAlerta').modal('hide');
+    };
+
+    // Crear el botón de Cerrar si no existe ya
+    if (!document.getElementById('cerrarAlerta')) {
+        var closeButton = document.createElement('button');
+        closeButton.classList.add('btn', 'btn-primary'); // Clases de Bootstrap
+        closeButton.innerHTML = 'Cerrar'; // Texto del botón
+        closeButton.id = 'cerrarAlerta'; // ID único para identificarlo
+
+        // Asignar la función al botón Cerrar
+        closeButton.addEventListener('click', function() {
+            $('#mensajeAlerta').modal('hide'); // Cerrar el modal cuando se hace clic
+        });
+
+        // Agregar el botón Cerrar al modalFooter, asegurándonos de que no se repita
+        document.getElementById('modalFooter').appendChild(closeButton);
     }
 }

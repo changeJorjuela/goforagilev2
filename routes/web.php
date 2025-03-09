@@ -10,7 +10,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\Administrador\AdministradorController;
 use App\Http\Controllers\Administrador\OkrsController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ExtrasController;
+use App\Http\Controllers\ApiOKRsController;
+use App\Http\Controllers\ApiAdminController;
 use App\Http\Controllers\Lider\LiderController;
 use App\Http\Controllers\Colaborador\ColaboradorController;
 use App\Http\Controllers\OkrController;
@@ -19,14 +20,17 @@ Cache::flush();
 Session::flush();
 Artisan::call('cache:clear');
 
-Route::get('/', function () {
-    return view('login');
-});
+Route::middleware(['web'])->group(function () {
+    Route::get('/', function () {
+        return view('login');
+    });
 
-Route::get('login', [LoginController::class, 'Login'])->name('login');
-Route::get('recuperarContrasena', [LoginController::class, 'RecuperarContrasena'])->name('recuperarContrasena');
-Route::post('acceso', [LoginController::class, 'Acceso'])->name('acceso');
-Route::post('recuperarAcceso', [LoginController::class, 'RecuperarAcceso'])->name('recuperarAcceso');
+    Route::get('login', [LoginController::class, 'Login'])->name('login');
+    Route::get('recuperarContrasena', [LoginController::class, 'RecuperarContrasena'])->name('recuperarContrasena');
+
+    Route::post('acceso', [LoginController::class, 'Acceso'])->name('acceso');
+    Route::post('recuperarAcceso', [LoginController::class, 'RecuperarAcceso'])->name('recuperarAcceso');
+});
 
 Auth::routes();
 
@@ -61,16 +65,17 @@ Route::group(['middleware' => 'revalidate'], function () {
 
         // OKRS
         Route::get('okrsOrganizacion', [OkrsController::class, 'OkrsOrganizacion'])->name('okrsOrganizacion');
-        Route::post('guardarAvanceResultado', [ExtrasController::class, 'GuardarAvanceResultado'])->name('guardarAvanceResultado');
-        Route::post('guardarAvanceIniciativa', [ExtrasController::class, 'GuardarAvanceIniciativa'])->name('guardarAvanceIniciativa');
-        Route::get('verIniciativa', [ExtrasController::class, 'VerIniciativa'])->name('verIniciativa');
-        Route::get('verKr', [ExtrasController::class, 'VerKr'])->name('verKr');
+        Route::post('guardarAvanceResultado', [ApiOKRsController::class, 'GuardarAvanceResultado'])->name('guardarAvanceResultado');
+        Route::post('guardarAvanceIniciativa', [ApiOKRsController::class, 'GuardarAvanceIniciativa'])->name('guardarAvanceIniciativa');
+        Route::get('verIniciativa', [ApiOKRsController::class, 'VerIniciativa'])->name('verIniciativa');
+        Route::get('verKr', [ApiOKRsController::class, 'VerKr'])->name('verKr');
         
 
         //Extras
-        Route::get('profileEmpleado', [ExtrasController::class, 'ProfileEmpleado'])->name('profileEmpleado');
-        Route::get('listarAreas', [ExtrasController::class, 'ListarAreasEmpresa'])->name('listarAreas');
-        Route::get('listarUnidadOrganizativa', [ExtrasController::class, 'ListarUnidadOrganizativaEmpresa'])->name('listarUnidadOrganizativa');
+        Route::get('profileEmpleado', [ApiAdminController::class, 'ProfileEmpleado'])->name('profileEmpleado');
+        Route::post('eliminarColaborador', [ApiAdminController::class, 'EliminarColaborador'])->name('eliminarColaborador');
+        Route::get('listarAreas', [ApiAdminController::class, 'ListarAreasEmpresa'])->name('listarAreas');
+        Route::get('listarUnidadOrganizativa', [ApiAdminController::class, 'ListarUnidadOrganizativaEmpresa'])->name('listarUnidadOrganizativa');
 
         Route::get('logout', function () {
             Auth::logout();
@@ -86,11 +91,11 @@ Route::group(['middleware' => 'revalidate'], function () {
         Artisan::call('cache:clear');
 
         // OKRS
-        Route::post('guardarAvanceResultado', [ExtrasController::class, 'GuardarAvanceResultado'])->name('guardarAvanceResultado');
-        Route::post('guardarAvanceIniciativa', [ExtrasController::class, 'GuardarAvanceIniciativa'])->name('guardarAvanceIniciativa');
+        Route::post('guardarAvanceResultado', [ApiOKRsController::class, 'GuardarAvanceResultado'])->name('guardarAvanceResultado');
+        Route::post('guardarAvanceIniciativa', [ApiOKRsController::class, 'GuardarAvanceIniciativa'])->name('guardarAvanceIniciativa');
 
         //Extras
-        Route::get('profileEmpleado', [ExtrasController::class, 'ProfileEmpleado'])->name('profileEmpleado');
+        Route::get('profileEmpleado', [ApiAdminController::class, 'ProfileEmpleado'])->name('profileEmpleado');
         Route::get('logout', function () {
             Auth::logout();
             Session::flush();
@@ -105,11 +110,11 @@ Route::group(['middleware' => 'revalidate'], function () {
         Artisan::call('cache:clear');
 
         // OKRS
-        Route::post('guardarAvanceResultado', [ExtrasController::class, 'GuardarAvanceResultado'])->name('guardarAvanceResultado');
-        Route::post('guardarAvanceIniciativa', [ExtrasController::class, 'GuardarAvanceIniciativa'])->name('guardarAvanceIniciativa');
+        Route::post('guardarAvanceResultado', [ApiOKRsController::class, 'GuardarAvanceResultado'])->name('guardarAvanceResultado');
+        Route::post('guardarAvanceIniciativa', [ApiOKRsController::class, 'GuardarAvanceIniciativa'])->name('guardarAvanceIniciativa');
         
         //Extras
-        Route::get('profileEmpleado', [ExtrasController::class, 'ProfileEmpleado'])->name('profileEmpleado');
+        Route::get('profileEmpleado', [ApiAdminController::class, 'ProfileEmpleado'])->name('profileEmpleado');
         Route::get('logout', function () {
             Auth::logout();
             Session::flush();
@@ -122,10 +127,12 @@ Route::group(['middleware' => 'revalidate'], function () {
     // ADMINISTRACIÓN
     Route::post('crearArea', [AdminController::class, 'CrearArea'])->name('crearArea');
     Route::post('actualizarArea', [AdminController::class, 'ActualizarArea'])->name('actualizarArea');
+    Route::post('eliminarArea', [AdminController::class, 'EliminarArea'])->name('eliminarArea');
     Route::post('crearCargo', [AdminController::class, 'CrearCargo'])->name('crearCargo');
     Route::post('actualizarCargo', [AdminController::class, 'ActualizarCargo'])->name('actualizarCargo');
     Route::post('eliminarCargo', [AdminController::class, 'EliminarCargo'])->name('eliminarCargo');
-    
+    Route::post('crearColaborador', [AdminController::class, 'CrearColaborador'])->name('crearColaborador');
+    Route::post('actualizarColaborador', [AdminController::class, 'ActualizarColaborador'])->name('actualizarColaborador');
 
     // OKRS
     Route::post('administrarIniciativa', [OkrController::class, 'AdministrarIniciativa'])->name('administrarIniciativa');

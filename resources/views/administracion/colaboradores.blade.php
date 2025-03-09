@@ -32,12 +32,8 @@ Colaboradores
         <div class="card">
             <div class="card-header" id="header-page">
                 <div class="col-sm-12">
-                    <div class="right-actions">
-                        @if(Session::get('id_empresa') == 1)
-                        <a href="detalleColaboradorPc" class="btn btn-agile btn-rounded"><i class="icon-plus"></i>&nbsp;&nbsp;Crear Colaborador</a>
-                        @else
+                    <div class="right-actions">                        
                         <a href="detalleColaborador" class="btn btn-agile btn-rounded"><i class="icon-plus"></i>&nbsp;&nbsp;Crear Colaborador</a>
-                        @endif
                     </div>
                 </div>
             </div>
@@ -45,23 +41,22 @@ Colaboradores
                 <table border="0" id="colaboradores" class="display table m-0" style="width:100%;">
                     <thead class="thead-success">
                         <tr>
-                            <th scope="col" width="15">Nro.</th>
                             <th scope="col">Documento</th>
                             <th scope="col">Foto</th>
                             <th scope="col">Nombre Completo</th>
                             <th scope="col">Correo</th>
-                            <th scope="col">Cargo</th>
-                            <th scope="col">Vicepresidencia</th>
-                            <th scope="col">Área</th>
+                            <th scope="col">{!! Session::get('EtiquetaAdminCArgos') !!}</th>
+                            <th scope="col">{!! Session::get('EtiquetaAdminVicepresidencia') !!}</th>
+                            <th scope="col">{!! Session::get('EtiquetaAdminArea') !!}</th>
                             <th scope="col">Rol</th>
                             <th scope="col">Estado</th>
+                            <th scope="col">Verificación</th>
                             <th scope="col" width="100">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($Colaboradores as $value)
                         <tr>
-                            <td>{{$value['cont']}}</td>
                             <td>{{$value['documento']}}</td>
                             <td>{!!$value['foto_tabla']!!}</td>
                             <td>{{$value['nombre']}}</td>
@@ -71,7 +66,8 @@ Colaboradores
                             <td>{{$value['nombre_area']}}</td>
                             <td>{{$value['nombre_rol']}}</td>
                             <td><span class="{{$value['label']}}" id="estadoLabel"><b>{{$value['estado']}}</b></span></td>
-                            <td><a href="detalleColaborador?colaborador={{$value['id']}}" class="btn btn-warning" title="Editar" id="tableEditButton"><i class="icon-pencil2"></i></a></td>                           
+                            <td><span class="{{$value['label_verificar']}}" id="estadoLabel"><b>{{$value['verificar']}}</b></span></td>
+                            <td><a href="detalleColaborador?colaborador={{$value['id']}}" class="btn btn-warning" title="Editar" id="tableEditButton"><i class="icon-pencil2"></i></a></td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -93,18 +89,18 @@ Colaboradores
     });
 </script>
 <script>
-        @if (session("mensaje"))
-            toastr.success("{{ session("mensaje") }}");
-        @endif
+    @if(session("mensaje"))
+    toastr.success("{{ session("mensaje ") }}");
+    @endif
 
-        @if (session("precaucion"))
-            toastr.warning("{{ session("precaucion") }}");
-        @endif
+    @if(session("precaucion"))
+    toastr.warning("{{ session("precaucion ") }}");
+    @endif
 
-        @if (count($errors) > 0)
-            @foreach($errors -> all() as $error)
-                toastr.error("{{ $error }}");
-            @endforeach
-        @endif
-    </script>
+    @if(count($errors) > 0)
+    @foreach($errors -> all() as $error)
+    toastr.error("{{ $error }}");
+    @endforeach
+    @endif
+</script>
 @endpush

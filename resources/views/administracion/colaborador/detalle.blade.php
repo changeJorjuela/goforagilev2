@@ -54,7 +54,11 @@ Colaboradores
                 </ul>
                 <div class="tab-content" id="myTabContent1">
                     <div class="tab-pane fade show active" id="datos" role="tabpanel" aria-labelledby="datos-colaborador">
+                        @if(Session::get('id_empresa') == 1)
+                        @include("administracion.colaborador.formEditarPc")
+                        @else
                         @include("administracion.colaborador.formEditar")
+                        @endif
                     </div>
                     <div class="tab-pane fade" id="lider" role="tabpanel" aria-labelledby="lider-colaborador">With the
                         clear separation of concerns within Chartist.js, you're able to style your charts with CSS in
@@ -73,7 +77,9 @@ Colaboradores
         </div>
     </div>
 </div>
+@include("modals.modalColaboradores")
 @endsection
+
 @push('scripts')
 
 <script>

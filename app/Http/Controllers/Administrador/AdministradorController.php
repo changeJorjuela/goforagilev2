@@ -291,17 +291,59 @@ class AdministradorController extends Controller
                 $Colaboradores[$cont]['label']    = 'text-danger';
             }
 
+            $Verificado  = (int)$value->verificar;
+            switch ($Verificado) {
+                case 1:
+                    $Colaboradores[$cont]['verificar']   = 'VERIFICADO';
+                    $Colaboradores[$cont]['label_verificar']    = 'text-success';
+                    break;
+                case 2:
+                    $Colaboradores[$cont]['verificar']   = 'PENDIENTE';
+                    $Colaboradores[$cont]['label_verificar']    = 'text-warning';
+                    break;
+                case 3:
+                    $Colaboradores[$cont]['verificar']   = 'NO VERIFICADO';
+                    $Colaboradores[$cont]['label_verificar']    = 'text-danger';
+                    break;
+                default:
+                    $Colaboradores[$cont]['verificar']   = '';
+                    $Colaboradores[$cont]['label_verificar']    = 'text-light';
+                    break;
+            }
+
             $Colaboradores[$cont]['unidad_estrategica'] = $value->unidad_estrategica;
             $Colaboradores[$cont]['id_posicion'] = $value->id_posicion;
             $Colaboradores[$cont]['password'] = $value->password;
             $Colaboradores[$cont]['foto'] = $value->foto;
-            if ($value->foto) {
-                $Colaboradores[$cont]['foto_tabla'] = '<img data-src="https://www.goforagile.com/recursos/' . $value->foto . '" class="lazyload profile-thumb" title="' . $value->nombre . '" style="width:50px;height:50px;border-radius:50%;" >';
+            $fotoWebp = $value->foto_webp;
+            $foto = $value->foto ? $value->foto : 'img_default.jpg';
+
+            if ($fotoWebp) {
+                $fotoWebpUrl = asset('recursos/' . $fotoWebp);
             } else {
-                $Colaboradores[$cont]['foto_tabla'] = '';
+                $fotoWebpUrl = asset('recursos/' . $foto);
             }
-
-
+            if ($fotoWebp) {
+                $fotoTabla = '<picture>
+                <source srcset="' . $fotoWebpUrl . '" type="image/webp"/>
+                <source srcset="' . asset('recursos/' . $fotoWebp) . '" type="image/jpeg"/>
+                <img data-src="' . $fotoWebpUrl . '" class="lazyload profile-thumb" title="' . $value->nombre . '" id="fotoColaborador" src="' . $fotoWebpUrl . '" alt="' . $value->nombre . '"/>
+            </picture>';
+            } elseif (strpos($value->foto, '.png') !== false) {
+                $fotoTabla = '<picture>
+                                <source srcset="' . $fotoWebpUrl . '" type="image/webp"/>
+                                <source srcset="' . asset('recursos/' . $foto) . '" type="image/png"/>
+                                <img data-src="' . $fotoWebpUrl . '" class="lazyload profile-thumb" title="' . $value->nombre . '" id="fotoColaborador" src="' . $fotoWebpUrl . '" alt="' . $value->nombre . '"/>
+                            </picture>';
+            } else {
+                $fotoTabla = '<picture>
+                                <source srcset="' . $fotoWebpUrl . '" type="image/webp"/>
+                                <source srcset="' . asset('recursos/' . $foto) . '" type="image/jpeg"/>
+                                <img data-src="' . $fotoWebpUrl . '" class="lazyload profile-thumb" title="' . $value->nombre . '" id="fotoColaborador" src="' . $fotoWebpUrl . '" alt="' . $value->nombre . '"/>
+                            </picture>';
+            }
+            // $Colaboradores[$cont]['foto_tabla'] = '<img data-src="' . asset('recursos/' . $foto) . '" class="lazyload profile-thumb" title="' . $value->nombre . '" style="width:50px;height:50px;border-radius:50%;" >';
+            $Colaboradores[$cont]['foto_tabla'] = $fotoTabla;
             $cont++;
         }
 
@@ -319,6 +361,7 @@ class AdministradorController extends Controller
      */
     public static function DetalleColaborador(Request $request)
     {
+
         $Genero = array();
         $Genero[''] = 'Seleccione Genero..';
         $Genero['Femenino'] = 'Femenino';
@@ -367,6 +410,7 @@ class AdministradorController extends Controller
         }
 
         $Estado = GoForAgileAdmin::Estado();
+        $Verificar = GoForAgileAdmin::Verificar();
 
         $ListarRoles = GoForAgileAdmin::ListarRoles();
         $Roles = array();
@@ -378,6 +422,7 @@ class AdministradorController extends Controller
         if ($request->query('colaborador')) {
             $colaborador = GoForAgileAdmin::EmpleadoId($request->colaborador);
             if ($colaborador) {
+                // dd($colaborador);
                 foreach ($colaborador as $row) {
                     $documento = $row->documento;
                     $nombre = $row->nombre;
@@ -397,11 +442,14 @@ class AdministradorController extends Controller
                     $area = $row->area;
                     $unidad_organizativa = $row->unidad_organizativa;
                     $nivel_jerarquico = $row->nivel_jerarquico;
+                    $nivel_general = $row->nivel_general;
                     $contrasena = $row->contrasena;
+                    $password = $row->password;
                     $estado = $row->estado;
                     $role = $row->role;
                     $foto = $row->foto;
                     $idColaborador = $row->id;
+                    $verificar = $row->verificar;
                 }
             }
 
@@ -432,6 +480,7 @@ class AdministradorController extends Controller
                 'UnidadOrganizativa' => $UnidadOrganizativa,
                 'NivelJerarquico' => $NivelJerarquico,
                 'Estado' => $Estado,
+                'Verificar' => $Verificar,
                 'Roles' => $Roles,
                 'fechaIngreso' => $fechaIngreso,
                 'documento' => $documento,
@@ -452,11 +501,13 @@ class AdministradorController extends Controller
                 'area' => $area,
                 'unidad_organizativa' => $unidad_organizativa,
                 'nivel_jerarquico' => $nivel_jerarquico,
-                'password' => $contrasena,
+                'nivel_general' => $nivel_general,
+                'password' => $password,
                 'estado' => $estado,
                 'role' => $role,
                 'foto' => $foto,
-                'idColaborador' => $idColaborador
+                'idColaborador' => $idColaborador,
+                'verificar' => $verificar
             ]);
         } else {
             return view('administracion/colaborador/crear', [
@@ -468,7 +519,8 @@ class AdministradorController extends Controller
                 'UnidadOrganizativa' => $UnidadOrganizativa,
                 'NivelJerarquico' => $NivelJerarquico,
                 'Estado' => $Estado,
-                'Roles' => $Roles
+                'Roles' => $Roles,
+                'Verificar' => $Verificar
             ]);
         }
     }

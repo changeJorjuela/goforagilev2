@@ -91,17 +91,22 @@
                                 {!! Form::select('nivel_jerarquico',$NivelJerarquico,$nivel_jerarquico,['class'=>'form-control multiples_responsables','id'=>'nivel_jerarquico','style'=>'width: 100%;']) !!}
                             </div>
                             <div class="col-md-4">
+                                <label for="nivel_general">Nivel General</label>
+                                {!! Form::text('nivel_general','$nivel_general',['class'=>'form-control','id'=>'nivel_general','placeholder'=>'Nivel General']) !!}
+                            </div>
+                            <div class="col-md-4">
                                 <label for="id_cargo">{!! Session::get('EtiquetaAdminCargos') !!}</label>
                                 {!! Form::select('id_cargo',$Cargos,$cargo,['class'=>'form-control multiples_responsables','id'=>'id_cargo','style'=>'width: 100%']) !!}
                             </div>
-                            <div class="col-md-4">
-                                <label for="id_posicion">Posiciones</label>
-                                {!! Form::select('id_posicion',$Posiciones,$posicion,['class'=>'form-control multiples_responsables','id'=>'id_posicion','style'=>'width: 100%']) !!}
-                            </div>
+
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="row">
+                            <div class="col-md-4">
+                                <label for="id_posicion">Posiciones</label>
+                                {!! Form::select('id_posicion',$Posiciones,$posicion,['class'=>'form-control multiples_responsables','id'=>'id_posicion','style'=>'width: 100%']) !!}
+                            </div>
                             <div class="col-md-4">
                                 <label for="unidad_estrategica">{!! Session::get('EtiquetaAdminDivisionEstrategica') !!}</label>
                                 {!! Form::text('unidad_estrategica',$unidadEstrategica,['class'=>'form-control','id'=>'unidad_estrategica','placeholder'=>'División / Unidad Estratégica']) !!}
@@ -110,6 +115,10 @@
                                 <label for="role">Rol Plataforma *</label>
                                 {!! Form::select('role',$Roles,$role,['class'=>'form-control multiples_responsables','id'=>'role','style'=>'width: 100%;','required']) !!}
                             </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
                             <div class="col-md-4">
                                 <label for="password">Contraseña *</label>
                                 <div class="password-container">
@@ -117,11 +126,6 @@
                                     <span class="toggle-password" onclick="togglePassword()">👁️</span>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            
                             <div class="col-md-4">
                                 <label for="estado">Estado *</label>
                                 {!! Form::select('estado',$Estado,$estado,['class'=>'form-control multiples_responsables','id'=>'estado','style'=>'width: 100%;','required']) !!}
