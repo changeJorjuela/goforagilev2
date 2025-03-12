@@ -52,7 +52,7 @@
                     <div class="row" id="botonesForm">
                         <div class="col-md-12">
                         <button type="submit" class="btn btn-success">Guardar</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-danger btn-rounded" data-bs-dismiss="modal">Cerrar</button>
                         </div>
                     </div>
                 </div>

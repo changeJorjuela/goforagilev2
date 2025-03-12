@@ -196,6 +196,48 @@ $(document).ready(function () {
     });
 
     $('#colaboradores').DataTable({
+        destroy: true,
+        ajax: {
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "colaboradoresEmpresa",
+            type: "get",
+            dataSrc: function (json) {
+                // console.log("Respuesta API:", json);
+                return Object.values(json.data) || [];  // Convierte el objeto en un array
+            }
+        },
+        columns: [
+            { data: "documento" },
+            { data: "foto_tabla", defaultContent: "Sin foto" },
+            { data: "nombre" },
+            { data: "correo" },
+            { data: "nombre_cargo", defaultContent: "No asignado" },
+            { data: "nombre_vp", defaultContent: "No asignado" },
+            { data: "nombre_area", defaultContent: "No asignado" },
+            { data: "nombre_rol", defaultContent: "Sin rol" },
+            {
+                data: "estado",
+                render: function (data, type, row) {
+                    return `<span class="${row.label}"><b>${data}</b></span>`;
+                }
+            },
+            {
+                data: "verificar",
+                render: function (data, type, row) {
+                    return `<span class="${row.label_verificar}"><b>${data}</b></span>`;
+                }
+            },
+            {
+                data: "id",
+                render: function (data) {
+                    return `<a href="detalleColaborador?colaborador=${data}" class="btn btn-warning" id="tableEditButton" title="Editar">
+                                <i class="icon-pencil2"></i>
+                            </a>`;
+                }
+            }
+        ],
         columnDefs: [
             { responsivePriority: 1, targets: 1 },
             { responsivePriority: 2, targets: -1 }],
@@ -261,6 +303,45 @@ $(document).ready(function () {
         }
 
         ]
+    });
+
+    $('#liderColaborador').DataTable({
+        columnDefs: [
+            { responsivePriority: 1, targets: 1 },
+            { responsivePriority: 2, targets: -1 }],
+        responsive: true,
+        order: [
+            [2, 'asc']
+        ],
+        pageLength: 10,
+        language: {
+            processing: "Procesando...",
+            search: "Buscar:",
+            lengthMenu: "Mostrar _MENU_ registros.",
+            info: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            infoEmpty: "Mostrando registros del 0 al 0 de 0 registros",
+            infoFiltered: "(filtrado de un total de _MAX_ registros)",
+            infoPostFix: "",
+            loadingRecords: "Cargando...",
+            zeroRecords: "No se encontraron resultados",
+            emptyTable: "Ningún dato disponible en esta tabla",
+            row: "Registro",
+            export: "Exportar",
+            paginate: {
+                first: "Primero",
+                previous: "Anterior",
+                next: "Siguiente",
+                last: "Ultimo"
+            },
+            aria: {
+                sortAscending: ": Activar para ordenar la columna de manera ascendente",
+                sortDescending: ": Activar para ordenar la columna de manera descendente"
+            },
+            select: {
+                row: "registro",
+                selected: "seleccionado"
+            }
+        }
     });
 });
 
@@ -406,10 +487,42 @@ function EliminarColaborador(id, id_user) {
                 success: function (data) {
                     if (data == 'true') {
                         toastr.success("Colaborador eliminado con exito");
-                        window.location = "colaboradores";  
+                        window.location = "colaboradores";
                     } else {
                         toastr.error("Hubo un error al eliminar el colaborador.");
-                    }                    
+                    }
+                }
+            });
+        }
+    );
+
+}
+
+function EliminarLider(id, id_user, id_colaborador) {
+    showSuccessMessage(
+        'Eliminar Lider',
+        'Está a punto de eliminar un lider asignado al colaborador. ESTA ACCIÓN ES IRREVERSIBLE. se perderán los datos. ¿Está seguro?',
+        function () {
+            var tipo = 'post';
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "eliminarLider",
+                type: "post",
+                data: {
+                    _method: tipo,
+                    id: id,
+                    id_user: id_user,
+                    id_colaborador: id_colaborador
+                },
+                success: function (data) {
+                    if (data == 'true') {
+                        toastr.success("Colaborador eliminado con exito");
+                        window.location = "detalleColaborador?colaborador=" + id_colaborador + "&lider_tab_panel=" + id_colaborador;
+                    } else {
+                        toastr.error("Hubo un error al eliminar el lider.");
+                    }
                 }
             });
         }
@@ -430,19 +543,16 @@ function showSuccessMessage(header, message, callbackFunction) {
         $('#mensajeAlerta').modal('hide');
     };
 
-    // Crear el botón de Cerrar si no existe ya
     if (!document.getElementById('cerrarAlerta')) {
         var closeButton = document.createElement('button');
-        closeButton.classList.add('btn', 'btn-primary'); // Clases de Bootstrap
-        closeButton.innerHTML = 'Cerrar'; // Texto del botón
-        closeButton.id = 'cerrarAlerta'; // ID único para identificarlo
+        closeButton.classList.add('btn', 'btn-primary', 'btn-rounded');
+        closeButton.innerHTML = 'Cerrar';
+        closeButton.id = 'cerrarAlerta';
 
-        // Asignar la función al botón Cerrar
-        closeButton.addEventListener('click', function() {
-            $('#mensajeAlerta').modal('hide'); // Cerrar el modal cuando se hace clic
+        closeButton.addEventListener('click', function () {
+            $('#mensajeAlerta').modal('hide');
         });
 
-        // Agregar el botón Cerrar al modalFooter, asegurándonos de que no se repita
         document.getElementById('modalFooter').appendChild(closeButton);
     }
 }

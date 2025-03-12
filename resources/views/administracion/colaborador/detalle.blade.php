@@ -38,35 +38,33 @@ Colaboradores
             <div class="card-body">
                 <ul class="nav nav-tabs nav-justified" id="myTab2" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="datos-colaborador" data-toggle="tab" href="#datos" role="tab"
+                        <a class="nav-link active" id="datos-colaborador" data-toggle="tab" href="#datos_tab_panel_{{ $idColaborador }}" role="tab"
                             aria-controls="datos" aria-selected="true">Datos Básicos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="lider-colaborador" data-toggle="tab" href="#lider" role="tab"
+                        <a class="nav-link" id="lider-colaborador" data-toggle="tab" href="#lider_tab_panel_{{ $idColaborador }}" role="tab"
                             aria-controls="lider" aria-selected="false">Lider Plataforma</a>
                     </li>
                     @if(Session::get('ModValoracion') === 'on')
                     <li class="nav-item">
-                        <a class="nav-link" id="evaluador_colaborador" data-toggle="tab" href="#evaluador" role="tab"
+                        <a class="nav-link" id="evaluador-colaborador" data-toggle="tab" href="#evaluador_tab_panel_{{ $idColaborador }}" role="tab"
                             aria-controls="evaluador" aria-selected="false">Evaluador Competencias</a>
                     </li>
                     @endif
                 </ul>
-                <div class="tab-content" id="myTabContent1">
-                    <div class="tab-pane fade show active" id="datos" role="tabpanel" aria-labelledby="datos-colaborador">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="datos_tab_panel_{{ $idColaborador }}" role="tabpanel" aria-labelledby="datos-colaborador">
                         @if(Session::get('id_empresa') == 1)
                         @include("administracion.colaborador.formEditarPc")
                         @else
                         @include("administracion.colaborador.formEditar")
                         @endif
                     </div>
-                    <div class="tab-pane fade" id="lider" role="tabpanel" aria-labelledby="lider-colaborador">With the
-                        clear separation of concerns within Chartist.js, you're able to style your charts with CSS in
-                        @media queries. However, sometimes you also need to conditionally control the behavior of your
-                        charts. For this purpose, Chartist.js provides you with a simple configuration override
-                        mechanism based on media queries.</div>
+                    <div class="tab-pane fade" id="lider_tab_panel_{{ $idColaborador }}" role="tabpanel" aria-labelledby="lider-colaborador">
+                        @include("administracion.colaborador.lider")
+                    </div>
                     @if(Session::get('ModValoracion') === 'on')
-                    <div class="tab-pane fade" id="evaluador" role="tabpanel" aria-labelledby="evaluador_colaborador">With the
+                    <div class="tab-pane fade" id="evaluador_tab_panel_{{ $idColaborador }}" role="tabpanel" aria-labelledby="evaluador-colaborador">With the
                         clear separation of concerns within Chartist.js, you're able to style your charts with CSS in
                         @media queries. However, sometimes you also need to conditionally control the behavior of your
                         charts. For this purpose, Chartist.js provides you with a simple configuration override
@@ -89,16 +87,53 @@ Colaboradores
         $("#menuColaboradores").addClass("current-page");
         $('.js-example-basic-single').select2();
     });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var divElementEB = document.getElementById("myTabContent");
+        var divElementO = document.getElementById("datos_tab_panel_{{ request('datos_tab_panel') }}");
+        var divElementI = document.getElementById("evaluador_tab_panel_{{ request('evaluador_tab_panel') }}");
+        var divElementA = document.getElementById("lider_tab_panel_{{ request('lider_tab_panel') }}");
+
+        if (divElementO) {
+            // divElementEB.scrollIntoView();
+            $("#lider-colaborador").removeClass("active");
+            $("#lider_tab_panel_{{ $idColaborador }}").removeClass("active show");
+            $("#evaluador-colaborador").removeClass("active");
+            $("#evaluador_tab_panel_{{ $idColaborador }}").removeClass("active show");
+            $("#datos-colaborador").addClass("active");
+            $("#datos_tab_panel_{{ $idColaborador }}").addClass("active show");
+        }
+        if (divElementI) {
+            // divElementEB.scrollIntoView();
+            $("#datos-colaborador").removeClass("active");
+            $("#datos_tab_panel_{{ $idColaborador }}").removeClass("active show");
+            $("#lider-colaborador").removeClass("active");
+            $("#lider_tab_panel_{{ $idColaborador }}").removeClass("active show");
+            $("#evaluador-colaborador").addClass("active");
+            $("#evaluador_tab_panel_{{ $idColaborador }}").addClass("active show");
+
+        }
+        if (divElementA) {
+            // divElementEB.scrollIntoView();
+            $("#datos-colaborador").removeClass("active");
+            $("#datos_tab_panel_{{ $idColaborador }}").removeClass("active show");
+            $("#evaluador-colaborador").removeClass("active");
+            $("#evaluador_tab_panel_{{ $idColaborador }}").removeClass("active show");
+            $("#lider-colaborador").addClass("active");
+            $("#lider_tab_panel_{{ $idColaborador }}").addClass("active show");
+        }
+
+
+    });
+    window.location.hash = "";
 </script>
 <script>
     @if(session("mensaje"))
-    toastr.success("{{ session("
-        mensaje ") }}");
+    toastr.success("{{ session("mensaje") }}");
     @endif
 
     @if(session("precaucion"))
-    toastr.warning("{{ session("
-        precaucion ") }}");
+    toastr.warning("{{ session("precaucion") }}");
     @endif
 
     @if(count($errors) > 0)

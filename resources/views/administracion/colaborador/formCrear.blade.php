@@ -124,7 +124,7 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-12" style="text-align: end;">
-                                <button type="submit" class="btn btn-agile btn-sm">Guardar</button>                                
+                                <button type="submit" class="btn btn-agile btn-sm btn-rounded">Crear</button>                                
                             </div>
                         </div>
                     </div>

@@ -204,7 +204,7 @@ class AdministradorController extends Controller
      * @since 11/10/2024
      * @version 1.0
      */
-    public function Colaboradores()
+    public function Colaboradores(Request $request)
     {
         $ListarColaboradores = GoForAgileAdmin::ListarEmpleados((int)Session::get('id_empresa'));
         $Colaboradores = array();
@@ -347,6 +347,11 @@ class AdministradorController extends Controller
             $cont++;
         }
 
+        if ($request->ajax()) {
+            return response()->json([
+                'data' => $Colaboradores
+            ]);
+        }
 
         return view('administracion/colaboradores', ['Colaboradores' => $Colaboradores]);
     }
@@ -361,7 +366,6 @@ class AdministradorController extends Controller
      */
     public static function DetalleColaborador(Request $request)
     {
-
         $Genero = array();
         $Genero[''] = 'Seleccione Genero..';
         $Genero['Femenino'] = 'Femenino';
@@ -369,7 +373,7 @@ class AdministradorController extends Controller
 
         $ListarCargos = GoForAgileAdmin::ListarCargosActivo((int)Session::get('id_empresa'));
         $Cargos = array();
-        $Cargos[''] = 'Seleccione Cargo..';
+        $Cargos[''] = 'Seleccione ' . Session::get('EtiquetaAdminCargos') . '..';
         foreach ($ListarCargos as $row) {
             $Cargos[$row->id] = $row->nombre;
         }
@@ -383,28 +387,28 @@ class AdministradorController extends Controller
 
         $ListarVicepresidencias = GoForAgileAdmin::ListarVPActivo((int)Session::get('id_empresa'));
         $Vicepresidencias = array();
-        $Vicepresidencias[''] = 'Seleccione Vicepresidencia..';
+        $Vicepresidencias[''] = 'Seleccione ' . Session::get('EtiquetaAdminVicepresidencia') . '..';
         foreach ($ListarVicepresidencias as $row) {
             $Vicepresidencias[$row->id] = $row->nombre;
         }
 
         $ListarAreas = GoForAgileAdmin::ListarAreasActivo((int)Session::get('id_empresa'));
         $Areas = array();
-        $Areas[''] = 'Seleccione Area..';
+        $Areas[''] = 'Seleccione ' . Session::get('EtiquetaAdminArea') . '..';
         foreach ($ListarAreas as $row) {
             $Areas[$row->id] = $row->nombre;
         }
 
         $ListarUO = GoForAgileAdmin::ListarUOActivo((int)Session::get('id_empresa'));
         $UnidadOrganizativa = array();
-        $UnidadOrganizativa[''] = 'Seleccione Unidad Organizativa..';
+        $UnidadOrganizativa[''] = 'Seleccione ' . Session::get('EtiquetaAdminUnidadOrganizativa') . '..';
         foreach ($ListarUO as $row) {
             $UnidadOrganizativa[$row->id] = $row->unidad_organizativa;
         }
 
         $ListarNJ = GoForAgileAdmin::ListarNivelJ((int)Session::get('id_empresa'));
         $NivelJerarquico = array();
-        $NivelJerarquico[''] = 'Seleccione Nivel Jerárquico..';
+        $NivelJerarquico[''] = 'Seleccione ' . Session::get('EtiquetaAdminNivelJerarquico') . '..';
         foreach ($ListarNJ as $row) {
             $NivelJerarquico[$row->id] = $row->nombre;
         }
@@ -420,6 +424,100 @@ class AdministradorController extends Controller
         }
 
         if ($request->query('colaborador')) {
+            $listaLideres = GoForAgileAdmin::LideresColaborador($request->colaborador, (int)Session::get('id_empresa'));
+            $Lideres = array();
+            $cont = $num = 1;
+            $nombreArea = $nombreCargo = $nombreVp = $nombreUO = $nombreRol = "";
+            foreach ($listaLideres as $lider) {
+                $Lideres[$cont]['cont'] = $num++;
+                $Lideres[$cont]['id'] = (int)$lider->id_jefe;
+                $Lideres[$cont]['id_empleado'] = (int)$lider->id_empleado;
+                $liderData = GoForAgileAdmin::EmpleadoId($lider->id_jefe);
+                foreach ($liderData as $data) {
+                    $Lideres[$cont]['documento'] = $data->documento;
+                    $Lideres[$cont]['nombre'] = $data->nombre;
+                    $idvp = $data->unidad_corporativa;
+                    $idArea = $data->area;
+                    $idUO = $data->unidad_organizativa;
+                    $idCargo = $data->id_cargo;
+                    $foto = $data->foto;
+                    $foto_webp = $data->foto_webp;
+                }
+                $Lideres[$cont]['id_cargo'] = (int)$idCargo;
+                if ((int)$idCargo > 0) {
+                    $cargos = GoForAgileAdmin::BuscarNombreCargoId($idCargo);
+                    foreach ($cargos as $cargo) {
+                        $nombreCargo = $cargo->nombre;
+                    }
+                } else {
+                    $nombreCargo = "";
+                }
+                $Lideres[$cont]['nombre_cargo'] = $nombreCargo;
+                $Lideres[$cont]['id_vp'] = (int)$idvp;
+                if ($idvp > 0) {
+                    $vps = GoForAgileAdmin::BuscarNombreVpId($idvp);
+                    foreach ($vps as $vp) {
+                        $nombreVp = $vp->nombre;
+                    }
+                } else {
+                    $nombreVp = "";
+                }
+                $Lideres[$cont]['nombre_vp'] = $nombreVp;
+                $Lideres[$cont]['id_area'] = (int)$idArea;
+                if ($idArea > 0) {
+                    $Lideres[$cont]['id_area'] = (int)$idArea;
+                    $areas = GoForAgileAdmin::BuscarNombreAreaId($idArea);
+                    foreach ($areas as $area) {
+                        $nombreArea = $area->nombre;
+                    }
+                } else {
+                    $nombreArea = "";
+                }
+                $Lideres[$cont]['nombre_area'] = $nombreArea;
+                $Lideres[$cont]['unidad_organizativa'] = $idUO;
+                if ($idUO > 0) {
+                    $Lideres[$cont]['unidad_organizativa'] = $idUO;
+                    $unidadO = GoForAgileAdmin::ListarEPId($idUO);
+                    if ($unidadO) {
+                        foreach ($unidadO as $uo) {
+                            $nombreUO = $uo->unidad_organizativa;
+                        }
+                    }
+                } else {
+                    $nombreUO = "";
+                }
+                $Lideres[$cont]['nombre_unidad_organizativa'] = $nombreUO;
+                $fotoWebp = $foto_webp;
+                $foto = $foto ? $foto : 'img_default.jpg';
+
+                if ($fotoWebp) {
+                    $fotoWebpUrl = asset('recursos/' . $fotoWebp);
+                } else {
+                    $fotoWebpUrl = asset('recursos/' . $foto);
+                }
+                if ($fotoWebp) {
+                    $fotoTabla = '<picture>
+                <source srcset="' . $fotoWebpUrl . '" type="image/webp"/>
+                <source srcset="' . asset('recursos/' . $fotoWebp) . '" type="image/jpeg"/>
+                <img data-src="' . $fotoWebpUrl . '" class="lazyload profile-thumb" title="' . $Lideres[$cont]['nombre'] . '" id="fotoColaborador" src="' . $fotoWebpUrl . '" alt="' . $Lideres[$cont]['nombre'] . '"/>
+            </picture>';
+                } elseif (strpos($foto, '.png') !== false) {
+                    $fotoTabla = '<picture>
+                                <source srcset="' . $fotoWebpUrl . '" type="image/webp"/>
+                                <source srcset="' . asset('recursos/' . $foto) . '" type="image/png"/>
+                                <img data-src="' . $fotoWebpUrl . '" class="lazyload profile-thumb" title="' . $Lideres[$cont]['nombre'] . '" id="fotoColaborador" src="' . $fotoWebpUrl . '" alt="' . $Lideres[$cont]['nombre'] . '"/>
+                            </picture>';
+                } else {
+                    $fotoTabla = '<picture>
+                                <source srcset="' . $fotoWebpUrl . '" type="image/webp"/>
+                                <source srcset="' . asset('recursos/' . $foto) . '" type="image/jpeg"/>
+                                <img data-src="' . $fotoWebpUrl . '" class="lazyload profile-thumb" title="' . $Lideres[$cont]['nombre'] . '" id="fotoColaborador" src="' . $fotoWebpUrl . '" alt="' . $Lideres[$cont]['nombre'] . '"/>
+                            </picture>';
+                }
+
+                $Lideres[$cont]['foto_tabla'] = $fotoTabla;
+                $cont++;
+            }
             $colaborador = GoForAgileAdmin::EmpleadoId($request->colaborador);
             if ($colaborador) {
                 // dd($colaborador);
@@ -471,6 +569,13 @@ class AdministradorController extends Controller
 
             $antiguedad = $antiguedadAnios . ' años / ' . $antiguedadMeses . ' meses / ' . $antiguedadDias . ' días ';
 
+            $ListarLideresEmpresa = GoForAgileAdmin::ListarLideresEmpresa($request->colaborador, (int)Session::get('id_empresa'));
+            $LideresEmpresa = array();
+            $LideresEmpresa[''] = 'Seleccione Lider..';
+            foreach ($ListarLideresEmpresa as $row) {
+                $LideresEmpresa[$row->id] = $row->nombre;
+            }
+
             return view('administracion/colaborador/detalle', [
                 'Genero' => $Genero,
                 'Cargos' => $Cargos,
@@ -507,7 +612,9 @@ class AdministradorController extends Controller
                 'role' => $role,
                 'foto' => $foto,
                 'idColaborador' => $idColaborador,
-                'verificar' => $verificar
+                'verificar' => $verificar,
+                'Lideres' => $Lideres,
+                'LideresEmpresa' => $LideresEmpresa
             ]);
         } else {
             return view('administracion/colaborador/crear', [

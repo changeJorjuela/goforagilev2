@@ -38,8 +38,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-agile">Crear {!! Session::get('EtiquetaAdminArea') !!}</button>
+                <button type="button" class="btn btn-primary btn-rounded" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-agile btn-rounded">Crear {!! Session::get('EtiquetaAdminArea') !!}</button>
             </div>
             {!! Form::close() !!}
         </div>
@@ -86,8 +86,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-danger">Actualizar {!! Session::get('EtiquetaAdminArea') !!}</button>
+                <button type="button" class="btn btn-primary btn-rounded" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-danger btn-rounded">Actualizar {!! Session::get('EtiquetaAdminArea') !!}</button>
             </div>
             {!! Form::close() !!}
         </div>
@@ -126,8 +126,8 @@
                 </div>
             </div>
             <div class="modal-footer">                
-                <button type="submit" class="btn btn-danger">Eliminar {!! Session::get('EtiquetaAdminArea') !!}</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-danger btn-rounded">Eliminar {!! Session::get('EtiquetaAdminArea') !!}</button>
+                <button type="button" class="btn btn-primary btn-rounded" data-dismiss="modal">Cerrar</button>
             </div>
             {!! Form::close() !!}
         </div>

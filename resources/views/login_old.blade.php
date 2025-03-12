@@ -51,7 +51,7 @@
                                 <div class="input-group mb-2">
                                     <input type="password" class="form-control" placeholder="Ingrese Contraseña" aria-label="Password" aria-describedby="Password" name="password" id="password" required>
                                     <div class="input-group-append">
-                                        <button id="show_password" class="btn btn-primary" type="button" onClick="Ver_Pass(this)"> <span class="icon-eye"></span> </button>
+                                        <button id="show_password" class="btn btn-primary btn-rounded" type="button" onClick="Ver_Pass(this)"> <span class="icon-eye"></span> </button>
                                     </div>
                                     <div class="invalid-feedback">Campo obligatorio</div>
                                 </div>

@@ -136,8 +136,8 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-md-12" style="text-align: end;">
-                                <button type="submit" class="btn btn-agile btn-sm">Guardar</button>
-                                <button type="button" class="btn btn-danger btn-sm" onClick="EliminarColaborador({{ $idColaborador }},{!! Session::get('id_user') !!})">
+                                <button type="submit" class="btn btn-agile btn-sm btn-rounded">Guardar</button>
+                                <button type="button" class="btn btn-danger btn-sm btn-rounded" onClick="EliminarColaborador({{ $idColaborador }},{!! Session::get('id_user') !!})">
                                     Eliminar
                                 </button>
                             </div>
@@ -151,8 +151,7 @@
     </div>
 </div>
 {!! Form::close() !!}
-</div>
-</div>
+
 <script>
     function calcularAntiguedad() {
         const fechaInput = document.getElementById('fecha_ingreso').value;

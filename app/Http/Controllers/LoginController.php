@@ -109,7 +109,7 @@ class LoginController extends Controller
                         } else {
                             $photo = $profilePhoto;
                         }
-                        
+
                         // if (!$foto_empresa) {
                         //     $photo_empresa = asset('img/logo_agile_marker.png');
                         // } else {
@@ -120,20 +120,60 @@ class LoginController extends Controller
                             Session::put('role_plataforma', 1);
                         }
 
-                        $avatar = Image::make(base_path('recursos/' . $photo));
-                        $avatar->resize(240, 240);  
-                        $avatarPath = base_path('avatars/' . $photo); 
+                        $photoPath = base_path('recursos/' . $photo);
+                        $extension = pathinfo($photo, PATHINFO_EXTENSION);
+                        $filename = pathinfo($photo, PATHINFO_FILENAME);
 
-                        $avatar->save($avatarPath);
+                        $avatarDir = base_path('avatars/');
+                        $webAvatarDir = asset('avatars/') . '/';
+
+                        $photoPath = base_path('recursos/' . $photo);
+                        $extension = pathinfo($photo, PATHINFO_EXTENSION);
+                        $filename = pathinfo($photo, PATHINFO_FILENAME);
+
+                        $avatarPath = $avatarDir . $filename . '.' . $extension;
+                        $avatarWebP = $avatarDir . $filename . '.webp';
+
+                        $fotoOriginal = $webAvatarDir . $filename . '.' . $extension;
+                        $fotoWebp = $webAvatarDir . $filename . '.webp';
+
+                        if (!file_exists($avatarPath) || !file_exists($avatarWebP)) {
+                            $avatar = Image::make($photoPath)->resize(240, 240);
+
+                            if (!file_exists($avatarPath)) {
+                                $avatar->save($avatarPath);
+                            }
+
+                            if (!file_exists($avatarWebP)) {
+                                $avatar->encode('webp', 90)->save($avatarWebP);
+                            }
+                        }
+
+                        if (file_exists($avatarWebP)) {
+                            $avatar = '<picture>
+                    <source srcset="' . $fotoWebp . '" type="image/webp"/>
+                    <img data-src="' . $fotoWebp . '" class="avatar" 
+                        title="' . $value->nombre . '"  
+                        src="' . $fotoWebp . '" alt="' . $value->nombre . '"/>
+               </picture>';
+                        } else {
+                            $mimeType = ($extension === 'png') ? 'image/png' : 'image/jpeg';
+                            $avatar = '<picture>
+                    <source srcset="' . $fotoOriginal . '" type="' . $mimeType . '"/>
+                    <img data-src="' . $fotoOriginal . '" class="avatar" 
+                        title="' . $value->nombre . '"  
+                        src="' . $fotoOriginal . '" alt="' . $value->nombre . '"/>
+               </picture>';
+                        }
 
                         if (!$foto_empresa) {
                             $photo_empresa = 'img/logo_agile_marker.png';
                         } else {
-                            $photo_empresa = 'recursos/' . $foto_empresa; 
+                            $photo_empresa = 'recursos/' . $foto_empresa;
                         }
 
                         $userPhoto  = '<img src="' . asset('recursos/' . $photo) . '" class="foto_min" alt="GFA User">';
-                        $avatar     = '<img class="avatar" src="' . asset('avatars/' . $photo) . '" alt="GFA User" />';
+                        // $avatar     = '<img class="avatar" src="' . asset('avatars/' . $photo) . '" alt="GFA User" />';
                         // $avatar     = '<img class="avatar" src="https://www.goforagile.com/recursos/' . $photo . '" alt="GFA User" style="height:40px;"/>';
                         $fotoAside  = '<img src="' . asset('recursos/' . $photo) . '" class="profile-thumb" alt="GFA User">';
                         $fotoEmpresa = '<img src="' . asset($photo_empresa) . '" alt="Admin Empresa" />';

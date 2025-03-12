@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use App\Models\GoForAgileAdmin;
+use App\Models\GoForAgileOkrs;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -315,10 +316,10 @@ class AdminController extends Controller
                                 $originalImage = Image::make($image);
                                 $imageExtension = $image->getClientOriginalExtension();
                                 if ($imageExtension == 'png') {
-                                    $originalImage->encode('png', 70);  // Calidad para PNG
+                                    $originalImage->encode('png', 70);
                                     $path = base_path('recursos/' . pathinfo($imageName, PATHINFO_FILENAME) . '.png');
                                 } elseif ($imageExtension == 'jpeg' || $imageExtension == 'jpg') {
-                                    $originalImage->encode('jpg', 70);  // Calidad para JPG
+                                    $originalImage->encode('jpg', 70);
                                     $path = base_path('recursos/' . pathinfo($imageName, PATHINFO_FILENAME) . '.jpg');
                                 }
 
@@ -327,7 +328,7 @@ class AdminController extends Controller
                                 $webpImage = Image::make($originalPath);
 
                                 $webpPath = base_path('recursos/' . pathinfo($imageName, PATHINFO_FILENAME) . '.webp');
-                                $webpImage->encode('webp', 65);  // Calidad 65 para reducir el peso
+                                $webpImage->encode('webp', 65);
                                 $webpImage->save($webpPath);
                                 $imageWebp = time() . '_' . $nombreFoto . '.webp';
                                 GoForAgileAdmin::ActualizarFotoColaborador($idColaborador, $imageName, $imageWebp, (int)Session::get('id_empresa'), Session::get('id_user'));
@@ -383,25 +384,25 @@ class AdminController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return Redirect::to($url . 'detalleColaborador?colaborador=' . $request->id_colaborador)->withErrors($validator)->withInput();
+            return Redirect::to($url . 'detalleColaborador?colaborador=' . $request->id_colaborador . '&datos_tab_panel=' . $request->id_colaborador)->withErrors($validator)->withInput();
         } else {
             $BuscarDocumento = GoForAgileAdmin::BuscarDocumentoEmpleadoUpd($request->documento, $request->id_colaborador, Session::get('id_empresa'));
             if ($BuscarDocumento) {
                 $verrors = array();
                 array_push($verrors, 'Documento de colaborador ya existe');
-                return Redirect::to($url . 'detalleColaborador?colaborador=' . $request->id_colaborador)->withErrors(['errors' => $verrors])->withInput();
+                return Redirect::to($url . 'detalleColaborador?colaborador=' . $request->id_colaborador . '&datos_tab_panel=' . $request->id_colaborador)->withErrors(['errors' => $verrors])->withInput();
             } else {
                 $BuscarCorreo = GoForAgileAdmin::BuscarCorreoEmpleadoUpd($request->correo, $request->id_colaborador, Session::get('id_empresa'));
                 if ($BuscarCorreo) {
                     $verrors = array();
                     array_push($verrors, 'Correo de colaborador ya existe');
-                    return Redirect::to($url . 'detalleColaborador?colaborador=' . $request->id_colaborador)->withErrors(['errors' => $verrors])->withInput();
+                    return Redirect::to($url . 'detalleColaborador?colaborador=' . $request->id_colaborador . '&datos_tab_panel=' . $request->id_colaborador)->withErrors(['errors' => $verrors])->withInput();
                 } else {
                     $BuscarNombre = GoForAgileAdmin::BuscarNombreEmpleadoUpd($request->nombre, Session::get('id_empresa'), $request->id_colaborador);
                     if ($BuscarNombre) {
                         $verrors = array();
                         array_push($verrors, 'Nombre de colaborador ya existe');
-                        return Redirect::to($url . 'detalleColaborador?colaborador=' . $request->id_colaborador)->withErrors(['errors' => $verrors])->withInput();
+                        return Redirect::to($url . 'detalleColaborador?colaborador=' . $request->id_colaborador . '&datos_tab_panel=' . $request->id_colaborador)->withErrors(['errors' => $verrors])->withInput();
                     } else {
                         $contrasena = hash('sha512', $request->password);
                         $nombre = $request->nombre;
@@ -418,10 +419,10 @@ class AdminController extends Controller
                                 $originalImage = Image::make($image);
                                 $imageExtension = $image->getClientOriginalExtension();
                                 if ($imageExtension == 'png') {
-                                    $originalImage->encode('png', 70);  // Calidad para PNG
+                                    $originalImage->encode('png', 70);
                                     $path = base_path('recursos/' . pathinfo($imageName, PATHINFO_FILENAME) . '.png');
                                 } elseif ($imageExtension == 'jpeg' || $imageExtension == 'jpg') {
-                                    $originalImage->encode('jpg', 70);  // Calidad para JPG
+                                    $originalImage->encode('jpg', 70);
                                     $path = base_path('recursos/' . pathinfo($imageName, PATHINFO_FILENAME) . '.jpg');
                                 }
 
@@ -430,20 +431,56 @@ class AdminController extends Controller
                                 $webpImage = Image::make($originalPath);
 
                                 $webpPath = base_path('recursos/' . pathinfo($imageName, PATHINFO_FILENAME) . '.webp');
-                                $webpImage->encode('webp', 65);  // Calidad 65 para reducir el peso
+                                $webpImage->encode('webp', 65);
                                 $webpImage->save($webpPath);
                                 $imageWebp = time() . '_' . $nombreFoto . '.webp';
                                 GoForAgileAdmin::ActualizarFotoColaborador($request->id_colaborador, $imageName, $imageWebp, (int)Session::get('id_empresa'), Session::get('id_user'));
                             }
                             $verrors = 'Se actualizo los datos para el colaborador ' . $nombre . ' con éxito.';
-                            return Redirect::to($url . 'detalleColaborador?colaborador=' . $request->id_colaborador)->with('mensaje', $verrors);
+                            return Redirect::to($url . 'detalleColaborador?colaborador=' . $request->id_colaborador . '&datos_tab_panel=' . $request->id_colaborador)->with('mensaje', $verrors);
                         } else {
                             $verrors = array();
                             array_push($verrors, 'Hubo un problema al actualizar el colaborador');
-                            return Redirect::to($url . 'detalleColaborador?colaborador=' . $request->id_colaborador)->withErrors(['errors' => $verrors])->withInput();
+                            return Redirect::to($url . 'detalleColaborador?colaborador=' . $request->id_colaborador . '&datos_tab_panel=' . $request->id_colaborador)->withErrors(['errors' => $verrors])->withInput();
                         }
                     }
                 }
+            }
+        }
+    }
+
+    /**
+     * Asignar lider a colaborador
+     * @author JULIAN ORJUELA <jorjuela@changeamericas.copm>
+     * @since 06/03/2025
+     * @version 1.0
+     * @param $request
+     * @return alert message
+     */
+
+    public function AsignarLider(Request $request)
+    {
+        $etiquetas = GoForAgileAdmin::EtiquetasAdministrador((int)Session::get('id_empresa'));
+        $url = AdminController::FindUrl();
+
+        $validator = Validator::make($request->all(), [
+            'lider' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return Redirect::to($url . 'detalleColaborador?colaborador=' . $request->id_colaborador . '&lider_tab_panel=' . $request->id_colaborador)->withErrors($validator)->withInput();
+        } else {
+            $AsignarLider = GoForAgileAdmin::AsignarLider($request);
+            if ($AsignarLider) {
+                $lider = GoForAgileAdmin::EmpleadoId((int)$request->lider);
+                foreach ($lider as $row) {
+                    $nombre = $row->nombre;
+                }
+                $verrors = 'Se asigno el lider ' . $nombre . ' con éxito.';
+                return Redirect::to($url . 'detalleColaborador?colaborador=' . $request->id_colaborador . '&lider_tab_panel=' . $request->id_colaborador)->with('mensaje', $verrors);
+            } else {
+                $verrors = array();
+                array_push($verrors, 'Hubo un problema al asignar el lider');
+                return Redirect::to($url . 'detalleColaborador?colaborador=' . $request->id_colaborador . '&lider_tab_panel=' . $request->id_colaborador)->withErrors(['errors' => $verrors])->withInput();
             }
         }
     }

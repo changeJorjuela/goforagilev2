@@ -24,7 +24,7 @@
                         <div class="dropdown-menu dropdown-menu-right lg" aria-labelledby="todos">
                             <ul class="stats-widget">
                                 <div class="logout-btn">
-                                    <a href="../lider/home" class="btn btn-primary">LÍDER DE EQUIPO</a>
+                                    <a href="../lider/home" class="btn btn-primary btn-rounded">LÍDER DE EQUIPO</a>
                                 </div>
                             </ul>
                         </div>
@@ -32,7 +32,7 @@
                         <div class="dropdown-menu dropdown-menu-right lg" aria-labelledby="todos">
                             <ul class="stats-widget">
                                 <div class="logout-btn">
-                                    <a href="../administrador/home" class="btn btn-primary">ADMINISTRADOR</a>
+                                    <a href="../administrador/home" class="btn btn-primary btn-rounded">ADMINISTRADOR</a>
                                 </div>
                             </ul>
                         </div>

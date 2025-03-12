@@ -45,7 +45,7 @@ Colaboradores
                             <th scope="col">Foto</th>
                             <th scope="col">Nombre Completo</th>
                             <th scope="col">Correo</th>
-                            <th scope="col">{!! Session::get('EtiquetaAdminCArgos') !!}</th>
+                            <th scope="col">{!! Session::get('EtiquetaAdminCargos') !!}</th>
                             <th scope="col">{!! Session::get('EtiquetaAdminVicepresidencia') !!}</th>
                             <th scope="col">{!! Session::get('EtiquetaAdminArea') !!}</th>
                             <th scope="col">Rol</th>
@@ -55,7 +55,7 @@ Colaboradores
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($Colaboradores as $value)
+                        <!-- @foreach($Colaboradores as $value)
                         <tr>
                             <td>{{$value['documento']}}</td>
                             <td>{!!$value['foto_tabla']!!}</td>
@@ -69,7 +69,7 @@ Colaboradores
                             <td><span class="{{$value['label_verificar']}}" id="estadoLabel"><b>{{$value['verificar']}}</b></span></td>
                             <td><a href="detalleColaborador?colaborador={{$value['id']}}" class="btn btn-warning" title="Editar" id="tableEditButton"><i class="icon-pencil2"></i></a></td>
                         </tr>
-                        @endforeach
+                        @endforeach -->
                     </tbody>
                 </table>
             </div>
@@ -90,11 +90,11 @@ Colaboradores
 </script>
 <script>
     @if(session("mensaje"))
-    toastr.success("{{ session("mensaje ") }}");
+    toastr.success("{{ session("mensaje") }}");
     @endif
 
     @if(session("precaucion"))
-    toastr.warning("{{ session("precaucion ") }}");
+    toastr.warning("{{ session("precaucion") }}");
     @endif
 
     @if(count($errors) > 0)

@@ -138,6 +138,7 @@ return array(
         'unidad_estrategica' => 'Unidad Estrátegica',
         'role' => 'Rol',
         'password' => 'Contraseña',
-        'estado' => 'Estado'
+        'estado' => 'Estado',
+        'lider' => 'Lider'
     ),
 );

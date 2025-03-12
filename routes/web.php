@@ -74,8 +74,10 @@ Route::group(['middleware' => 'revalidate'], function () {
         //Extras
         Route::get('profileEmpleado', [ApiAdminController::class, 'ProfileEmpleado'])->name('profileEmpleado');
         Route::post('eliminarColaborador', [ApiAdminController::class, 'EliminarColaborador'])->name('eliminarColaborador');
+        Route::post('eliminarLider', [ApiAdminController::class, 'EliminarLider'])->name('eliminarLider');
         Route::get('listarAreas', [ApiAdminController::class, 'ListarAreasEmpresa'])->name('listarAreas');
         Route::get('listarUnidadOrganizativa', [ApiAdminController::class, 'ListarUnidadOrganizativaEmpresa'])->name('listarUnidadOrganizativa');
+        Route::get('colaboradoresEmpresa', [ApiAdminController::class, 'ColaboradoresEmpresa'])->name('colaboradoresEmpresa');
 
         Route::get('logout', function () {
             Auth::logout();
@@ -133,6 +135,7 @@ Route::group(['middleware' => 'revalidate'], function () {
     Route::post('eliminarCargo', [AdminController::class, 'EliminarCargo'])->name('eliminarCargo');
     Route::post('crearColaborador', [AdminController::class, 'CrearColaborador'])->name('crearColaborador');
     Route::post('actualizarColaborador', [AdminController::class, 'ActualizarColaborador'])->name('actualizarColaborador');
+    Route::post('asignarLider', [AdminController::class, 'AsignarLider'])->name('asignarLider');
 
     // OKRS
     Route::post('administrarIniciativa', [OkrController::class, 'AdministrarIniciativa'])->name('administrarIniciativa');

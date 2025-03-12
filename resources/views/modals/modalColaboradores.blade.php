@@ -19,8 +19,8 @@
             </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-danger">Eliminar colaborador</button>
+                <button type="button" class="btn btn-primary btn-rounded" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-danger btn-rounded">Eliminar colaborador</button>
             </div>
             {!! Form::close() !!}   
         </div>

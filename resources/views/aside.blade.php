@@ -7,9 +7,9 @@
 			@if(Session::get('id_rol') != 3)
 			<h6 class="profile-name">Cambiar de Perfil</h6>
 			@if(Session::get('role_plataforma') === 1)
-			<h6 class="profile-name"><a href="../lider/home" class="btn btn-primary">LIDER</a></h6>
+			<h6 class="profile-name"><a href="../lider/home" class="btn btn-primary btn-rounded">LIDER</a></h6>
 			@elseif(Session::get('role_plataforma') === 2)
-			<h6 class="profile-name"><a href="../admin/home" class="btn btn-primary">ADMINISTRADOR</a></h6>
+			<h6 class="profile-name"><a href="../admin/home" class="btn btn-primary btn-rounded">ADMINISTRADOR</a></h6>
 			@endif
 			@endif
 		</div>

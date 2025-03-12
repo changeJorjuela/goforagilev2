@@ -26,7 +26,7 @@
                 <br>
             </div>
             <div class="modal-footer" id="modalFooter">
-                <button class="btn btn-danger" id="aceptarAlerta">Aceptar</button>
+                <button class="btn btn-danger btn-rounded" id="aceptarAlerta">Aceptar</button>
             </div>
         </div>
     </div>
